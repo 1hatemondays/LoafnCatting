@@ -39,12 +39,12 @@ namespace BusinessLayer.Service
 
         public List<Order> GetOrdersByStaffId(int staffUserId)
         {
-            throw new NotImplementedException();
+            return _orderRepository.GetOrdersByStaffId(staffUserId);    
         }
 
         public List<Order> GetOrdersByTableId(int tableId)
         {
-            throw new NotImplementedException();
+            return _orderRepository.GetOrdersByTableId(tableId);    
         }
 
         public bool UpdateOrder(Order order)

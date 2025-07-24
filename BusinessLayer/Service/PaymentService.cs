@@ -39,17 +39,17 @@ namespace BusinessLayer.Service
 
         public List<Payment> GetPaymentsByDateRange(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return _paymentRepository.GetPaymentsByDateRange(startDate, endDate);   
         }
 
         public List<Payment> GetPaymentsByMethodId(int methodId)
         {
-            throw new NotImplementedException();
+            return _paymentRepository.GetPaymentsByMethodId(methodId);  
         }
 
         public List<Payment> GetPaymentsByOrderId(int orderId)
         {
-            throw new NotImplementedException();
+            return _paymentRepository.GetPaymentsByOrderId(orderId);
         }
 
         public bool UpdatePayments(Payment payment)

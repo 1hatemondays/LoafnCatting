@@ -39,6 +39,14 @@ namespace DataAccessLayer.Repository
             return _context.Users.ToList();
         }
 
+        public List<User> GetAllUsersByRoleId(int roleId)
+        {
+            return _context.Users
+                .Where(u => u.RoleId == roleId)
+                .Include(u => u.Role)
+                .ToList();  
+        }
+
         public User? GetUserByEmailAndPassword(string email, string password)
         {
             return _context.Users

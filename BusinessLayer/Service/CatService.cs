@@ -45,7 +45,7 @@ namespace BusinessLayer.Service
 
         public List<Cat> GetCatsByStatusId(int statusId)
         {
-            throw new NotImplementedException();
+            return _catRepository.GetCatsByStatusId(statusId);  
         }
 
         public bool UpdateCat(Cat cat)
