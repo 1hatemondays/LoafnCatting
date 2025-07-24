@@ -17,27 +17,30 @@ namespace DataAccessLayer.IRepository
 
         public bool AddOrder(Order order)
         {
-            throw new NotImplementedException();
+            _context.Orders.Add(order);
+            return _context.SaveChanges() > 0;
         }
 
         public bool DeleteOrder(int id)
         {
-            throw new NotImplementedException();
+            _context.Orders.Remove(_context.Orders.Find(id));
+            return _context.SaveChanges() > 0;
         }
 
         public List<Order> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return _context.Orders.ToList();    
         }
 
         public Order GetOrderById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Orders.Find(id);
         }
 
         public bool UpdateOrder(Order order)
         {
-            throw new NotImplementedException();
+            _context.Orders.Update(order);
+            return _context.SaveChanges() > 0;
         }
     }
 }

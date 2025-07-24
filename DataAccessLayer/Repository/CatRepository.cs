@@ -17,27 +17,30 @@ namespace DataAccessLayer.IRepository
         }
         public bool AddCat(Cat cat)
         {
-            throw new NotImplementedException();
+            _context.Cats.Add(cat); 
+            return _context.SaveChanges() > 0;
         }
 
         public bool DeleteCat(int id)
         {
-            throw new NotImplementedException();
+            _context.Cats.Remove(_context.Cats.Find(id));
+            return _context.SaveChanges() > 0;
         }
 
         public List<Cat> GetAllCats()
         {
-            throw new NotImplementedException();
+            return _context.Cats.ToList();
         }
 
         public Cat GetCatById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Cats.Find(id);
         }
 
         public bool UpdateCat(Cat cat)
         {
-            throw new NotImplementedException();
+            _context.Cats.Update(cat);
+            return _context.SaveChanges() > 0;
         }
     }
 }

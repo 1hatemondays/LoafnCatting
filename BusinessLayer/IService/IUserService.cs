@@ -9,6 +9,11 @@ namespace BusinessLayer.IService
 {
     public interface IUserService
     {
-        User? GetUserByEmailAndPassword(string email, string password);
+        public User GetUserByEmailAndPassword(string email, string password);
+        public List<User> GetAllUsers();
+        public User GetUserById(int id);
+        public bool AddUser(User user);
+        public bool UpdateUser(User user);
+        public bool DeleteUser(int id);
     }
 }

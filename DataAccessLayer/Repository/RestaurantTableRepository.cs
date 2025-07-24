@@ -44,12 +44,7 @@ namespace DataAccessLayer.IRepository
 
         public bool UpdateRestaurantTable(RestaurantTable table)
         {
-            RestaurantTable tableUpdate = _context.RestaurantTables.FirstOrDefault(r => r.TableId == id);
-            if (table == null)
-            {
-                return false;
-            }
-            _context.Update(tableUpdate);
+            _context.Update(table); 
             return _context.SaveChanges() > 0;
         }
     }

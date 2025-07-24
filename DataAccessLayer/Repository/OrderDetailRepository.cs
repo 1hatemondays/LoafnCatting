@@ -16,27 +16,31 @@ namespace DataAccessLayer.IRepository
         }
         public bool AddOrderDetail(OrderDetail orderDetail)
         {
-            throw new NotImplementedException();
+            _context.OrderDetails.Add(orderDetail);
+            return _context.SaveChanges() > 0;
         }
 
         public bool DeleteOrderDetail(int orderId, int productId)
         {
-            throw new NotImplementedException();
+            _context.OrderDetails.Remove(_context.OrderDetails.FirstOrDefault(od => od.OrderId == orderId && od.ProductId == productId));   
+            return _context.SaveChanges() > 0;
+
         }
 
         public List<OrderDetail> GetAllOrderDetails()
         {
-            throw new NotImplementedException();
+            return _context.OrderDetails.ToList();
         }
 
         public OrderDetail GetByOrderId(int orderId)
         {
-            throw new NotImplementedException();
+            return _context.OrderDetails.FirstOrDefault(od => od.OrderId == orderId);
         }
 
         public bool UpdateOrderDetail(OrderDetail orderDetail)
         {
-            throw new NotImplementedException();
+            _context.OrderDetails.Update(orderDetail);
+            return _context.SaveChanges() > 0;
         }
     }
 }

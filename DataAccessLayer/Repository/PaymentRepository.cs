@@ -16,27 +16,30 @@ namespace DataAccessLayer.IRepository
         }
         public bool AddPayments(Payment payment)
         {
-            throw new NotImplementedException();
+            _context.Payments.Add(payment);
+            return _context.SaveChanges() > 0;
         }
 
         public bool DeletePayments(int id)
         {
-            throw new NotImplementedException();
+            _context.Payments.Remove(_context.Payments.Find(id));
+            return _context.SaveChanges() > 0;
         }
 
         public List<Payment> GetAllPayments()
         {
-            throw new NotImplementedException();
+            return _context.Payments.ToList();
         }
 
         public Payment GetPaymentById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Payments.Find(id);
         }
 
         public bool UpdatePayments(Payment payment)
         {
-            throw new NotImplementedException();
+            _context.Payments.Update(payment);
+            return _context.SaveChanges() > 0;
         }
     }
 }
