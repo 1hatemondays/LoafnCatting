@@ -1,0 +1,18 @@
+﻿using DataAccessLayer.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccessLayer.IRepository
+{
+    public interface IReservationRepository
+    {
+        public List<Reservation> GetAllReservation();
+        public Reservation GetReservationById(int id);
+        public bool AddReservation(Reservation reservation);
+        public bool UpdateReservation(Reservation reservation);
+        public bool DeleteReservation(int id);
+    }
+}
