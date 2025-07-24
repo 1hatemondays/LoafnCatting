@@ -32,6 +32,11 @@ namespace BusinessLayer.Service
             return _userRepository.GetAllUsers();
         }
 
+        public List<User> GetAllUsersByRoleId(int roleId)
+        {
+            throw new NotImplementedException();
+        }
+
         public User GetUserByEmailAndPassword(string email, string password)
         {
             return _userRepository.GetUserByEmailAndPassword(email, password);  

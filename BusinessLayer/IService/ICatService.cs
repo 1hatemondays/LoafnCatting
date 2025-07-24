@@ -14,6 +14,8 @@ namespace BusinessLayer.IService
         public bool AddCat(Cat cat);
         public bool UpdateCat(Cat cat);
         public bool DeleteCat(int id);
+        public List<Cat> GetCatsByStatusId(int statusId);
+        public List<Cat> GetCatsByGenderId(int genderId);
 
     }
 }

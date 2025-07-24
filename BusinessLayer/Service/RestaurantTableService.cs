@@ -37,6 +37,11 @@ namespace BusinessLayer.Service
             return _restaurantTableRepository.GetRestaurantTableById(id);   
         }
 
+        public List<RestaurantTable> GetRestaurantTableByStatusId(int statusId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UpdateRestaurantTable(RestaurantTable table)
         {
             return _restaurantTableRepository.UpdateRestaurantTable(table); 

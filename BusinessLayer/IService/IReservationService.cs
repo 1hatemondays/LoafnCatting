@@ -14,5 +14,7 @@ namespace BusinessLayer.IService
         public bool AddReservation(Reservation reservation);
         public bool UpdateReservation(Reservation reservation);
         public bool DeleteReservation(int id);
+        public List<Reservation> GetReservationsByDate(DateTime date);
+        public List<Reservation> GetReservationsByStatusId(int statusId);
     }
 }

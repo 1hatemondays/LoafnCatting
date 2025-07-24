@@ -37,6 +37,11 @@ namespace BusinessLayer.Service
             return _productRepository.GetProductById(id);
         }
 
+        public List<Product> GetProductsByCategoryId(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UpdateProduct(Product product)
         {
             return _productRepository.UpdateProduct(product);

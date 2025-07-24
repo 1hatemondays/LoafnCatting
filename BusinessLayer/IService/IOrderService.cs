@@ -14,5 +14,7 @@ namespace BusinessLayer.IService
         public bool AddOrder(Order order);
         public bool UpdateOrder(Order order);
         public bool DeleteOrder(int id);
+        public List<Order> GetOrdersByStaffId(int staffUserId);
+        public List<Order> GetOrdersByTableId(int tableId);
     }
 }

@@ -37,6 +37,16 @@ namespace BusinessLayer.Service
             return _reservationRepository.GetReservationById(id);   
         }
 
+        public List<Reservation> GetReservationsByDate(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Reservation> GetReservationsByStatusId(int statusId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UpdateReservation(Reservation reservation)
         {
             return _reservationRepository.UpdateReservation(reservation);   

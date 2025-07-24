@@ -14,5 +14,6 @@ namespace DataAccessLayer.IRepository
         public bool AddRestaurantTable(RestaurantTable table);
         public bool UpdateRestaurantTable(RestaurantTable table);
         public bool DeleteRestaurantTable(int id);
+        public List<RestaurantTable> GetRestaurantTableByStatusId(int statusId);
     }
 }
