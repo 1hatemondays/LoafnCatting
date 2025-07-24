@@ -53,7 +53,7 @@ namespace DataAccessLayer.Repository
 
         public bool UpdateUser(User user)
         {
-            User userUpdate = _context.Users.FirstOrDefault(u=>u.UserId == user.UserId);
+            User userUpdate = _context.Users.Find(user.UserId);
             if (userUpdate == null)
             {
                 return false;

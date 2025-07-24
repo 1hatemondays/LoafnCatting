@@ -16,12 +16,14 @@ namespace DataAccessLayer.IRepository
         }
         public bool AddProduct(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Add(product);
+            return _context.SaveChanges() > 0;
         }
 
         public bool DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+            _context.Products.Remove(_context.Products.Find(id));
+            return _context.SaveChanges() > 0;
         }
 
         public List<Product> GetAllProducts()
@@ -31,12 +33,13 @@ namespace DataAccessLayer.IRepository
 
         public Product GetProductById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Products.Find(id);
         }
 
         public bool UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Update(product);  
+            return _context.SaveChanges() > 0;
         }
     }
 }

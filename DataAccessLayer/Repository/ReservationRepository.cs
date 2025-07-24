@@ -16,27 +16,30 @@ namespace DataAccessLayer.IRepository
         }
         public bool AddReservation(Reservation reservation)
         {
-            throw new NotImplementedException();
+            _context.Reservations.Add(reservation);
+            return _context.SaveChanges() > 0;
         }
 
         public bool DeleteReservation(int id)
         {
-            throw new NotImplementedException();
+            _context.Reservations.Remove(_context.Reservations.Find(id));   
+            return _context.SaveChanges() > 0;
         }
 
         public List<Reservation> GetAllReservation()
         {
-            throw new NotImplementedException();
+            return _context.Reservations.ToList();  
         }
 
         public Reservation GetReservationById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Reservations.Find(id);
         }
 
         public bool UpdateReservation(Reservation reservation)
         {
-            throw new NotImplementedException();
+            _context.Reservations.Update(reservation);
+            return _context.SaveChanges() > 0;
         }
     }
 }

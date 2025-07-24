@@ -11,15 +11,15 @@ public partial class Reservation
 
     public TimeOnly Time { get; set; }
 
-    public int StatusId { get; set; }
+    public string? GuestName { get; set; }
 
-    public int UserId { get; set; }
+    public string? GuestPhoneNumber { get; set; }
+
+    public int StatusId { get; set; }
 
     public int TableId { get; set; }
 
     public virtual ReservationStatus Status { get; set; } = null!;
 
     public virtual RestaurantTable Table { get; set; } = null!;
-
-    public virtual User User { get; set; } = null!;
 }

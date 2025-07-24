@@ -18,27 +18,36 @@ namespace DataAccessLayer.IRepository
 
         public bool AddCategories(Category category)
         {
-            throw new NotImplementedException();
+            _context.Categories.Add(category);
+            return _context.SaveChanges() > 0;  
         }
 
         public bool DeleteCategories(int id)
         {
-            throw new NotImplementedException();
+            _context.Categories.Remove(_context.Categories.Find(id));
+            return _context.SaveChanges() > 0;
         }
 
         public List<Category> GetAllCategories()
         {
-            throw new NotImplementedException();
+            return _context.Categories.ToList();    
         }
 
         public Category GetCategoryById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Categories.Find(id);
         }
 
         public bool UpdateCategories(Category category)
         {
-            throw new NotImplementedException();
+            Category categoryUpdate = _context.Categories.Find(category.CategoryId);
+            if (categoryUpdate == null)
+            {
+                return false;
+            }
+            categoryUpdate.Name = category.Name;
+            categoryUpdate.Description = category.Description;
+            return _context.SaveChanges() > 0;
         }
     }
 }
