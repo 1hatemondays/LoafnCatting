@@ -43,6 +43,16 @@ namespace DataAccessLayer.Repository
             return _context.Cats.FirstOrDefault(c=>c.CatId==id);
         }
 
+        public List<Cat> GetCatsByGenderId(int genderId)
+        {
+            return _context.Cats.Where(c => c.GenderId == genderId).ToList();
+        }
+
+        public List<Cat> GetCatsByStatusId(int statusId)
+        {
+            return _context.Cats.Where(c => c.StatusId == statusId).ToList();
+        }
+
         public bool UpdateCat(Cat cat)
         {
             Cat catUpdate = _context.Cats.FirstOrDefault(c => c.CatId == cat.CatId);

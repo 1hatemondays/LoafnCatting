@@ -43,6 +43,16 @@ namespace DataAccessLayer.Repository
             return _context.Orders.FirstOrDefault(o=>o.OrderId==id);
         }
 
+        public List<Order> GetOrdersByStaffId(int staffUserId)
+        {
+            return _context.Orders.Where(o => o.StaffUserId == staffUserId).ToList();
+        }
+
+        public List<Order> GetOrdersByTableId(int tableId)
+        {
+            return _context.Orders.Where(o => o.TableId == tableId).ToList();   
+        }
+
         public bool UpdateOrder(Order order)
         {
             Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderId == order.OrderId);

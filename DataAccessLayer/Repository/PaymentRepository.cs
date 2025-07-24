@@ -42,6 +42,27 @@ namespace DataAccessLayer.Repository
             return _context.Payments.FirstOrDefault(p=>p.PaymentId==id);
         }
 
+        public List<Payment> GetPaymentsByDateRange(DateTime startDate, DateTime endDate)
+        {
+            return _context.Payments
+                .Where(p => p.PaymentDate >= startDate && p.PaymentDate <= endDate)
+                .ToList();
+        }
+
+        public List<Payment> GetPaymentsByMethodId(int methodId)
+        {
+            return _context.Payments
+                .Where(p => p.MethodId == methodId)
+                .ToList();
+        }
+
+        public List<Payment> GetPaymentsByOrderId(int orderId)
+        {
+            return _context.Payments
+                .Where(p => p.OrderId == orderId)
+                .ToList();  
+        }
+
         public bool UpdatePayments(Payment payment)
         {
             Payment existingPayment = _context.Payments.FirstOrDefault(p => p.PaymentId == payment.PaymentId);

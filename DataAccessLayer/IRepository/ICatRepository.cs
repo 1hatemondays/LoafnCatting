@@ -9,7 +9,7 @@ namespace DataAccessLayer.IRepository
 {
     public interface ICatRepository
     {
-        ublic List<Cat> GetAllCats();
+        public List<Cat> GetAllCats();
         public Cat GetCatById(int id);
         public bool AddCat(Cat cat);
         public bool UpdateCat(Cat cat);

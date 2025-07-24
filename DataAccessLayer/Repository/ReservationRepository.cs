@@ -44,6 +44,20 @@ namespace DataAccessLayer.Repository
             return _context.Reservations.FirstOrDefault(r => r.ReservationId == id);
         }
 
+        public List<Reservation> GetReservationsByDate(DateTime date)
+        {
+            return _context.Reservations
+                .Where(r => r.Date == DateOnly.FromDateTime(date))
+                .ToList();
+        }
+
+        public List<Reservation> GetReservationsByStatusId(int statusId)
+        {
+            return _context.Reservations
+                .Where(r => r.StatusId == statusId)
+                .ToList();  
+        }
+
         public bool UpdateReservation(Reservation reservation)
         {
             Reservation reservationUpdate = _context.Reservations.FirstOrDefault(r => r.ReservationId == reservation.ReservationId);

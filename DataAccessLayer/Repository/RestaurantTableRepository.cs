@@ -43,6 +43,13 @@ namespace DataAccessLayer.Repository
             return _context.RestaurantTables.FirstOrDefault(r => r.TableId == id);
         }
 
+        public List<RestaurantTable> GetRestaurantTableByStatusId(int statusId)
+        {
+            return _context.RestaurantTables
+                .Where(r => r.TableStatusId == statusId)
+                .ToList();  
+        }
+
         public bool UpdateRestaurantTable(RestaurantTable table)
         {
 
