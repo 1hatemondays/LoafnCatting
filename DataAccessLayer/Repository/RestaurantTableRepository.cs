@@ -52,8 +52,8 @@ namespace DataAccessLayer.Repository
             {
                 return false;
             }
-            _context.Update(tableUpdate);
-
+            tableUpdate.TableName = table.TableName;
+            tableUpdate.TableStatusId = table.TableStatusId;
             return _context.SaveChanges() > 0;
         }
     }

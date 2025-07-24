@@ -51,7 +51,16 @@ namespace DataAccessLayer.Repository
 
         public bool UpdateOrderDetail(OrderDetail orderDetail)
         {
-            _context.OrderDetails.Update(orderDetail);
+            OrderDetail orderDetailUpdate = _context.OrderDetails.
+                  FirstOrDefault(od => od.
+                  OrderId == orderDetail.OrderId &&
+                  od.ProductId == orderDetail.ProductId);
+
+            if (orderDetailUpdate == null)
+            {
+                return false;
+            }
+            orderDetailUpdate.Quantity = orderDetail.Quantity;
             return _context.SaveChanges() > 0;
         }
 

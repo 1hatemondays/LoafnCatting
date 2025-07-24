@@ -53,6 +53,8 @@ namespace DataAccessLayer.Repository
             catUpdate.Name = cat.Name;
             catUpdate.Age = cat.Age;
             catUpdate.GenderId = cat.GenderId;
+            catUpdate.Breed = cat.Breed;
+            catUpdate.FriendlinessRating=cat.FriendlinessRating;
             catUpdate.Picture = cat.Picture;
             catUpdate.Description = cat.Description;
             catUpdate.StatusId = cat.StatusId;

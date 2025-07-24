@@ -56,7 +56,8 @@ namespace DataAccessLayer.Repository
             reservationUpdate.Date = reservation.Date;
             reservationUpdate.Time = reservation.Time;
             reservationUpdate.StatusId = reservation.StatusId;
-            reservationUpdate.UserId = reservation.UserId;
+            reservationUpdate.GuestName= reservation.GuestName;
+            reservationUpdate.GuestPhoneNumber = reservation.GuestPhoneNumber;
             reservationUpdate.TableId = reservation.TableId;
             
             return _context.SaveChanges() > 0;
