@@ -38,6 +38,16 @@ namespace BusinessLayer.Service
             return _catRepository.GetCatById(id);
         }
 
+        public List<Cat> GetCatsByGenderId(int genderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Cat> GetCatsByStatusId(int statusId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UpdateCat(Cat cat)
         {
             return _catRepository.UpdateCat(cat);   

@@ -14,5 +14,8 @@ namespace DataAccessLayer.IRepository
         public bool AddPayments(Payment payment);
         public bool UpdatePayments(Payment payment);
         public bool DeletePayments(int id);
+        public List<Payment> GetPaymentsByOrderId(int orderId);
+        public List<Payment> GetPaymentsByMethodId(int methodId);
+        public List<Payment> GetPaymentsByDateRange(DateTime startDate, DateTime endDate);
     }
 }

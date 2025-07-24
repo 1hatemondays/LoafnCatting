@@ -13,6 +13,7 @@ namespace DataAccessLayer.IRepository
         public Product GetProductById(int id);
         public bool AddProduct(Product product);
         public bool UpdateProduct(Product product);
-        public bool DeleteProduct(int id);
+        public bool DeleteProduct(int id); 
+        public List<Product> GetProductsByCategoryId(int categoryId);
     }
 }

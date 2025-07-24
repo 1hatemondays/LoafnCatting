@@ -14,5 +14,6 @@ namespace BusinessLayer.IService
         public bool AddProduct(Product product);
         public bool UpdateProduct(Product product);
         public bool DeleteProduct(int id);
+        public List<Product> GetProductsByCategoryId(int categoryId);
     }
 }

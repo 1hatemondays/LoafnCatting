@@ -15,5 +15,7 @@ namespace DataAccessLayer.IRepository
         public bool AddUser(User user);
         public bool UpdateUser(User user);
         public bool DeleteUser(int id);
+        public List<User> GetAllUsersByRoleId(int roleId);
+
     }
 }
