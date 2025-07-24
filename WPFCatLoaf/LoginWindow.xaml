@@ -169,6 +169,19 @@
                        Click="LoginButton_Click"
                        BorderThickness="0"
                        Cursor="Hand">
+                </Button>
+                <Button x:Name="RegisterButton"
+                        Content="REGISTER"
+                        Background="Transparent"
+                        BorderBrush="{StaticResource CatCafePrimary}"
+                        Foreground="{StaticResource CatCafePrimary}"
+                        Height="45"
+                        FontWeight="Bold"
+                        FontSize="14"
+                        Margin="0,0,0,30"
+                        Click="RegisterButton_Click"
+                        BorderThickness="2"
+                        Cursor="Hand">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Template">

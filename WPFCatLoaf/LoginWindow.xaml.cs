@@ -193,5 +193,11 @@ namespace WPFCatLoaf
                 await PerformLogin();
             }
         }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            var registerWindow = new RegisterWindow(_userService);
+            registerWindow.ShowDialog();
+        }
     }
 }
