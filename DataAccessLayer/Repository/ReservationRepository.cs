@@ -34,6 +34,7 @@ namespace DataAccessLayer.IRepository
         public Reservation GetReservationById(int id)
         {
             return _context.Reservations.Find(id);
+        }
 
         public bool UpdateReservation(Reservation reservation)
         {

@@ -17,11 +17,7 @@ public partial class User
 
     public int RoleId { get; set; }
 
-    public virtual ICollection<Order> OrderCustomerUsers { get; set; } = new List<Order>();
-
-    public virtual ICollection<Order> OrderStaffUsers { get; set; } = new List<Order>();
-
-    public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual Role Role { get; set; } = null!;
 }

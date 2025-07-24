@@ -13,9 +13,13 @@ public partial class Cat
 
     public int? GenderId { get; set; }
 
+    public string? Breed { get; set; }
+
     public string? Picture { get; set; }
 
     public string? Description { get; set; }
+
+    public int? FriendlinessRating { get; set; }
 
     public int StatusId { get; set; }
 

@@ -11,13 +11,9 @@ public partial class Order
 
     public decimal TotalPrice { get; set; }
 
-    public int CustomerUserId { get; set; }
-
     public int StaffUserId { get; set; }
 
     public int TableId { get; set; }
-
-    public virtual User CustomerUser { get; set; } = null!;
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
