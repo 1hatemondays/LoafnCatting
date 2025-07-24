@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\FPTU\\SU25\\PRN212\\PRN212-SE1855\\PRN-LoafnCatting\\DataAccessLayer\\DataAccessLayer.csproj": {}
+    "D:\\FPT Edu\\SU25\\PRN212\\Project_PRN\\DataAccessLayer\\DataAccessLayer.csproj": {}
   },
   "projects": {
-    "C:\\FPTU\\SU25\\PRN212\\PRN212-SE1855\\PRN-LoafnCatting\\DataAccessLayer\\DataAccessLayer.csproj": {
+    "D:\\FPT Edu\\SU25\\PRN212\\Project_PRN\\DataAccessLayer\\DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\FPTU\\SU25\\PRN212\\PRN212-SE1855\\PRN-LoafnCatting\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectUniqueName": "D:\\FPT Edu\\SU25\\PRN212\\Project_PRN\\DataAccessLayer\\DataAccessLayer.csproj",
         "projectName": "DataAccessLayer",
-        "projectPath": "C:\\FPTU\\SU25\\PRN212\\PRN212-SE1855\\PRN-LoafnCatting\\DataAccessLayer\\DataAccessLayer.csproj",
-        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\FPTU\\SU25\\PRN212\\PRN212-SE1855\\PRN-LoafnCatting\\DataAccessLayer\\obj\\",
+        "projectPath": "D:\\FPT Edu\\SU25\\PRN212\\Project_PRN\\DataAccessLayer\\DataAccessLayer.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\FPT Edu\\SU25\\PRN212\\Project_PRN\\DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
