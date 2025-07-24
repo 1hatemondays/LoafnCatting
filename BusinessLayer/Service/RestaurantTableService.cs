@@ -39,7 +39,7 @@ namespace BusinessLayer.Service
 
         public List<RestaurantTable> GetRestaurantTableByStatusId(int statusId)
         {
-            throw new NotImplementedException();
+            return _restaurantTableRepository.GetRestaurantTableByStatusId(statusId);   
         }
 
         public bool UpdateRestaurantTable(RestaurantTable table)

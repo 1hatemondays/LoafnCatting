@@ -43,6 +43,13 @@ namespace DataAccessLayer.Repository
             return _context.Products.FirstOrDefault(p => p.ProductId == id);
         }
 
+        public List<Product> GetProductsByCategoryId(int categoryId)
+        {
+            return _context.Products
+                .Where(p => p.CategoryId == categoryId)
+                .ToList();
+        }
+
         public bool UpdateProduct(Product product)
         {
             Product productUpdate = _context.Products.FirstOrDefault(p => p.ProductId == product.ProductId);
