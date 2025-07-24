@@ -134,24 +134,27 @@ namespace WPFCatLoaf
 
                 // Attempt login
                 var user = _userService.GetUserByEmailAndPassword(EmailTextBox.Text.Trim(), PasswordBox.Password);
-
                 if (user != null)
                 {
                     // Login successful
-                    MessageBox.Show($"Chào mừng bạn trở lại, {user.Name}!\nVai trò: {user.Role?.RoleName ?? "N/A"}", 
-                                  "Đăng nhập thành công", 
-                                  MessageBoxButton.OK, MessageBoxImage.Information);
-                    
-                    // TODO: Open main window and close login window
-                    // var mainWindow = new MainWindow(user);
-                    // mainWindow.Show();
-                    // this.Close();
-                }
-                else
-                {
-                    ShowErrorMessage("Email hoặc mật khẩu không đúng. Vui lòng thử lại.");
-                    PasswordBox.Clear();
-                    PasswordBox.Focus();
+                    //MessageBox.Show($"Chào mừng bạn trở lại, {user.Name}!\nVai trò: {user.Role?.RoleName ?? "N/A"}",
+                    //              "Đăng nhập thành công",
+                    //              MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // MỞ CỬA SỔ TƯƠNG ỨNG VỚI VAI TRÒ
+                    if (user.RoleId == 2)
+                    {
+                        var orderManagementWindow = new OrderManagementWindow(user);
+                        orderManagementWindow.Show();
+                        this.Close(); // Đóng cửa sổ đăng nhập
+                    }
+                    else
+                    {
+                        // Mở cửa sổ chính hoặc cửa sổ admin ở đây nếu có
+                        // var mainWindow = new MainWindow(user);
+                        // mainWindow.Show();
+                        // this.Close();
+                    }
                 }
             }
             catch (Exception ex)
