@@ -1,11 +1,12 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.IRepository;
+using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.IRepository
+namespace DataAccessLayer.Repository
 {
     public class OrderRepository : IOrderRepository
     {
@@ -23,7 +24,12 @@ namespace DataAccessLayer.IRepository
 
         public bool DeleteOrder(int id)
         {
-            _context.Orders.Remove(_context.Orders.Find(id));
+            Order order = _context.Orders.FirstOrDefault(o => o.OrderId == id); 
+            if(order == null)
+            {
+                return false;
+            }
+            _context.Orders.Remove(order);
             return _context.SaveChanges() > 0;
         }
 
@@ -34,12 +40,21 @@ namespace DataAccessLayer.IRepository
 
         public Order GetOrderById(int id)
         {
-            return _context.Orders.Find(id);
+            return _context.Orders.FirstOrDefault(o=>o.OrderId==id);
         }
 
         public bool UpdateOrder(Order order)
         {
-            _context.Orders.Update(order);
+            Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderId == order.OrderId);
+            if (existingOrder == null)
+            {
+                return false;
+            }
+            existingOrder.OrderDate = order.OrderDate;
+            existingOrder.StaffUserId = order.StaffUserId;
+            existingOrder.TableId = order.TableId;
+            existingOrder.TotalPrice= order.TotalPrice;
+
             return _context.SaveChanges() > 0;
         }
     }

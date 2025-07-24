@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.IRepository;
+using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.IRepository
+namespace DataAccessLayer.Repository
 {
     public class RestaurantTableRepository : IRestaurantTableRepository
     {
@@ -51,8 +52,8 @@ namespace DataAccessLayer.IRepository
             {
                 return false;
             }
-            _context.Update(tableUpdate);
-
+            tableUpdate.TableName = table.TableName;
+            tableUpdate.TableStatusId = table.TableStatusId;
             return _context.SaveChanges() > 0;
         }
     }
