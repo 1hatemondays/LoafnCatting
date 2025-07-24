@@ -1,0 +1,16 @@
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\bin\Debug\net8.0\DataAccessLayer.deps.json
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\bin\Debug\net8.0\DataAccessLayer.runtimeconfig.json
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\bin\Debug\net8.0\DataAccessLayer.dll
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\bin\Debug\net8.0\DataAccessLayer.pdb
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.csproj.AssemblyReference.cache
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.AssemblyInfoInputs.cache
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.AssemblyInfo.cs
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.sourcelink.json
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.dll
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\refint\DataAccessLayer.dll
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.pdb
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.genruntimeconfig.cache
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\obj\Debug\net8.0\ref\DataAccessLayer.dll
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\DataAccessLayer\bin\Debug\net8.0\appsettings.json

@@ -1,0 +1,16 @@
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\bin\Debug\net8.0\BusinessLayer.deps.json
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\bin\Debug\net8.0\BusinessLayer.dll
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\bin\Debug\net8.0\BusinessLayer.pdb
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\bin\Debug\net8.0\DataAccessLayer.dll
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\bin\Debug\net8.0\DataAccessLayer.pdb
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\BusinessLayer.csproj.AssemblyReference.cache
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\BusinessLayer.AssemblyInfoInputs.cache
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\BusinessLayer.AssemblyInfo.cs
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\BusinessLayer.sourcelink.json
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\Business.EA331CBA.Up2Date
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\BusinessLayer.dll
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\refint\BusinessLayer.dll
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\BusinessLayer.pdb
+C:\FPTU\SU25\PRN212\PRN212-SE1855\PRN-LoafnCatting\BusinessLayer\obj\Debug\net8.0\ref\BusinessLayer.dll

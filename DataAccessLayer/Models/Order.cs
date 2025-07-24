@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataAccessLayer.Models;
+
+public partial class Order
+{
+    public int OrderId { get; set; }
+
+    public DateTime OrderDate { get; set; }
+
+    public decimal TotalPrice { get; set; }
+
+    public int CustomerUserId { get; set; }
+
+    public int StaffUserId { get; set; }
+
+    public int TableId { get; set; }
+
+    public virtual User CustomerUser { get; set; } = null!;
+
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
+    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+
+    public virtual User StaffUser { get; set; } = null!;
+
+    public virtual RestaurantTable Table { get; set; } = null!;
+}
