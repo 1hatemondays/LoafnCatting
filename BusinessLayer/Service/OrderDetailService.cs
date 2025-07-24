@@ -32,7 +32,7 @@ namespace BusinessLayer.Service
             return _orderDetailRepository.GetAllOrderDetails();
         }
 
-        public OrderDetail GetByOrderId(int orderId)
+        public List<OrderDetail> GetByOrderId(int orderId)
         {
             return _orderDetailRepository.GetByOrderId(orderId);
         }

@@ -1,11 +1,12 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.IRepository;
+using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.IRepository
+namespace DataAccessLayer.Repository
 {
     public class ProductRepository : IProductRepository
     {
@@ -14,6 +15,7 @@ namespace DataAccessLayer.IRepository
         {
             _context = context;
         }
+        
         public bool AddProduct(Product product)
         {
             _context.Products.Add(product);
@@ -22,7 +24,12 @@ namespace DataAccessLayer.IRepository
 
         public bool DeleteProduct(int id)
         {
-            _context.Products.Remove(_context.Products.Find(id));
+            Product product = _context.Products.FirstOrDefault(p => p.ProductId == id);
+            if (product == null)
+            {
+                return false;
+            }
+            _context.Products.Remove(product);
             return _context.SaveChanges() > 0;
         }
 
@@ -33,12 +40,22 @@ namespace DataAccessLayer.IRepository
 
         public Product GetProductById(int id)
         {
-            return _context.Products.Find(id);
+            return _context.Products.FirstOrDefault(p => p.ProductId == id);
         }
 
         public bool UpdateProduct(Product product)
         {
-            _context.Products.Update(product);  
+            Product productUpdate = _context.Products.FirstOrDefault(p => p.ProductId == product.ProductId);
+            if (productUpdate == null)
+            {
+                return false;
+            }
+            productUpdate.Name = product.Name;
+            productUpdate.Description = product.Description;
+            productUpdate.Price = product.Price;
+            productUpdate.UnitInStock = product.UnitInStock;
+            productUpdate.Picture = product.Picture;
+            productUpdate.CategoryId = product.CategoryId;
             return _context.SaveChanges() > 0;
         }
     }

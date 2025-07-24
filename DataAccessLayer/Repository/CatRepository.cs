@@ -1,11 +1,12 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.IRepository;
+using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.IRepository
+namespace DataAccessLayer.Repository
 {
     public class CatRepository : ICatRepository
     {
@@ -23,7 +24,12 @@ namespace DataAccessLayer.IRepository
 
         public bool DeleteCat(int id)
         {
-            _context.Cats.Remove(_context.Cats.Find(id));
+            Cat cat = _context.Cats.FirstOrDefault(c=>c.CatId == id);
+            if(cat == null)
+            {
+                return false;
+            }
+            _context.Cats.Remove(cat);
             return _context.SaveChanges() > 0;
         }
 
@@ -34,12 +40,22 @@ namespace DataAccessLayer.IRepository
 
         public Cat GetCatById(int id)
         {
-            return _context.Cats.Find(id);
+            return _context.Cats.FirstOrDefault(c=>c.CatId==id);
         }
 
         public bool UpdateCat(Cat cat)
         {
-            _context.Cats.Update(cat);
+            Cat catUpdate = _context.Cats.FirstOrDefault(c => c.CatId == cat.CatId);
+            if(catUpdate == null)
+            {
+                return false;
+            }
+            catUpdate.Name = cat.Name;
+            catUpdate.Age = cat.Age;
+            catUpdate.GenderId = cat.GenderId;
+            catUpdate.Picture = cat.Picture;
+            catUpdate.Description = cat.Description;
+            catUpdate.StatusId = cat.StatusId;
             return _context.SaveChanges() > 0;
         }
     }

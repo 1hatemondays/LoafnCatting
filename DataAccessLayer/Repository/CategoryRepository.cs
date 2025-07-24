@@ -1,11 +1,12 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.IRepository;
+using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.IRepository
+namespace DataAccessLayer.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -24,7 +25,12 @@ namespace DataAccessLayer.IRepository
 
         public bool DeleteCategories(int id)
         {
-            _context.Categories.Remove(_context.Categories.Find(id));
+            Category category= _context.Categories.FirstOrDefault(c => c.CategoryId==id);
+            if (category == null)
+            {
+                return false;   
+            }
+            _context.Categories.Remove(category);
             return _context.SaveChanges() > 0;
         }
 
@@ -35,12 +41,12 @@ namespace DataAccessLayer.IRepository
 
         public Category GetCategoryById(int id)
         {
-            return _context.Categories.Find(id);
+            return _context.Categories.FirstOrDefault(c=>c.CategoryId==id);
         }
 
         public bool UpdateCategories(Category category)
         {
-            Category categoryUpdate = _context.Categories.Find(category.CategoryId);
+            Category categoryUpdate = _context.Categories.FirstOrDefault(c => c.CategoryId == category.CategoryId);
             if (categoryUpdate == null)
             {
                 return false;

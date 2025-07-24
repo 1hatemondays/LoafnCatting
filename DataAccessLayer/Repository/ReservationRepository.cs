@@ -1,11 +1,12 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.IRepository;
+using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.IRepository
+namespace DataAccessLayer.Repository
 {
     public class ReservationRepository : IReservationRepository
     {
@@ -14,6 +15,7 @@ namespace DataAccessLayer.IRepository
         {
             _context = context;
         }
+        
         public bool AddReservation(Reservation reservation)
         {
             _context.Reservations.Add(reservation);
@@ -22,7 +24,12 @@ namespace DataAccessLayer.IRepository
 
         public bool DeleteReservation(int id)
         {
-            _context.Reservations.Remove(_context.Reservations.Find(id));   
+            Reservation reservation = _context.Reservations.FirstOrDefault(r => r.ReservationId == id);
+            if (reservation == null)
+            {
+                return false;
+            }
+            _context.Reservations.Remove(reservation);
             return _context.SaveChanges() > 0;
         }
 
@@ -33,12 +40,25 @@ namespace DataAccessLayer.IRepository
 
         public Reservation GetReservationById(int id)
         {
-            return _context.Reservations.Find(id);
+
+            return _context.Reservations.FirstOrDefault(r => r.ReservationId == id);
         }
 
         public bool UpdateReservation(Reservation reservation)
         {
-            _context.Reservations.Update(reservation);
+            Reservation reservationUpdate = _context.Reservations.FirstOrDefault(r => r.ReservationId == reservation.ReservationId);
+            if (reservationUpdate == null)
+            {
+                return false;
+            }
+            
+            // Update reservation properties
+            reservationUpdate.Date = reservation.Date;
+            reservationUpdate.Time = reservation.Time;
+            reservationUpdate.StatusId = reservation.StatusId;
+            reservationUpdate.UserId = reservation.UserId;
+            reservationUpdate.TableId = reservation.TableId;
+            
             return _context.SaveChanges() > 0;
         }
     }

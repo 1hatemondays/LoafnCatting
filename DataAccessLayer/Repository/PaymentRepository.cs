@@ -1,11 +1,12 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.IRepository;
+using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.IRepository
+namespace DataAccessLayer.Repository
 {
     public class PaymentRepository : IPaymentRepository
     {
@@ -22,7 +23,12 @@ namespace DataAccessLayer.IRepository
 
         public bool DeletePayments(int id)
         {
-            _context.Payments.Remove(_context.Payments.Find(id));
+            Payment payment = _context.Payments.FirstOrDefault(p=>p.PaymentId==id);
+            if (payment == null)
+            {
+                return false;
+            }
+            _context.Payments.Remove(payment);
             return _context.SaveChanges() > 0;
         }
 
@@ -33,12 +39,20 @@ namespace DataAccessLayer.IRepository
 
         public Payment GetPaymentById(int id)
         {
-            return _context.Payments.Find(id);
+            return _context.Payments.FirstOrDefault(p=>p.PaymentId==id);
         }
 
         public bool UpdatePayments(Payment payment)
         {
-            _context.Payments.Update(payment);
+            Payment existingPayment = _context.Payments.FirstOrDefault(p => p.PaymentId == payment.PaymentId);
+            if (existingPayment == null)
+            {
+                return false;
+            }
+            existingPayment.PaymentDate = payment.PaymentDate;
+            existingPayment.PaymentAmount = payment.PaymentAmount;
+            existingPayment.MethodId = payment.MethodId;
+            existingPayment.OrderId = payment.OrderId;
             return _context.SaveChanges() > 0;
         }
     }
