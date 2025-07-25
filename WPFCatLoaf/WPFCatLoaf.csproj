@@ -9,6 +9,82 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Images\Cats\beerus.jpg" />
+	  <None Remove="Images\Cats\cute.jpg" />
+	  <None Remove="Images\Cats\Huh.jpg" />
+	  <None Remove="Images\Cats\Jynx.jpg" />
+	  <None Remove="Images\Cats\Lily.jpg" />
+	  <None Remove="Images\Cats\Look2.jpg" />
+	  <None Remove="Images\Cats\Maxwell.jpg" />
+	  <None Remove="Images\Cats\MeWhen.jpg" />
+	  <None Remove="Images\Cats\morgana.jpg" />
+	  <None Remove="Images\Cats\Scritch.jpg" />
+	  <None Remove="Images\Cats\Slep.jpg" />
+	  <None Remove="Images\Cats\Snow.jpg" />
+	  <None Remove="Images\Cats\stopit.jpg" />
+	  <None Remove="Images\Cats\ToiNhin.jpg" />
+	  <None Remove="Images\Cats\Tom.jpg" />
+	  <None Remove="Images\Cats\Two.jpg" />
+	  <None Remove="Images\Cats\Uiai.jpg" />
+	  <None Remove="Images\Cats\Vineboom.jpg" />
+	  <None Remove="Images\Cats\White.jpg" />
+	  <None Remove="Images\Cats\yourphonelinging.jpg" />
+	  <None Remove="Images\placeholder.jpg" />
+	  <None Remove="Images\Products\bacxiu.jpg" />
+	  <None Remove="Images\Products\banhmithinguoi.jpg" />
+	  <None Remove="Images\Products\banhmithitnguoi.jpg" />
+	  <None Remove="Images\Products\cacaonong.jpg" />
+	  <None Remove="Images\Products\cafeda.jpg" />
+	  <None Remove="Images\Products\cafeden.jpg" />
+	  <None Remove="Images\Products\cafesua.jpg" />
+	  <None Remove="Images\Products\cappuchino.jpg" />
+	  <None Remove="Images\Products\chocolatedaxay.jpg" />
+	  <None Remove="Images\Products\latte.jpg" />
+	  <None Remove="Images\Products\matcha.jpg" />
+	  <None Remove="Images\Products\matchadaxay.jpg" />
+	  <None Remove="Images\Products\matchalatte.jpg" />
+	  <None Remove="Images\Products\nuoccam.jpg" />
+	  <None Remove="Images\Products\nuocepcarot.jpg" />
+	  <None Remove="Images\Products\nuocepduahau.jpg" />
+	  <None Remove="Images\Products\nuocepoi.jpg" />
+	  <None Remove="Images\Products\nuocepthom.jpg" />
+	  <None Remove="Images\Products\Shiori.jpg" />
+	  <None Remove="Images\Products\sinhtobo.jpg" />
+	  <None Remove="Images\Products\sinhtodau.jpg" />
+	  <None Remove="Images\Products\sinhtoxoai.jpg" />
+	  <None Remove="Images\Products\trachanhmatong.jpg" />
+	  <None Remove="Images\Products\tradaocamsa.jpg" />
+	  <None Remove="Images\Products\trahatsen.jpg" />
+	  <None Remove="Images\Products\trahoacuc.jpg" />
+	  <None Remove="Images\Products\tralai.jpg" />
+	  <None Remove="Images\Products\traolong.jpg" />
+	  <None Remove="Images\Products\trasen.jpg" />
+	  <None Remove="Images\Products\trasuamatcha.jpg" />
+	  <None Remove="Images\Products\trasuathai.jpg" />
+	  <None Remove="Images\Products\trasuatranchau.jpg" />
+	  <None Remove="Images\Products\trasuatrantrau.jpg" />
+	  <None Remove="Images\Products\tratac.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Images\Cats\Tom.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Uiai.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Vineboom.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\White.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\yourphonelinging.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
 
@@ -24,8 +100,153 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Images\Cats\" />
-		<Folder Include="Images\Products\" />
+	  <Content Include="Images\Cats\beerus.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\cute.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Huh.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Jynx.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Lily.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Look2.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Maxwell.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\MeWhen.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\morgana.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Scritch.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Slep.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Snow.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\stopit.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\ToiNhin.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\placeholder.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\bacxiu.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\banhmithitnguoi.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\cacaonong.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\cafeda.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\cafeden.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\cafesua.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\cappuchino.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\chocolatedaxay.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\latte.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\matcha.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\matchadaxay.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\matchalatte.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\nuoccam.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\nuocepcarot.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\nuocepduahau.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\nuocepoi.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\nuocepthom.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\Shiori.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\sinhtobo.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\sinhtodau.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\sinhtoxoai.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\trachanhmatong.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\tradaocamsa.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\trahatsen.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\trahoacuc.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\tralai.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\traolong.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\trasen.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\trasuamatcha.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\trasuathai.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\trasuatranchau.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\tratac.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Images\Cats\Two.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 </Project>

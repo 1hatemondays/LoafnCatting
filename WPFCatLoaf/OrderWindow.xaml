@@ -186,7 +186,7 @@
                             <DataGridTemplateColumn Header="Image" Width="80">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding Picture}" 
+                                        <Image Source="{Binding Picture, Converter={StaticResource ImagePathConverter}}" 
                                                Width="60" Height="60" Stretch="Uniform"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
