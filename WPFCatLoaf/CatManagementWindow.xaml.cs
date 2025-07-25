@@ -8,30 +8,43 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace WPFCatLoaf
 {
     public partial class CatManagementWindow : Window
     {
         private readonly ICatService _catService;
-        private readonly IGenderService _genderService;
-        private readonly ICatStatusService _catStatusService;
+        private readonly LoafNcattingDbContext _context;
         private readonly User _loggedInUser;
         private ObservableCollection<Cat> _cats;
         private Cat _selectedCat;
         private bool _isEditMode = false;
+        private DispatcherTimer _timer;
 
         public CatManagementWindow(User user)
         {
             InitializeComponent();
             _loggedInUser = user;
 
-            var context = new LoafNcattingDbContext();
-            _catService = new CatService(new CatRepository(context));
-            _genderService = new GenderService(new GenderRepository(context));
-            _catStatusService = new CatStatusService(new CatStatusRepository(context));
+            _context = new LoafNcattingDbContext();
+            _catService = new CatService(new CatRepository(_context));
 
+            SetupTimer();
             LoadInitialData();
+        }
+
+        private void SetupTimer()
+        {
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += Timer_Tick;
+            _timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            CurrentTimeTextBlock.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy - HH:mm:ss");
         }
 
         private void LoadInitialData()
@@ -41,8 +54,9 @@ namespace WPFCatLoaf
                 _cats = new ObservableCollection<Cat>(_catService.GetAllCats());
                 CatsDataGrid.ItemsSource = _cats;
 
-                GenderComboBox.ItemsSource = _genderService.GetAllGenders();
-                StatusComboBox.ItemsSource = _catStatusService.GetAllCatStatuses();
+                // Load genders and statuses directly from context
+                GenderComboBox.ItemsSource = _context.Genders.ToList();
+                StatusComboBox.ItemsSource = _context.CatStatuses.ToList();
             }
             catch (Exception ex)
             {
@@ -90,6 +104,7 @@ namespace WPFCatLoaf
                         _cats[index] = cat;
                         MessageBox.Show("Cat updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         ClearForm();
+                        LoadInitialData(); // Refresh the data
                     }
                     else
                     {
@@ -103,6 +118,7 @@ namespace WPFCatLoaf
                         _cats.Add(cat);
                         MessageBox.Show("Cat added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         ClearForm();
+                        LoadInitialData(); // Refresh the data
                     }
                     else
                     {
@@ -174,7 +190,6 @@ namespace WPFCatLoaf
             return true;
         }
 
-
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             ClearForm();
@@ -182,9 +197,16 @@ namespace WPFCatLoaf
 
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
         {
+            _timer?.Stop();
             var mainMenuWindow = new MainMenuWindow(_loggedInUser);
             mainMenuWindow.Show();
             this.Close();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _timer?.Stop();
+            base.OnClosed(e);
         }
     }
 }
