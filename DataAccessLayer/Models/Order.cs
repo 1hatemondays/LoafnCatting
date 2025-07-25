@@ -5,6 +5,7 @@ namespace DataAccessLayer.Models;
 
 public partial class Order
 {
+    //Fix
     public int OrderId { get; set; }
 
     public DateTime OrderDate { get; set; }

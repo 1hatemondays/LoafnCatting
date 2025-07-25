@@ -7,6 +7,7 @@ namespace DataAccessLayer.Models;
 
 public partial class LoafNcattingDbContext : DbContext
 {
+    //Fix
     public LoafNcattingDbContext()
     {
     }

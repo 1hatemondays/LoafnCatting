@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 
 namespace WPFCatLoaf.Converters
 {
+    //Fix
     /// <summary>
     /// Converts relative image paths (e.g., "Images/Products/Shiori.jpg") to BitmapImage objects.
     /// Handles images stored as content files in the project directory.
