@@ -149,6 +149,7 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*"/>
 						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
 					</Grid.RowDefinitions>
 
 					<Border Grid.Column="0" Grid.Row="0" Style="{StaticResource MenuCardStyle}"
@@ -176,22 +177,34 @@
 					</Border>
 
 					<Border Grid.Column="2" Grid.Row="0" Style="{StaticResource MenuCardStyle}"
-                            MouseLeftButtonUp="UserManagement_Click">
+                            MouseLeftButtonUp="TableManagement_Click">
 						<StackPanel HorizontalAlignment="Center">
-							<TextBlock Text="👥" Style="{StaticResource CatIconStyle}"/>
-							<TextBlock Text="Staff Management" FontSize="20" FontWeight="Bold"
-                                       Foreground="{StaticResource OrangeDark}" HorizontalAlignment="Center" Margin="0,0,0,10" Width="172"/>
-							<TextBlock Text="Manage staff accounts and permissions"
+							<TextBlock Text="🪑" Style="{StaticResource CatIconStyle}"/>
+							<TextBlock Text="Table Management" FontSize="20" FontWeight="Bold"
+                                       Foreground="{StaticResource OrangeDark}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+							<TextBlock Text="Manage restaurant tables and table accounts"
                                        FontSize="14" Foreground="#666"
                                        HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
 						</StackPanel>
 					</Border>
 
 					<Border Grid.Column="0" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
+                            MouseLeftButtonUp="UserManagement_Click">
+						<StackPanel HorizontalAlignment="Center">
+							<TextBlock Text="👥" Style="{StaticResource CatIconStyle}"/>
+							<TextBlock Text="Staff Management" FontSize="20" FontWeight="Bold"
+                                       Foreground="{StaticResource OrangeDark}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+							<TextBlock Text="Manage staff accounts and permissions"
+                                       FontSize="14" Foreground="#666"
+                                       HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+						</StackPanel>
+					</Border>
+
+					<Border Grid.Column="1" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
                             MouseLeftButtonUp="CatManagement_Click">
 						<StackPanel HorizontalAlignment="Center">
 							<TextBlock Text="🐈" Style="{StaticResource CatIconStyle}"/>
-							<TextBlock Text="Car Management" FontSize="20" FontWeight="Bold"
+							<TextBlock Text="Cat Management" FontSize="20" FontWeight="Bold"
                                        Foreground="{StaticResource OrangeDark}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
 							<TextBlock Text="Manage our adorable cafe cats"
                                        FontSize="14" Foreground="#666"
@@ -199,7 +212,7 @@
 						</StackPanel>
 					</Border>
 
-					<Border Grid.Column="1" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
+					<Border Grid.Column="2" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
                             MouseLeftButtonUp="Reports_Click">
 						<StackPanel HorizontalAlignment="Center">
 							<TextBlock Text="📊" Style="{StaticResource CatIconStyle}"/>
@@ -211,7 +224,7 @@
 						</StackPanel>
 					</Border>
 
-					<Border Grid.Column="2" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
+					<Border Grid.Column="0" Grid.Row="2" Style="{StaticResource MenuCardStyle}"
                             MouseLeftButtonUp="Settings_Click">
 						<StackPanel HorizontalAlignment="Center">
 							<TextBlock Text="⚙️" Style="{StaticResource CatIconStyle}"/>

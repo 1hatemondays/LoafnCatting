@@ -1,0 +1,343 @@
+<Window x:Class="WPFCatLoaf.TableOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CatLoaf Table Order" Height="900" Width="1200"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+
+    <Window.Resources>
+        <!-- Orange Theme Colors -->
+        <SolidColorBrush x:Key="PrimaryOrange" Color="#FF6B35"/>
+        <SolidColorBrush x:Key="LightOrange" Color="#FFA366"/>
+        <SolidColorBrush x:Key="DarkOrange" Color="#CC5A2C"/>
+        <SolidColorBrush x:Key="AccentOrange" Color="#FFB380"/>
+        <SolidColorBrush x:Key="BackgroundOrange" Color="#FFF4E6"/>
+
+        <!-- Button Style -->
+        <Style x:Key="OrangeButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryOrange}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource LightOrange}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource DarkOrange}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Round Add Button Style for Product Cards -->
+        <Style x:Key="RoundAddButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryOrange}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="16" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource LightOrange}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource DarkOrange}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Product Card Style -->
+        <Style x:Key="ProductCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray" Direction="315" ShadowDepth="2" BlurRadius="8" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Category Header Style -->
+        <Style x:Key="CategoryHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkOrange}"/>
+            <Setter Property="Margin" Value="0,20,0,10"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Background="{StaticResource BackgroundOrange}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryOrange}" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0">
+                    <TextBlock Name="WelcomeTextBlock" Text="Welcome to CatLoaf Cafe!" 
+                               FontSize="28" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Name="TableInfoTextBlock" Text="Table Information" 
+                               FontSize="16" Foreground="White" Opacity="0.9"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Name="LogoutButton" Content="?? Logout" 
+                        Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
+                        BorderBrush="White" BorderThickness="2" Foreground="White"
+                        Margin="0,0,20,0" Click="LogoutButton_Click"/>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,20,0">
+                    <TextBlock Text="Cart Items: " FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Name="CartCountTextBlock" Text="0" 
+                               FontSize="18" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <Button Grid.Column="3" Name="ViewCartButton" Content="View Cart" 
+                        Style="{StaticResource OrangeButtonStyle}" Background="White" 
+                        Foreground="{StaticResource PrimaryOrange}" Click="ViewCartButton_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20">
+            <StackPanel Name="CategoriesPanel">
+                <!-- Categories will be loaded here dynamically -->
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="{StaticResource DarkOrange}" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="Total: " FontSize="20" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Name="TotalPriceTextBlock" Text="0 VND" 
+                               FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Name="ClearCartButton" Content="Clear Cart" 
+                        Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
+                        BorderBrush="White" BorderThickness="2" Margin="0,0,10,0"
+                        Click="ClearCartButton_Click"/>
+
+                <Button Grid.Column="2" Name="CheckoutButton" Content="Place Order" 
+                        Style="{StaticResource OrangeButtonStyle}" Background="White" 
+                        Foreground="{StaticResource PrimaryOrange}" FontSize="18" Padding="25,15"
+                        Click="CheckoutButton_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- Cart Overlay -->
+        <Border Name="CartOverlay" Grid.RowSpan="3" Background="#CC000000" Visibility="Collapsed">
+            <Border Background="White" Width="600" Height="500" CornerRadius="12" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Cart Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,20">
+                        <TextBlock Text="Your Order" FontSize="24" FontWeight="Bold" 
+                                   Foreground="{StaticResource DarkOrange}"/>
+                        <Button Name="CloseCartButton" Content="?" HorizontalAlignment="Right"
+                                Background="Transparent" BorderThickness="0" FontSize="20"
+                                Cursor="Hand" Click="CloseCartButton_Click"/>
+                    </Grid>
+
+                    <!-- Cart Items -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl Name="CartItemsControl">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFF4E6" CornerRadius="8" Padding="15" Margin="0,5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Grid.Column="0" Source="{Binding Product.Picture}" 
+                                                   Width="50" Height="50" Stretch="UniformToFill">
+                                                <Image.Clip>
+                                                    <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                                                </Image.Clip>
+                                            </Image>
+
+                                            <StackPanel Grid.Column="1" Margin="15,0">
+                                                <TextBlock Text="{Binding Product.Name}" FontWeight="Bold" FontSize="14"/>
+                                                <TextBlock Text="{Binding Product.Price, StringFormat='{}{0:N0} VND'}" 
+                                                           Foreground="{StaticResource PrimaryOrange}" FontSize="12"/>
+                                            </StackPanel>
+
+                                            <Button Grid.Column="2" Content="?" Width="30" Height="30" 
+                                                    Style="{StaticResource OrangeButtonStyle}" FontSize="16"
+                                                    Click="DecreaseQuantity_Click" Tag="{Binding}"/>
+                                            
+                                            <TextBlock Grid.Column="3" Text="{Binding Quantity}" 
+                                                       FontWeight="Bold" FontSize="16" Margin="15,0" 
+                                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            
+                                            <Button Grid.Column="4" Content="+" Width="30" Height="30" 
+                                                    Style="{StaticResource OrangeButtonStyle}" FontSize="16"
+                                                    Click="IncreaseQuantity_Click" Tag="{Binding}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- Cart Total -->
+                    <Border Grid.Row="2" Background="{StaticResource AccentOrange}" CornerRadius="8" 
+                            Padding="15" Margin="0,20,0,10">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Total: " FontSize="18" FontWeight="Bold" Foreground="White"/>
+                            <TextBlock Name="CartTotalTextBlock" Text="0 VND" 
+                                       FontSize="20" FontWeight="Bold" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Cart Actions -->
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Button Grid.Column="0" Name="ContinueShoppingButton" Content="Continue Shopping" 
+                                Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
+                                Foreground="{StaticResource PrimaryOrange}" BorderBrush="{StaticResource PrimaryOrange}" 
+                                BorderThickness="2" Margin="0,0,10,0" Click="ContinueShoppingButton_Click"/>
+                        
+                        <Button Grid.Column="1" Name="PlaceOrderButton" Content="Place Order" 
+                                Style="{StaticResource OrangeButtonStyle}" Margin="10,0,0,0"
+                                Click="PlaceOrderButton_Click"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- Logout Password Dialog Overlay -->
+        <Border Name="LogoutPasswordOverlay" Grid.RowSpan="3" Background="#80000000" Visibility="Collapsed">
+            <Border Background="White" Width="400" Height="280" CornerRadius="12" Padding="30">
+                <StackPanel VerticalAlignment="Center">
+                    <!-- Dialog Header -->
+                    <TextBlock Text="?? Logout Confirmation" 
+                               FontSize="20" FontWeight="Bold" 
+                               Foreground="{StaticResource DarkOrange}"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
+                    
+                    <TextBlock Text="This action requires admin authorization." 
+                               FontSize="14" 
+                               Foreground="Gray"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,25"/>
+                    
+                    <!-- Password Input -->
+                    <Border BorderBrush="{StaticResource PrimaryOrange}" 
+                           BorderThickness="0,0,0,2" 
+                           Margin="0,0,0,30">
+                        <StackPanel>
+                            <TextBlock Text="??" 
+                                      FontSize="16" 
+                                      Foreground="{StaticResource PrimaryOrange}" 
+                                      Margin="0,0,0,5"/>
+                            <PasswordBox x:Name="LogoutPasswordBox"
+                                        FontSize="14"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        KeyDown="LogoutPasswordBox_KeyDown">
+                                <PasswordBox.Style>
+                                    <Style TargetType="PasswordBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="PasswordBox">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                           BorderBrush="{TemplateBinding BorderBrush}"
+                                                           BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ScrollViewer x:Name="PART_ContentHost" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </PasswordBox.Style>
+                            </PasswordBox>
+                            <TextBlock Text="Enter admin password" 
+                                      FontSize="12" 
+                                      Foreground="Gray" 
+                                      Opacity="0.7"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Dialog Actions -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Button Grid.Column="0" Name="CancelLogoutButton" Content="Cancel" 
+                                Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
+                                Foreground="{StaticResource PrimaryOrange}" BorderBrush="{StaticResource PrimaryOrange}" 
+                                BorderThickness="2" Margin="0,0,10,0" Click="CancelLogoutButton_Click"/>
+                        
+                        <Button Grid.Column="1" Name="ConfirmLogoutButton" Content="Logout" 
+                                Style="{StaticResource OrangeButtonStyle}" Margin="10,0,0,0"
+                                Click="ConfirmLogoutButton_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</Window>
