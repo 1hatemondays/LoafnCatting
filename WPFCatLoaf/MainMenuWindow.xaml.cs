@@ -49,7 +49,7 @@ namespace WPFCatLoaf
 
         private void OrderManagement_Click(object sender, MouseButtonEventArgs e)
         {
-            var orderWindow = new OrderManagementWindow(_currentUser);
+            var orderWindow = new OrderManagementWindow();
             orderWindow.Show();
             this.Close();
         }
