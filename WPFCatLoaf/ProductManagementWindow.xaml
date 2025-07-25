@@ -215,22 +215,6 @@
                                                        Stretch="UniformToFill"
                                                        RenderOptions.BitmapScalingMode="HighQuality">
                                                 </Image>
-                                                <TextBlock Text="🖼️" FontSize="16" Foreground="#999" 
-                                                           HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <TextBlock.Style>
-                                                        <Style TargetType="TextBlock">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding Picture}" Value="{x:Null}">
-                                                                    <Setter Property="Visibility" Value="Visible"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Picture}" Value="">
-                                                                    <Setter Property="Visibility" Value="Visible"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </TextBlock.Style>
-                                                </TextBlock>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>

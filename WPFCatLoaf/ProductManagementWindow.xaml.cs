@@ -23,6 +23,9 @@ namespace WPFCatLoaf
         private ObservableCollection<Product> _filteredProducts;
         private Product _selectedProduct;
         private bool _isEditMode = false;
+        private string _selectedOriginalAbsoluteImagePath = null;
+        private const string ImagesRelativeSaveBase = "Images/";
+        private const string ProductsSubfolderName = "Products";
 
         public ProductManagementWindow(User user)
         {
@@ -248,13 +251,13 @@ namespace WPFCatLoaf
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
         {
             // Allow both admin and staff to access main menu
-           
 
-                var mainMenuWindow = new MainMenuWindow(_loggedInUser);
-                mainMenuWindow.Show();
-                this.Close();
-      
-           
+
+            var mainMenuWindow = new MainMenuWindow(_loggedInUser);
+            mainMenuWindow.Show();
+            this.Close();
+
+
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -289,7 +292,8 @@ namespace WPFCatLoaf
 
             if (openFileDialog.ShowDialog() == true)
             {
-                PictureTextBox.Text = openFileDialog.FileName;
+                _selectedOriginalAbsoluteImagePath = openFileDialog.FileName;
+                PictureTextBox.Text = Path.Combine(ImagesRelativeSaveBase, ProductsSubfolderName, Path.GetFileName(openFileDialog.FileName)).Replace("\\", "/");
             }
         }
 
@@ -315,7 +319,7 @@ namespace WPFCatLoaf
         //                return;
         //            }
         //        }
-                
+
         //        // Show placeholder if no valid image
         //        ImagePreview.Source = null;
         //        ImagePreview.Visibility = Visibility.Collapsed;
@@ -337,6 +341,7 @@ namespace WPFCatLoaf
             UnitInStockTextBox.Text = product.UnitInStock.ToString();
             CategoryComboBox.SelectedValue = product.CategoryId;
             PictureTextBox.Text = product.Picture ?? "";
+            _selectedOriginalAbsoluteImagePath = null;
         }
 
         private Product CreateProductFromForm()
@@ -355,7 +360,38 @@ namespace WPFCatLoaf
             {
                 product.ProductId = _selectedProduct.ProductId;
             }
+            if (_selectedOriginalAbsoluteImagePath != null && File.Exists(_selectedOriginalAbsoluteImagePath))
+            {
+                try
+                {
+                    string sourceFileName = Path.GetFileName(_selectedOriginalAbsoluteImagePath);
+                    string destinationDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ImagesRelativeSaveBase, ProductsSubfolderName);
+                    string destinationFullPath = Path.Combine(destinationDirectory, sourceFileName);
 
+                    if (!Directory.Exists(destinationDirectory))
+                    {
+                        Directory.CreateDirectory(destinationDirectory);
+                    }
+
+                    File.Copy(_selectedOriginalAbsoluteImagePath, destinationFullPath, true);
+                    System.Diagnostics.Debug.WriteLine($"Image copied from '{_selectedOriginalAbsoluteImagePath}' to '{destinationFullPath}'");
+
+                    product.Picture = Path.Combine(ImagesRelativeSaveBase, ProductsSubfolderName, sourceFileName).Replace("\\", "/");
+                }
+                catch (Exception ex)
+                {
+                    ShowErrorMessage($"Failed to save image file: {ex.Message}");
+                    product.Picture = _selectedProduct?.Picture;
+                }
+            }
+            else if (_isEditMode && _selectedProduct != null && _selectedOriginalAbsoluteImagePath == null)
+            {
+                product.Picture = PictureTextBox.Text.Trim();
+            }
+            else
+            {
+                product.Picture = null;
+            }
             return product;
         }
 
@@ -399,10 +435,10 @@ namespace WPFCatLoaf
             UnitInStockTextBox.Text = "";
             CategoryComboBox.SelectedIndex = -1;
             PictureTextBox.Text = "";
-
+            _selectedOriginalAbsoluteImagePath = null;
             ValidationMessageTextBlock.Visibility = Visibility.Collapsed;
             ProductsDataGrid.SelectedItem = null;
-            
+
             // Reset image preview
             //UpdateImagePreview();
         }
