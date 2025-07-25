@@ -1,0 +1,157 @@
+<Window x:Class="WPFCatLoaf.TableManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Table Management" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#FFF8F8FF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#FF6B35" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Table Management" FontSize="24" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="Manage restaurant tables and table accounts" FontSize="14" Foreground="White" Opacity="0.8"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Name="BackToMenuButton" Content="Back to Menu" 
+                        Background="White" Foreground="#FF6B35" Padding="15,8" FontWeight="SemiBold"
+                        BorderThickness="0" Click="BackToMenuButton_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Tables List -->
+            <GroupBox Grid.Column="0" Header="Restaurant Tables" FontSize="16" FontWeight="Bold">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Search and Filter -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBox Name="SearchTableTextBox" Width="200" Padding="8" 
+                                 FontSize="14" TextChanged="SearchTableTextBox_TextChanged"/>
+                        <TextBlock Text="Search tables..." Margin="5,0" VerticalAlignment="Center" Foreground="Gray"/>
+                    </StackPanel>
+
+                    <!-- Tables DataGrid -->
+                    <DataGrid Grid.Row="1" Name="TablesDataGrid" AutoGenerateColumns="False" 
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                              GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                              SelectionMode="Single" SelectionChanged="TablesDataGrid_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Table ID" Binding="{Binding TableId}" Width="80"/>
+                            <DataGridTextColumn Header="Table Name" Binding="{Binding TableName}" Width="150"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding TableStatus.StatusName}" Width="100"/>
+                            <DataGridTemplateColumn Header="Actions" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Edit" Margin="2" Padding="8,4" Background="#FF6B35" 
+                                                    Foreground="White" BorderThickness="0" 
+                                                    Click="EditTableButton_Click"/>
+                                            <Button Content="Create Account" Margin="2" Padding="8,4" Background="#28A745" 
+                                                    Foreground="White" BorderThickness="0" 
+                                                    Click="CreateTableAccountButton_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+
+            <!-- Table Form -->
+            <GroupBox Grid.Column="2" Header="Table Details" FontSize="16" FontWeight="Bold">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Table Name" FontWeight="SemiBold" Margin="0,5"/>
+                    <TextBox Name="TableNameTextBox" Padding="8" FontSize="14"/>
+
+                    <TextBlock Text="Status" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <ComboBox Name="TableStatusComboBox" Padding="8" FontSize="14"
+                              DisplayMemberPath="StatusName" SelectedValuePath="TableStatusId"/>
+
+                    <TextBlock Name="FormTitleTextBlock" Text="Add New Table" FontSize="16" FontWeight="Bold" 
+                               Foreground="#FF6B35" Margin="0,20,0,10"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <Button Name="SaveTableButton" Content="Save Table" Background="#FF6B35" 
+                                Foreground="White" Padding="15,8" Margin="0,0,10,0" FontWeight="SemiBold"
+                                BorderThickness="0" Click="SaveTableButton_Click"/>
+                        <Button Name="CancelTableButton" Content="Cancel" Background="Gray" 
+                                Foreground="White" Padding="15,8" FontWeight="SemiBold"
+                                BorderThickness="0" Click="CancelTableButton_Click"/>
+                    </StackPanel>
+
+                    <TextBlock Name="ValidationMessageTextBlock" Foreground="Red" FontSize="12" 
+                               Visibility="Collapsed" TextWrapping="Wrap" Margin="0,10"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+
+        <!-- Create Table Account Dialog Overlay -->
+        <Border Name="AccountCreationOverlay" Grid.RowSpan="3" Background="#AA000000" Visibility="Collapsed">
+            <Border Background="White" Width="400" Height="350" CornerRadius="8" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Dialog Header -->
+                    <TextBlock Grid.Row="0" Text="Create Table Account" FontSize="18" FontWeight="Bold" 
+                               Foreground="#FF6B35" Margin="0,0,0,20"/>
+
+                    <!-- Form Fields -->
+                    <StackPanel Grid.Row="1" Margin="0,0,0,20">
+                        <TextBlock Text="Table Name" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="AccountTableNameTextBox" Padding="8" FontSize="14" IsReadOnly="True"/>
+
+                        <TextBlock Text="Account Name" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                        <TextBox Name="AccountNameTextBox" Padding="8" FontSize="14"/>
+
+                        <TextBlock Text="Email" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                        <TextBox Name="AccountEmailTextBox" Padding="8" FontSize="14"/>
+
+                        <TextBlock Text="Password" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                        <PasswordBox Name="AccountPasswordBox" Padding="8" FontSize="14"/>
+
+                        <TextBlock Name="AccountValidationMessage" Foreground="Red" FontSize="12" 
+                                   Visibility="Collapsed" TextWrapping="Wrap" Margin="0,10"/>
+                    </StackPanel>
+
+                    <!-- Dialog Actions -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="CreateAccountButton" Content="Create Account" Background="#FF6B35" 
+                                Foreground="White" Padding="15,8" Margin="0,0,10,0" FontWeight="SemiBold"
+                                BorderThickness="0" Click="CreateAccountButton_Click"/>
+                        <Button Name="CancelAccountButton" Content="Cancel" Background="Gray" 
+                                Foreground="White" Padding="15,8" FontWeight="SemiBold"
+                                BorderThickness="0" Click="CancelAccountButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

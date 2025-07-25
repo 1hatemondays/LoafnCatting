@@ -80,81 +80,179 @@
                           FontSize="14" 
                           Foreground="Gray"
                           HorizontalAlignment="Center"
-                          Margin="0,0,0,40"/>
+                          Margin="0,0,0,20"/>
                 
-                <!-- Email field -->
-                <Border BorderBrush="{StaticResource CatCafePrimary}" 
-                       BorderThickness="0,0,0,2" 
-                       Margin="0,0,0,25">
-                    <StackPanel>
-                        <TextBlock Text="📧" 
-                                  FontSize="16" 
-                                  Foreground="{StaticResource CatCafePrimary}" 
-                                  Margin="0,0,0,5"/>
-                        <TextBox x:Name="EmailTextBox"
-                                FontSize="14"
-                                BorderThickness="0"
-                                Background="Transparent"
-                                KeyDown="EmailTextBox_KeyDown">
-                            <TextBox.Style>
-                                <Style TargetType="TextBox">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="TextBox">
-                                                <Border Background="{TemplateBinding Background}"
-                                                       BorderBrush="{TemplateBinding BorderBrush}"
-                                                       BorderThickness="{TemplateBinding BorderThickness}">
-                                                    <ScrollViewer x:Name="PART_ContentHost" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
-                        <TextBlock Text="Email Address" 
-                                  FontSize="12" 
-                                  Foreground="Gray" 
-                                  Opacity="0.7"/>
-                    </StackPanel>
+                <!-- Switch Toggle -->
+                <Border Background="#F5F5F5" 
+                       CornerRadius="25" 
+                       Height="50" 
+                       Margin="0,0,0,30">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- Toggle Background -->
+                        <Border x:Name="ToggleBackground" 
+                               Grid.Column="0"
+                               Background="{StaticResource CatCafePrimary}" 
+                               CornerRadius="25" 
+                               Margin="2">
+                            <Border.RenderTransform>
+                                <TranslateTransform x:Name="ToggleTransform"/>
+                            </Border.RenderTransform>
+                        </Border>
+                        
+                        <!-- Account Login Button -->
+                        <Button x:Name="AccountToggleButton"
+                               Grid.Column="0"
+                               Content="👤 Account"
+                               Background="Transparent"
+                               BorderThickness="0"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               FontSize="12"
+                               Click="AccountToggleButton_Click"
+                               Cursor="Hand"/>
+                        
+                        <!-- Table ID Button -->
+                        <Button x:Name="TableToggleButton"
+                               Grid.Column="1"
+                               Content="🍽️ Table ID"
+                               Background="Transparent"
+                               BorderThickness="0"
+                               Foreground="Gray"
+                               FontWeight="Bold"
+                               FontSize="12"
+                               Click="TableToggleButton_Click"
+                               Cursor="Hand"/>
+                    </Grid>
                 </Border>
                 
-                <!-- Password field -->
-                <Border BorderBrush="{StaticResource CatCafePrimary}" 
-                       BorderThickness="0,0,0,2" 
-                       Margin="0,0,0,35">
-                    <StackPanel>
-                        <TextBlock Text="🔒" 
-                                  FontSize="16" 
-                                  Foreground="{StaticResource CatCafePrimary}" 
-                                  Margin="0,0,0,5"/>
-                        <PasswordBox x:Name="PasswordBox"
+                <!-- Account Login Fields -->
+                <StackPanel x:Name="AccountLoginPanel" Visibility="Visible">
+                    <!-- Email field -->
+                    <Border BorderBrush="{StaticResource CatCafePrimary}" 
+                           BorderThickness="0,0,0,2" 
+                           Margin="0,0,0,25">
+                        <StackPanel>
+                            <TextBlock Text="📧" 
+                                      FontSize="16" 
+                                      Foreground="{StaticResource CatCafePrimary}" 
+                                      Margin="0,0,0,5"/>
+                            <TextBox x:Name="EmailTextBox"
                                     FontSize="14"
                                     BorderThickness="0"
                                     Background="Transparent"
-                                    KeyDown="PasswordBox_KeyDown">
-                            <PasswordBox.Style>
-                                <Style TargetType="PasswordBox">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="PasswordBox">
-                                                <Border Background="{TemplateBinding Background}"
-                                                       BorderBrush="{TemplateBinding BorderBrush}"
-                                                       BorderThickness="{TemplateBinding BorderThickness}">
-                                                    <ScrollViewer x:Name="PART_ContentHost" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </PasswordBox.Style>
-                        </PasswordBox>
-                        <TextBlock Text="Password" 
-                                  FontSize="12" 
-                                  Foreground="Gray" 
-                                  Opacity="0.7"/>
-                    </StackPanel>
-                </Border>
+                                    KeyDown="EmailTextBox_KeyDown">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="TextBox">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                           BorderBrush="{TemplateBinding BorderBrush}"
+                                                           BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ScrollViewer x:Name="PART_ContentHost" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                            <TextBlock Text="Email Address" 
+                                      FontSize="12" 
+                                      Foreground="Gray" 
+                                      Opacity="0.7"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Password field -->
+                    <Border BorderBrush="{StaticResource CatCafePrimary}" 
+                           BorderThickness="0,0,0,2" 
+                           Margin="0,0,0,35">
+                        <StackPanel>
+                            <TextBlock Text="🔒" 
+                                      FontSize="16" 
+                                      Foreground="{StaticResource CatCafePrimary}" 
+                                      Margin="0,0,0,5"/>
+                            <PasswordBox x:Name="PasswordBox"
+                                        FontSize="14"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        KeyDown="PasswordBox_KeyDown">
+                                <PasswordBox.Style>
+                                    <Style TargetType="PasswordBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="PasswordBox">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                           BorderBrush="{TemplateBinding BorderBrush}"
+                                                           BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ScrollViewer x:Name="PART_ContentHost" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </PasswordBox.Style>
+                            </PasswordBox>
+                            <TextBlock Text="Password" 
+                                      FontSize="12" 
+                                      Foreground="Gray" 
+                                      Opacity="0.7"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                
+                <!-- Table ID Input Field -->
+                <StackPanel x:Name="TableIdPanel" Visibility="Collapsed">
+                    <Border BorderBrush="{StaticResource CatCafePrimary}" 
+                           BorderThickness="0,0,0,2" 
+                           Margin="0,0,0,35">
+                        <StackPanel>
+                            <TextBlock Text="🍽️" 
+                                      FontSize="16" 
+                                      Foreground="{StaticResource CatCafePrimary}" 
+                                      Margin="0,0,0,5"/>
+                            <TextBox x:Name="TableIdTextBox"
+                                    FontSize="14"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    KeyDown="TableIdTextBox_KeyDown">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="TextBox">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                           BorderBrush="{TemplateBinding BorderBrush}"
+                                                           BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ScrollViewer x:Name="PART_ContentHost" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                            <TextBlock Text="Enter your table number" 
+                                      FontSize="12" 
+                                      Foreground="Gray" 
+                                      Opacity="0.7"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Customer info text -->
+                    <TextBlock Text="🐱 Welcome! Enter your table number to start ordering delicious food and drinks!" 
+                              FontSize="12" 
+                              Foreground="{StaticResource CatCafePrimary}"
+                              TextWrapping="Wrap"
+                              HorizontalAlignment="Center"
+                              Margin="0,0,0,35"/>
+                </StackPanel>
                 
                 <!-- Login button -->
                 <Button x:Name="LoginButton"
@@ -170,6 +268,8 @@
                        BorderThickness="0"
                        Cursor="Hand">
                 </Button>
+                
+                <!-- Register button - Only visible in account mode -->
                 <Button x:Name="RegisterButton"
                         Content="REGISTER"
                         Background="Transparent"
@@ -227,37 +327,136 @@
                 Background="#80000000" 
                 Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Border Width="50" Height="50" 
-                       BorderBrush="{StaticResource CatCafePrimary}" 
-                       BorderThickness="3"
-                       CornerRadius="25">
-                    <Border.RenderTransform>
-                        <RotateTransform x:Name="SpinTransform"/>
-                    </Border.RenderTransform>
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Style.Triggers>
-                                <EventTrigger RoutedEvent="Loaded">
-                                    <BeginStoryboard>
-                                        <Storyboard RepeatBehavior="Forever">
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle"
-                                                           From="0" To="360" Duration="0:0:1"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <Ellipse Width="10" Height="10" 
-                            Fill="{StaticResource CatCafePrimary}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top"
-                            Margin="0,5,0,0"/>
-                </Border>
-                <TextBlock Text="Signing in..." 
+                <!-- Cat Paw Animation -->
+                <Grid Width="80" Height="80">
+                    <!-- Main paw pad -->
+                    <Ellipse Width="40" Height="50" 
+                             Fill="{StaticResource CatCafePrimary}"
+                             VerticalAlignment="Bottom"
+                             HorizontalAlignment="Center"
+                             Margin="0,0,0,5">
+                        <Ellipse.RenderTransform>
+                            <RotateTransform x:Name="PawSpinTransform" CenterX="20" CenterY="25"/>
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle"
+                                                               From="0" To="360" Duration="0:0:2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    
+                    <!-- Toe pads -->
+                    <Ellipse Width="12" Height="15" 
+                             Fill="{StaticResource CatCafePrimary}"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Top"
+                             Margin="15,5,0,0">
+                        <Ellipse.RenderTransform>
+                            <RotateTransform CenterX="6" CenterY="7.5"/>
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle"
+                                                               From="0" To="360" Duration="0:0:2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    
+                    <Ellipse Width="12" Height="15" 
+                             Fill="{StaticResource CatCafePrimary}"
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Top"
+                             Margin="0,0,0,0">
+                        <Ellipse.RenderTransform>
+                            <RotateTransform CenterX="6" CenterY="7.5"/>
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle"
+                                                               From="0" To="360" Duration="0:0:2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    
+                    <Ellipse Width="12" Height="15" 
+                             Fill="{StaticResource CatCafePrimary}"
+                             HorizontalAlignment="Right" 
+                             VerticalAlignment="Top"
+                             Margin="0,5,15,0">
+                        <Ellipse.RenderTransform>
+                            <RotateTransform CenterX="6" CenterY="7.5"/>
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle"
+                                                               From="0" To="360" Duration="0:0:2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    
+                    <Ellipse Width="10" Height="12" 
+                             Fill="{StaticResource CatCafePrimary}"
+                             HorizontalAlignment="Right" 
+                             VerticalAlignment="Top"
+                             Margin="0,20,5,0">
+                        <Ellipse.RenderTransform>
+                            <RotateTransform CenterX="5" CenterY="6"/>
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle"
+                                                               From="0" To="360" Duration="0:0:2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                </Grid>
+                
+                <TextBlock Text="🐾 Signing in..." 
                           Foreground="White" 
                           FontSize="16" 
-                          Margin="0,20,0,0"/>
+                          Margin="0,15,0,0"
+                          HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
         

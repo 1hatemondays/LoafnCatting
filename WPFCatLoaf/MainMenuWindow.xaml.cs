@@ -15,6 +15,15 @@ namespace WPFCatLoaf
         {
             InitializeComponent();
             _currentUser = user;
+
+            // Redirect table users to their ordering interface
+            if (_currentUser.RoleId == 5) // Table users
+            {
+                var tableOrderWindow = new TableOrderWindow(_currentUser);
+                tableOrderWindow.Show();
+                this.Close();
+                return;
+            }
             
             SetupWelcomeMessage();
             SetupTimer();
@@ -52,6 +61,22 @@ namespace WPFCatLoaf
             var orderWindow = new OrderManagementWindow(_currentUser);
             orderWindow.Show();
             this.Close();
+        }
+
+        private void TableManagement_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Only Admin (4) and Manager (2) can access table management
+            if (_currentUser.RoleId == 4 || _currentUser.RoleId == 2)
+            {
+                var tableWindow = new TableManagementWindow(_currentUser);
+                tableWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("You do not have permission to manage tables.", "Access Denied",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void UserManagement_Click(object sender, MouseButtonEventArgs e)
@@ -122,6 +147,7 @@ namespace WPFCatLoaf
                 4 => "Admin",
                 2 => "Manager",
                 3 => "Staff",
+                5 => "Table",
                 _ => "Unknown"
             };
         }
