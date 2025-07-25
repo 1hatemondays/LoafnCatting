@@ -28,7 +28,6 @@ namespace WPFCatLoaf
         {
             InitializeComponent();
             
-            // Initialize services (you may want to use dependency injection in a real app)
             var context = new LoafNcattingDbContext();
             var userRepository = new UserRepository(context);
             _userService = new UserService(userRepository);
@@ -36,8 +35,6 @@ namespace WPFCatLoaf
             // Create test data if needed (for development only)
             CreateTestDataIfNeeded(context);
             
-            // Set focus to email textbox
-            Loaded += (s, e) => EmailTextBox.Focus();
         }
 
         // Development method to create test data
@@ -48,13 +45,6 @@ namespace WPFCatLoaf
                 // Check if any users exist
                 if (!context.Users.Any())
                 {
-                    // Create default roles
-                    var adminRole = new Role { RoleName = "Admin", Description = "Administrator" };
-                    var staffRole = new Role { RoleName = "Staff", Description = "Staff Member" };
-                    var customerRole = new Role { RoleName = "Customer", Description = "Customer" };
-
-                    context.Roles.AddRange(adminRole, staffRole, customerRole);
-                    context.SaveChanges();
 
                     // Create test users
                     var testUsers = new[]
@@ -65,7 +55,7 @@ namespace WPFCatLoaf
                             Email = "admin@catcafe.com", 
                             Password = "admin123", 
                             PhoneNumber = "0123456789",
-                            RoleId = adminRole.RoleId 
+                            RoleId = 2
                         },
                         new User 
                         { 
@@ -73,7 +63,7 @@ namespace WPFCatLoaf
                             Email = "staff@catcafe.com", 
                             Password = "staff123", 
                             PhoneNumber = "0987654321",
-                            RoleId = staffRole.RoleId 
+                            RoleId = 3
                         },
                         new User 
                         { 
@@ -81,7 +71,7 @@ namespace WPFCatLoaf
                             Email = "customer@test.com", 
                             Password = "test123", 
                             PhoneNumber = "0555666777",
-                            RoleId = customerRole.RoleId 
+                            RoleId = 1
                         }
                     };
 
@@ -109,27 +99,22 @@ namespace WPFCatLoaf
 
         private async Task PerformLogin()
         {
-            // Validate input
             if (string.IsNullOrWhiteSpace(EmailTextBox.Text))
             {
                 ShowErrorMessage("Vui lòng nhập địa chỉ email của bạn.");
-                EmailTextBox.Focus();
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(PasswordBox.Password))
             {
                 ShowErrorMessage("Vui lòng nhập mật khẩu của bạn.");
-                PasswordBox.Focus();
                 return;
             }
 
-            // Show loading overlay
             ShowLoading(true);
 
             try
             {
-                // Simulate async login process
                 await Task.Delay(1000);
 
                 // Attempt login
@@ -137,12 +122,10 @@ namespace WPFCatLoaf
                 if (user != null)
                 {
                     // Login successful
-                    //MessageBox.Show($"Chào mừng bạn trở lại, {user.Name}!\nVai trò: {user.Role?.RoleName ?? "N/A"}",
-                    //              "Đăng nhập thành công",
-                    //              MessageBoxButton.OK, MessageBoxImage.Information);
+                    
 
                     // MỞ CỬA SỔ TƯƠNG ỨNG VỚI VAI TRÒ
-                    if (user.RoleId == 2)
+                    if (user.RoleId == 2 || user.RoleId==3)
                     {
                         var orderManagementWindow = new OrderManagementWindow(user);
                         orderManagementWindow.Show();
