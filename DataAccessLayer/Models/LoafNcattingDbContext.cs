@@ -7,6 +7,7 @@ namespace DataAccessLayer.Models;
 
 public partial class LoafNcattingDbContext : DbContext
 {
+    //Fix
     public LoafNcattingDbContext()
     {
     }
@@ -130,6 +131,11 @@ public partial class LoafNcattingDbContext : DbContext
                 .HasForeignKey(d => d.TableId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Order__TableId__5535A963");
+
+            entity.HasOne(d => d.OrderStatus).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.OrderStatusId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Order_OrderStatus");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>

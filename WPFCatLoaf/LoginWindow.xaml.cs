@@ -69,6 +69,10 @@ namespace WPFCatLoaf
                     var mainMenuWindow = new MainMenuWindow(user);
                     mainMenuWindow.Show();
                     this.Close();
+                    // Login successful
+                    
+
+
                 }
             }
             catch (Exception ex)

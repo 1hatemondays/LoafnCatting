@@ -5,6 +5,7 @@ namespace DataAccessLayer.Models;
 
 public partial class Order
 {
+    //Fix
     public int OrderId { get; set; }
 
     public DateTime OrderDate { get; set; }
@@ -14,6 +15,7 @@ public partial class Order
     public int StaffUserId { get; set; }
 
     public int TableId { get; set; }
+    public  int OrderStatusId { get; set; } 
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
@@ -22,4 +24,5 @@ public partial class Order
     public virtual User StaffUser { get; set; } = null!;
 
     public virtual RestaurantTable Table { get; set; } = null!;
+    public virtual OrderStatus OrderStatus { get; set; } = null!;
 }

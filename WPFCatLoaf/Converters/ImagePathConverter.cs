@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 
 namespace WPFCatLoaf.Converters
 {
+    //Fix
     /// <summary>
     /// Converts relative image paths (e.g., "Images/Products/Shiori.jpg") to BitmapImage objects.
     /// Handles images stored as content files in the project directory.
@@ -13,7 +14,7 @@ namespace WPFCatLoaf.Converters
     public class ImagePathConverter : IValueConverter
     {
         // Define the path to your placeholder image
-        private const string PlaceholderImagePath = "Images/Gun.png";
+        private const string PlaceholderImagePath = "Images/placeholder.jpg";
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
