@@ -19,6 +19,11 @@ namespace BusinessLayer.Service
 
         public bool AddOrder(Order order)
         {
+            if(order == null)
+            {
+                throw new ArgumentNullException(nameof(order), "Order cannot be null");
+            }
+            order.OrderStatusId = 3;
             return _orderRepository.AddOrder(order);
         }
 
