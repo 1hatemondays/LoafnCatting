@@ -142,6 +142,7 @@
                                       Foreground="{StaticResource CatCafePrimary}" 
                                       Margin="0,0,0,5"/>
                             <TextBox x:Name="EmailTextBox"
+                                     Text="staff@catcafe.com"
                                     FontSize="14"
                                     BorderThickness="0"
                                     Background="Transparent"
@@ -179,6 +180,7 @@
                                       Foreground="{StaticResource CatCafePrimary}" 
                                       Margin="0,0,0,5"/>
                             <PasswordBox x:Name="PasswordBox"
+                                         Password="staff123"
                                         FontSize="14"
                                         BorderThickness="0"
                                         Background="Transparent"

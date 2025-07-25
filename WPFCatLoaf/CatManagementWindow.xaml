@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFCatLoaf"
+        xmlns:converters="clr-namespace:WPFCatLoaf.Converters"
         mc:Ignorable="d"
         Title="Cat Loaf Cafe - Cat Management" Height="800" Width="1200"
         WindowStartupLocation="CenterScreen"
@@ -42,6 +43,16 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Secondary Button Style -->
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource OrangeButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource OrangeSecondary}"/>
+        </Style>
+
+        <!-- Danger Button Style -->
+        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource OrangeButtonStyle}">
+            <Setter Property="Background" Value="#DC3545"/>
         </Style>
 
         <Style x:Key="FormButtonStyle" TargetType="Button">
@@ -166,25 +177,27 @@
         <Border Grid.Row="0" Background="{StaticResource OrangePrimary}" Padding="30,20">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button Grid.Column="0" x:Name="BackToMenuButton" Content="🏠 Home"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Click="BackToMenuButton_Click"
+                        Margin="0,0,15,0"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <TextBlock Text="🐱" FontSize="40" VerticalAlignment="Center" Margin="0,0,15,0"/>
                     <StackPanel>
                         <TextBlock Text="Cat Management" FontSize="32" FontWeight="Bold" Foreground="White"/>
-                        <TextBlock Text="Manage your adorable cafe cats"
+                        <TextBlock x:Name="WelcomeTextBlock" Text="Manage your adorable cafe cats"
                                    FontSize="16" Foreground="#FFE4B5"/>
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="BackToMenuButton" Content="🏠 Home"
-                            Style="{StaticResource OrangeButtonStyle}"
-                            Background="{StaticResource OrangeSecondary}"
-                            Click="BackToMenuButton_Click"/>
-                </StackPanel>
+                <Button Grid.Column="2" x:Name="LogoutButton" Content="Logout" 
+                        Style="{StaticResource SecondaryButtonStyle}" Click="LogoutButton_Click"/>
             </Grid>
         </Border>
 
@@ -195,119 +208,180 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Cats List Section với ScrollViewer riêng -->
+            <!-- Cats List Section -->
             <Border Grid.Column="0" Style="{StaticResource ContentCardStyle}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-                        <TextBlock Text="🐾" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <TextBlock Text="Cats List" FontSize="24" FontWeight="Bold" 
-                                   Foreground="{StaticResource OrangeDark}" VerticalAlignment="Center"/>
-                        <TextBlock Text="(Click a cat to edit)" FontSize="14" 
-                                   Foreground="#666" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                    </StackPanel>
+                    <TextBlock Grid.Row="0" Text="Cats List" FontSize="22" FontWeight="Bold" 
+                               Foreground="{StaticResource OrangeDark}" Margin="0,0,0,15"/>
 
-                    <!-- ScrollViewer riêng cho DataGrid -->
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <DataGrid x:Name="CatsDataGrid"
-                                  Style="{StaticResource DataGridStyle}"
-                                  ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                                  SelectionChanged="CatsDataGrid_SelectionChanged"
-                                  MinHeight="400">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Binding="{Binding CatId}" Width="60"/>
-                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                                <DataGridTextColumn Header="Breed" Binding="{Binding Breed}" Width="*"/>
-                                <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="80"/>
-                                <DataGridTextColumn Header="Gender" Binding="{Binding Gender.GenderName}" Width="100"/>
-                                <DataGridTextColumn Header="Status" Binding="{Binding Status.StatusName}" Width="120"/>
-                                <DataGridTextColumn Header="Friendliness" Binding="{Binding FriendlinessRating}" Width="100"/>
-                                <DataGridTemplateColumn Header="Image" Width="80">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Border Background="#F0F0F0" CornerRadius="5" Width="60" Height="60" Margin="2">
-                                                <Grid>
-                                                    <Image Source="{Binding Picture, Converter={StaticResource ImagePathConverter}}" 
-                                                     Stretch="UniformToFill"
-                                                     RenderOptions.BitmapScalingMode="HighQuality">
-                                                    </Image>
-                                                </Grid>
-                                            </Border>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </ScrollViewer>
+                    <!-- Search and Filter -->
+                    <Grid Grid.Row="1" Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="SearchTextBox" Grid.Column="0" 
+                                 Style="{StaticResource FormTextBoxStyle}"
+                                 TextChanged="SearchTextBox_TextChanged"
+                                 Margin="0,0,10,0"
+                                 ToolTip="Search cats by name, breed or description">
+                        </TextBox>
+                        <ComboBox x:Name="StatusFilterComboBox" Grid.Column="1" 
+                                  Style="{StaticResource FormComboBoxStyle}"
+                                  DisplayMemberPath="StatusName" SelectedValuePath="StatusId"
+                                  SelectionChanged="StatusFilterComboBox_SelectionChanged"
+                                  MinWidth="150" Margin="0,0,10,0"/>
+                        <Button Grid.Column="2" Content="Clear Filter" 
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Click="ClearFilterButton_Click"/>
+                    </Grid>
+
+                    <!-- Cats DataGrid -->
+                    <DataGrid x:Name="CatsDataGrid" Grid.Row="2" 
+                              Style="{StaticResource DataGridStyle}"
+                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                              SelectionChanged="CatsDataGrid_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding CatId}" Width="60"/>
+                            <DataGridTemplateColumn Header="Image" Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F0F0F0" CornerRadius="5" Width="60" Height="60" Margin="2">
+                                            <Grid>
+                                                <Image Source="{Binding Picture, Converter={StaticResource ImagePathConverter}}" 
+                                                       Stretch="UniformToFill"
+                                                       RenderOptions.BitmapScalingMode="HighQuality">
+                                                </Image>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" MinWidth="120"/>
+                            <DataGridTextColumn Header="Breed" Binding="{Binding Breed}" Width="*" MinWidth="120"/>
+                            <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="80"/>
+                            <DataGridTextColumn Header="Gender" Binding="{Binding Gender.GenderName}" Width="100"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status.StatusName}" Width="120"/>
+                            <DataGridTextColumn Header="Friendliness" Binding="{Binding FriendlinessRating}" Width="100"/>
+                            <DataGridTemplateColumn Header="Actions" Width="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Content="Edit" Style="{StaticResource SecondaryButtonStyle}" 
+                                                    Click="EditCatButton_Click" Margin="2" Padding="10,5"/>
+                                            <Button Content="Delete" Style="{StaticResource DangerButtonStyle}" 
+                                                    Click="DeleteCatButton_Click" Margin="2" Padding="10,5"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Pagination -->
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                        <TextBlock x:Name="CatCountTextBlock" Text="Total Cats: 0" 
+                                   FontWeight="Bold" Foreground="{StaticResource OrangeDark}" VerticalAlignment="Center"/>
+                    </StackPanel>
                 </Grid>
             </Border>
 
-            <!-- Cat Form Section với ScrollViewer riêng -->
+            <!-- Cat Form Section -->
             <Border Grid.Column="1" Style="{StaticResource ContentCardStyle}" Margin="5,15,15,15">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <!-- Header của form -->
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-                        <TextBlock Text="✏️" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
                         <TextBlock x:Name="FormTitleTextBlock" Text="Add New Cat" FontSize="20" FontWeight="Bold" 
-                                   Foreground="{StaticResource OrangeDark}" VerticalAlignment="Center"/>
-                    </StackPanel>
+                                   Foreground="{StaticResource OrangeDark}" Margin="0,0,0,20"/>
 
-                    <!-- ScrollViewer riêng cho form -->
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                        <StackPanel Margin="0,0,10,0">
-                            <TextBlock Text="Cat Name *" FontWeight="Bold" Foreground="{StaticResource OrangeDark}"/>
-                            <TextBox x:Name="NameTextBox" Style="{StaticResource FormTextBoxStyle}"/>
+                        <!-- Cat Name -->
+                        <TextBlock Text="Cat Name *" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <TextBox x:Name="NameTextBox" Style="{StaticResource FormTextBoxStyle}"/>
 
-                            <TextBlock Text="Age" FontWeight="Bold" Foreground="{StaticResource OrangeDark}"/>
-                            <TextBox x:Name="AgeTextBox" Style="{StaticResource FormTextBoxStyle}"/>
+                        <!-- Age -->
+                        <TextBlock Text="Age" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <TextBox x:Name="AgeTextBox" Style="{StaticResource FormTextBoxStyle}"/>
 
-                            <TextBlock Text="Breed" FontWeight="Bold" Foreground="{StaticResource OrangeDark}"/>
-                            <TextBox x:Name="BreedTextBox" Style="{StaticResource FormTextBoxStyle}"/>
+                        <!-- Breed -->
+                        <TextBlock Text="Breed" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <TextBox x:Name="BreedTextBox" Style="{StaticResource FormTextBoxStyle}"/>
 
-                            <TextBlock Text="Friendliness Rating (1-5)" FontWeight="Bold" Foreground="{StaticResource OrangeDark}"/>
-                            <TextBox x:Name="FriendlinessRatingTextBox" Style="{StaticResource FormTextBoxStyle}"/>
+                        <!-- Friendliness Rating -->
+                        <TextBlock Text="Friendliness Rating (1-5)" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <TextBox x:Name="FriendlinessRatingTextBox" Style="{StaticResource FormTextBoxStyle}"/>
 
-                            <TextBlock Text="Description" FontWeight="Bold" Foreground="{StaticResource OrangeDark}"/>
-                            <TextBox x:Name="DescriptionTextBox" Style="{StaticResource FormTextBoxStyle}" 
-                                     TextWrapping="Wrap" AcceptsReturn="True" Height="80"/>
+                        <!-- Description -->
+                        <TextBlock Text="Description" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <TextBox x:Name="DescriptionTextBox" Style="{StaticResource FormTextBoxStyle}" 
+                                 TextWrapping="Wrap" AcceptsReturn="True" Height="80"/>
 
-                            <TextBlock Text="Gender *" FontWeight="Bold" Foreground="{StaticResource OrangeDark}"/>
-                            <ComboBox x:Name="GenderComboBox" Style="{StaticResource FormComboBoxStyle}" 
-                                      DisplayMemberPath="GenderName" SelectedValuePath="GenderId"/>
+                        <!-- Gender -->
+                        <TextBlock Text="Gender *" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <ComboBox x:Name="GenderComboBox" Style="{StaticResource FormComboBoxStyle}" 
+                                  DisplayMemberPath="GenderName" SelectedValuePath="GenderId"/>
 
-                            <TextBlock Text="Status *" FontWeight="Bold" Foreground="{StaticResource OrangeDark}"/>
-                            <ComboBox x:Name="StatusComboBox" Style="{StaticResource FormComboBoxStyle}" 
-                                      DisplayMemberPath="StatusName" SelectedValuePath="StatusId"/>
+                        <!-- Status -->
+                        <TextBlock Text="Status *" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <ComboBox x:Name="StatusComboBox" Style="{StaticResource FormComboBoxStyle}" 
+                                  DisplayMemberPath="StatusName" SelectedValuePath="StatusId"/>
 
-                            <TextBlock Text="Picture URL" FontWeight="Bold" Foreground="{StaticResource OrangeDark}"/>
-                            <TextBox x:Name="PictureTextBox" Style="{StaticResource FormTextBoxStyle}"/>
+                        <!-- Picture URL -->
+                        <TextBlock Text="Picture URL" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PictureTextBox" Grid.Column="0" Style="{StaticResource FormTextBoxStyle}" 
+                                     Margin="0,0,5,0"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource SecondaryButtonStyle}" 
+                                    Click="BrowsePictureButton_Click" Padding="10,8"/>
+                        </Grid>
 
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                                <Button x:Name="SaveButton" Content="💾 Save Cat" 
-                                        Style="{StaticResource FormButtonStyle}" 
-                                        Click="SaveButton_Click"/>
-                                <Button x:Name="ClearButton" Content="🗑️ Clear Form" 
-                                        Style="{StaticResource FormButtonStyle}" 
-                                        Background="{StaticResource OrangeSecondary}"
-                                        Click="ClearButton_Click"/>
-                            </StackPanel>
+                        <!-- Image Preview -->
+                        <TextBlock Text="Image Preview" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
+                        <Border Background="#F0F0F0" CornerRadius="8" Width="200" Height="150" Margin="0,0,0,15">
+                            <Grid>
+                                <Image x:Name="ImagePreview" 
+                                       Stretch="UniformToFill"
+                                       RenderOptions.BitmapScalingMode="HighQuality">
+                                    <Image.Source>
+                                        <Binding ElementName="PictureTextBox" Path="Text"
+                                        Converter="{StaticResource ImagePathConverter}"
+                                        Mode="OneWay">
+                                        </Binding>
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                        </Border>
 
-                            <TextBlock x:Name="ValidationMessageTextBlock" 
-                                       Foreground="Red" FontWeight="Bold" TextWrapping="Wrap" 
-                                       Margin="0,15,0,20" Visibility="Collapsed"
-                                       Background="#FFEEEE" Padding="10"/>
+                        <!-- Form Buttons -->
+                        <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                            <Button x:Name="SaveButton" Content="Save Cat" 
+                                    Style="{StaticResource OrangeButtonStyle}" 
+                                    Click="SaveButton_Click" Height="45" FontSize="16"/>
+                            <Button x:Name="ClearButton" Content="Clear" 
+                                    Style="{StaticResource SecondaryButtonStyle}" 
+                                    Click="ClearButton_Click" Height="40"/>
+                            <Button x:Name="NewCatButton" Content="New Cat" 
+                                    Style="{StaticResource SecondaryButtonStyle}" 
+                                    Click="NewCatButton_Click" Height="40"/>
                         </StackPanel>
-                    </ScrollViewer>
-                </Grid>
+
+                        <!-- Validation Messages -->
+                        <TextBlock x:Name="ValidationMessageTextBlock" 
+                                   Foreground="Red" FontWeight="Bold" TextWrapping="Wrap" 
+                                   Margin="0,15,0,20" Visibility="Collapsed"
+                                   Background="#FFEEEE" Padding="10"/>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
         </Grid>
 

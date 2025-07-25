@@ -9,6 +9,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Images\Cats\beerus.jpg" />
+	  <None Remove="Images\Cats\cute.jpg" />
+	  <None Remove="Images\Cats\Huh.jpg" />
+	  <None Remove="Images\Cats\Jynx.jpg" />
+	  <None Remove="Images\Cats\Lily.jpg" />
+	  <None Remove="Images\Cats\Look2.jpg" />
+	  <None Remove="Images\Cats\Maxwell.jpg" />
+	  <None Remove="Images\Cats\MeWhen.jpg" />
+	  <None Remove="Images\Cats\morgana.jpg" />
+	  <None Remove="Images\Cats\Scritch.jpg" />
+	  <None Remove="Images\Cats\Slep.jpg" />
+	  <None Remove="Images\Cats\Snow.jpg" />
+	  <None Remove="Images\Cats\stopit.jpg" />
+	  <None Remove="Images\Cats\ToiNhin.jpg" />
+	  <None Remove="Images\Cats\Tom.jpg" />
+	  <None Remove="Images\Cats\Two.jpg" />
+	  <None Remove="Images\Cats\Uiai.jpg" />
+	  <None Remove="Images\Cats\Vineboom.jpg" />
+	  <None Remove="Images\Cats\White.jpg" />
+	  <None Remove="Images\Cats\yourphonelinging.jpg" />
 	  <None Remove="Images\placeholder.jpg" />
 	  <None Remove="Images\Products\bacxiu.jpg" />
 	  <None Remove="Images\Products\banhmithinguoi.jpg" />
@@ -47,6 +67,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="Images\Cats\Tom.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Uiai.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Vineboom.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\White.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\yourphonelinging.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
 
@@ -62,10 +100,48 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Images\Cats\" />
-	</ItemGroup>
-
-	<ItemGroup>
+	  <Content Include="Images\Cats\beerus.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\cute.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Huh.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Jynx.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Lily.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Look2.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Maxwell.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\MeWhen.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\morgana.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Scritch.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Slep.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\Snow.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\stopit.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Cats\ToiNhin.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Images\placeholder.jpg">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
@@ -163,6 +239,12 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Images\Products\tratac.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Images\Cats\Two.jpg">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
