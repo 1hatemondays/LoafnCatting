@@ -62,8 +62,9 @@ namespace WPFCatLoaf
 
         private void CatManagement_Click(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Cat Management feature coming soon! ??", "Feature Not Available", 
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            var catWindow = new CatManagementWindow(_currentUser);
+            catWindow.Show();
+            this.Close();
         }
 
         private void Reports_Click(object sender, MouseButtonEventArgs e)

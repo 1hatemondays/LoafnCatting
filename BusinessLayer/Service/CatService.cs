@@ -40,7 +40,7 @@ namespace BusinessLayer.Service
 
         public List<Cat> GetCatsByGenderId(int genderId)
         {
-            throw new NotImplementedException();
+            return _catRepository.GetCatsByGenderId(genderId);
         }
 
         public List<Cat> GetCatsByStatusId(int statusId)
