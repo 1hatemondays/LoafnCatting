@@ -9,6 +9,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Images\placeholder.jpg" />
+	  <None Remove="Images\Products\Shiori.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
 
@@ -25,7 +30,15 @@
 
 	<ItemGroup>
 		<Folder Include="Images\Cats\" />
-		<Folder Include="Images\Products\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Images\placeholder.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\Shiori.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 </Project>

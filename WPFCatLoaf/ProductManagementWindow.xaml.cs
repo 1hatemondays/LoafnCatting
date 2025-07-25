@@ -273,10 +273,10 @@ namespace WPFCatLoaf
             }
         }
 
-        private void PictureTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateImagePreview();
-        }
+        //private void PictureTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    UpdateImagePreview();
+        //}
 
         private void BrowsePictureButton_Click(object sender, RoutedEventArgs e)
         {
@@ -297,39 +297,36 @@ namespace WPFCatLoaf
 
         #region Helper Methods
 
-        private void UpdateImagePreview()
-        {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(PictureTextBox.Text))
-                {
-                    if (Uri.IsWellFormedUriString(PictureTextBox.Text, UriKind.Absolute) || File.Exists(PictureTextBox.Text))
-                    {
-                        var bitmap = new BitmapImage();
-                        bitmap.BeginInit();
-                        bitmap.UriSource = new Uri(PictureTextBox.Text, UriKind.RelativeOrAbsolute);
-                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmap.EndInit();
-                        ImagePreview.Source = bitmap;
-                        ImagePreview.Visibility = Visibility.Visible;
-                        NoImagePlaceholder.Visibility = Visibility.Collapsed;
-                        return;
-                    }
-                }
+        //private void UpdateImagePreview()
+        //{
+        //    try
+        //    {
+        //        if (!string.IsNullOrWhiteSpace(PictureTextBox.Text))
+        //        {
+        //            if (Uri.IsWellFormedUriString(PictureTextBox.Text, UriKind.Absolute) || File.Exists(PictureTextBox.Text))
+        //            {
+        //                var bitmap = new BitmapImage();
+        //                bitmap.BeginInit();
+        //                bitmap.UriSource = new Uri(PictureTextBox.Text, UriKind.RelativeOrAbsolute);
+        //                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        //                bitmap.EndInit();
+        //                ImagePreview.Source = bitmap;
+        //                ImagePreview.Visibility = Visibility.Visible;
+        //                return;
+        //            }
+        //        }
                 
-                // Show placeholder if no valid image
-                ImagePreview.Source = null;
-                ImagePreview.Visibility = Visibility.Collapsed;
-                NoImagePlaceholder.Visibility = Visibility.Visible;
-            }
-            catch
-            {
-                // Show placeholder on error
-                ImagePreview.Source = null;
-                ImagePreview.Visibility = Visibility.Collapsed;
-                NoImagePlaceholder.Visibility = Visibility.Visible;
-            }
-        }
+        //        // Show placeholder if no valid image
+        //        ImagePreview.Source = null;
+        //        ImagePreview.Visibility = Visibility.Collapsed;
+        //    }
+        //    catch
+        //    {
+        //        // Show placeholder on error
+        //        ImagePreview.Source = null;
+        //        ImagePreview.Visibility = Visibility.Collapsed;
+        //    }
+        //}
 
         private void LoadProductToForm(Product product)
         {
@@ -407,7 +404,7 @@ namespace WPFCatLoaf
             ProductsDataGrid.SelectedItem = null;
             
             // Reset image preview
-            UpdateImagePreview();
+            //UpdateImagePreview();
         }
 
         private void ShowSuccessMessage(string message)

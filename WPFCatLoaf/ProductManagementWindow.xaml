@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFCatLoaf"
+        xmlns:converters="clr-namespace:WPFCatLoaf.Converters"
         mc:Ignorable="d"
         Title="Product Management - Cat Loaf Cafe" Height="800" Width="1400"
         WindowStartupLocation="CenterScreen">
@@ -132,18 +132,18 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Grid.Column="0" x:Name="BackToMenuButton" Content="🏠 Main Menu" 
                         Style="{StaticResource SecondaryButtonStyle}" Click="BackToMenuButton_Click"
                         Margin="0,0,15,0"/>
-                
+
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <StackPanel>
                         <TextBlock Text="Product Management" FontSize="28" FontWeight="Bold" Foreground="White"/>
                         <TextBlock x:Name="WelcomeTextBlock" Text="Manage your cafe products with ease" FontSize="14" Foreground="#FFE4B5"/>
                     </StackPanel>
                 </StackPanel>
-                
+
                 <Button Grid.Column="2" x:Name="LogoutButton" Content="Logout" 
                         Style="{StaticResource SecondaryButtonStyle}" Click="LogoutButton_Click"/>
             </Grid>
@@ -211,21 +211,9 @@
                                     <DataTemplate>
                                         <Border Background="#F0F0F0" CornerRadius="5" Width="60" Height="60" Margin="2">
                                             <Grid>
-                                                <Image Source="{Binding Picture}" 
+                                                <Image Source="{Binding Picture, Converter={StaticResource ImagePathConverter}}" 
                                                        Stretch="UniformToFill"
                                                        RenderOptions.BitmapScalingMode="HighQuality">
-                                                    <Image.Style>
-                                                        <Style TargetType="Image">
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding Picture}" Value="{x:Null}">
-                                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Picture}" Value="">
-                                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Image.Style>
                                                 </Image>
                                                 <TextBlock Text="🖼️" FontSize="16" Foreground="#999" 
                                                            HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -315,25 +303,25 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox x:Name="PictureTextBox" Grid.Column="0" Style="{StaticResource OrangeTextBoxStyle}" 
-                                     TextChanged="PictureTextBox_TextChanged" Margin="0,0,5,0"/>
+                                     Margin="0,0,5,0"/>
                             <Button Grid.Column="1" Content="Browse" Style="{StaticResource SecondaryButtonStyle}" 
                                     Click="BrowsePictureButton_Click" Padding="10,8"/>
                         </Grid>
-                        
+
                         <!-- Image Preview -->
                         <TextBlock Text="Image Preview" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource OrangeDark}"/>
                         <Border Background="#F0F0F0" CornerRadius="8" Width="200" Height="150" Margin="0,0,0,15">
                             <Grid>
                                 <Image x:Name="ImagePreview" 
                                        Stretch="UniformToFill"
-                                       RenderOptions.BitmapScalingMode="HighQuality"/>
-                                <TextBlock x:Name="NoImagePlaceholder" 
-                                           Text="🖼️&#x0A;No Image" 
-                                           FontSize="20" 
-                                           Foreground="#999" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center"
-                                           TextAlignment="Center"/>
+                                       RenderOptions.BitmapScalingMode="HighQuality">
+                                    <Image.Source>
+                                        <Binding ElementName="PictureTextBox" Path="Text"
+                                        Converter="{StaticResource ImagePathConverter}"
+                                        Mode="OneWay">
+                                        </Binding>
+                                    </Image.Source>
+                                </Image>
                             </Grid>
                         </Border>
 
