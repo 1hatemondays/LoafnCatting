@@ -14,7 +14,7 @@ namespace WPFCatLoaf.Converters
     public class ImagePathConverter : IValueConverter
     {
         // Define the path to your placeholder image
-        private const string PlaceholderImagePath = "Images/Gun.png";
+        private const string PlaceholderImagePath = "Images/placeholder.jpg";
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

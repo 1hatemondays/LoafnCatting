@@ -24,6 +24,14 @@
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
                     <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat={}{0:C}}" Width="Auto"/>
                     <DataGridTextColumn Header="Stock" Binding="{Binding UnitInStock}" Width="Auto"/>
+                    <DataGridTemplateColumn Header="Image" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Picture, Converter={StaticResource ImagePathConverter}}" 
+                           Width="60" Height="60" Stretch="Uniform"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

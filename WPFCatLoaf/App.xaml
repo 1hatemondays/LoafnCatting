@@ -1,7 +1,7 @@
 ﻿<Application x:Class="WPFCatLoaf.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WPFCatLoaf"
+             xmlns:local="clr-namespace:WPFCatLoaf.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
@@ -10,18 +10,20 @@
                 <!-- Complete MaterialDesign Theme Package -->
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Orange" SecondaryColor="DeepOrange" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <!-- Custom styles for cat café theme -->
             <SolidColorBrush x:Key="CatCafePrimary" Color="#FF8C5A"/>
             <SolidColorBrush x:Key="CatCafeSecondary" Color="#D2691E"/>
             <SolidColorBrush x:Key="CatCafeAccent" Color="#F4A460"/>
             <SolidColorBrush x:Key="CatCafeBackground" Color="#FFF8DC"/>
-            
+
             <!-- Additional brown-themed brushes for cat café -->
             <SolidColorBrush x:Key="CatCafeBrown" Color="#8B4513"/>
             <SolidColorBrush x:Key="CatCafeLightBrown" Color="#D2B48C"/>
             <SolidColorBrush x:Key="CatCafeDarkBrown" Color="#654321"/>
-            
+
+            <!-- Add the namespace reference -->
+            <local:ImagePathConverter x:Key="ImagePathConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
