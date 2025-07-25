@@ -8,9 +8,6 @@ using System.Windows.Controls;
 
 namespace WPFCatLoaf
 {
-    /// <summary>
-    /// Interaction logic for OrderManagementWindow.xaml
-    /// </summary>
     public partial class OrderManagementWindow : Window
     {
         private readonly IOrderService _orderService;
