@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
+using System;
 
 namespace WPFCatLoaf
 {
@@ -19,6 +21,7 @@ namespace WPFCatLoaf
 
         private readonly User _loggedInStaff;
         private ObservableCollection<OrderDetailViewModel> _currentOrderItems;
+        private DispatcherTimer _timer;
 
         public OrderWindow(User staffUser)
         {
@@ -36,7 +39,21 @@ namespace WPFCatLoaf
             _currentOrderItems = new ObservableCollection<OrderDetailViewModel>();
             OrderDetailsDataGrid.ItemsSource = _currentOrderItems;
 
+            SetupTimer();
             LoadInitialData();
+        }
+
+        private void SetupTimer()
+        {
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += Timer_Tick;
+            _timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            CurrentTimeTextBlock.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy - HH:mm:ss");
         }
 
         private void LoadInitialData()
@@ -132,8 +149,24 @@ namespace WPFCatLoaf
 
         private void ManageOrdersButton_Click(object sender, RoutedEventArgs e)
         {
-            var allOrdersWindow = new OrderManagementWindow();
+            _timer?.Stop();
+            var allOrdersWindow = new OrderManagementWindow(_loggedInStaff);
             allOrdersWindow.Show();
+            this.Close();
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            _timer?.Stop();
+            var mainMenuWindow = new MainMenuWindow(_loggedInStaff);
+            mainMenuWindow.Show();
+            this.Close();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _timer?.Stop();
+            base.OnClosed(e);
         }
     }
 
