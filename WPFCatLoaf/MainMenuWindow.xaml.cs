@@ -69,8 +69,18 @@ namespace WPFCatLoaf
 
         private void Reports_Click(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Reports & Analytics feature coming soon!", "Feature Not Available", 
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            // Only Admin (4) and Manager (2) can access reports
+            if (_currentUser.RoleId == 4 || _currentUser.RoleId == 2)
+            {
+                var reportWindow = new ReportWindow(_currentUser);
+                reportWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("You do not have permission to view reports.", "Access Denied",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void Settings_Click(object sender, MouseButtonEventArgs e)
@@ -109,7 +119,7 @@ namespace WPFCatLoaf
         {
             return roleId switch
             {
-                1 => "Admin",
+                4 => "Admin",
                 2 => "Manager",
                 3 => "Staff",
                 _ => "Unknown"
