@@ -33,63 +33,7 @@ namespace WPFCatLoaf
             _userService = new UserService(userRepository);
             
             // Create test data if needed (for development only)
-            CreateTestDataIfNeeded(context);
             
-        }
-
-        // Development method to create test data
-        private void CreateTestDataIfNeeded(LoafNcattingDbContext context)
-        {
-            try
-            {
-                // Check if any users exist
-                if (!context.Users.Any())
-                {
-
-                    // Create test users
-                    var testUsers = new[]
-                    {
-                        new User 
-                        { 
-                            Name = "Admin User", 
-                            Email = "admin@catcafe.com", 
-                            Password = "admin123", 
-                            PhoneNumber = "0123456789",
-                            RoleId = 2
-                        },
-                        new User 
-                        { 
-                            Name = "Staff User", 
-                            Email = "staff@catcafe.com", 
-                            Password = "staff123", 
-                            PhoneNumber = "0987654321",
-                            RoleId = 3
-                        },
-                        new User 
-                        { 
-                            Name = "Test Customer", 
-                            Email = "customer@test.com", 
-                            Password = "test123", 
-                            PhoneNumber = "0555666777",
-                            RoleId = 1
-                        }
-                    };
-
-                    context.Users.AddRange(testUsers);
-                    context.SaveChanges();
-
-                    MessageBox.Show("Đã tạo dữ liệu test:\n\n" +
-                                  "Admin: admin@catcafe.com / admin123\n" +
-                                  "Staff: staff@catcafe.com / staff123\n" +
-                                  "Customer: customer@test.com / test123", 
-                                  "Test Data Created", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Ignore errors in development data creation
-                Console.WriteLine($"Error creating test data: {ex.Message}");
-            }
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -121,23 +65,10 @@ namespace WPFCatLoaf
                 var user = _userService.GetUserByEmailAndPassword(EmailTextBox.Text.Trim(), PasswordBox.Password);
                 if (user != null)
                 {
-                    // Login successful
-                    
-
-                    // MỞ CỬA SỔ TƯƠNG ỨNG VỚI VAI TRÒ
-                    if (user.RoleId == 2 || user.RoleId==3)
-                    {
-                        var orderManagementWindow = new OrderManagementWindow(user);
-                        orderManagementWindow.Show();
-                        this.Close(); // Đóng cửa sổ đăng nhập
-                    }
-                    else
-                    {
-                        // Mở cửa sổ chính hoặc cửa sổ admin ở đây nếu có
-                        // var mainWindow = new MainWindow(user);
-                        // mainWindow.Show();
-                        // this.Close();
-                    }
+                    // Login successful - All roles can access main menu
+                    var mainMenuWindow = new MainMenuWindow(user);
+                    mainMenuWindow.Show();
+                    this.Close();
                 }
             }
             catch (Exception ex)
