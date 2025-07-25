@@ -130,6 +130,11 @@ public partial class LoafNcattingDbContext : DbContext
                 .HasForeignKey(d => d.TableId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Order__TableId__5535A963");
+            entity.HasOne(d => d.OrderStatus) // Assuming you'll add a navigation property 'OrderStatus' to your Order model
+                 .WithMany(p => p.Orders)    // Assuming you'll add a navigation property 'Orders' to your OrderStatus model
+                 .HasForeignKey(d => d.OrderStatusId)
+                 .OnDelete(DeleteBehavior.ClientSetNull) // Or .OnDelete(DeleteBehavior.Restrict) depending on your needs
+                 .HasConstraintName("FK_Order_OrderStatus");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
