@@ -127,7 +127,7 @@ namespace WPFCatLoaf
                     // MỞ CỬA SỔ TƯƠNG ỨNG VỚI VAI TRÒ
                     if (user.RoleId == 2 || user.RoleId==3)
                     {
-                        var orderManagementWindow = new OrderManagementWindow(user);
+                        var orderManagementWindow = new OrderWindow(user);
                         orderManagementWindow.Show();
                         this.Close(); // Đóng cửa sổ đăng nhập
                     }
