@@ -46,6 +46,7 @@ public partial class LoafNcattingDbContext : DbContext
     public virtual DbSet<TableStatus> TableStatuses { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
 
     private string GetConnectionString()
     {
@@ -154,7 +155,12 @@ public partial class LoafNcattingDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__OrderDeta__Produ__59063A47");
         });
-
+        modelBuilder.Entity<OrderStatus>(entity =>
+        {
+            entity.HasKey(e => e.OrderStatusId).HasName("PK__OrderSta__BC674CA15A7EB9FB");
+            entity.ToTable("OrderStatus");
+            
+        });
         modelBuilder.Entity<Payment>(entity =>
         {
             entity.HasKey(e => e.PaymentId).HasName("PK__Payment__9B556A38612BF9B6");

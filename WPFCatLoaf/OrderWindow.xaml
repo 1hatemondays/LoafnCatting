@@ -5,71 +5,278 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFCatLoaf"
         mc:Ignorable="d"
-        Title="Order Window" Height="720" Width="1280"
-        WindowStartupLocation="CenterScreen">
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
+        Title="Cat Loaf Cafe - New Order" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="Available Products" FontSize="20" FontWeight="Bold" Margin="5"/>
-            <DataGrid x:Name="ProductsDataGrid" Grid.Row="1" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                    <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat={}{0:C}}" Width="Auto"/>
-                    <DataGridTextColumn Header="Stock" Binding="{Binding UnitInStock}" Width="Auto"/>
-                    <DataGridTemplateColumn Header="Image" Width="80">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding Picture, Converter={StaticResource ImagePathConverter}}" 
-                           Width="60" Height="60" Stretch="Uniform"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Width="Auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Add to Order" Click="AddToOrderButton_Click"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+    <Window.Resources>
+        <SolidColorBrush x:Key="OrangePrimary" Color="#FF6347"/>
+        <SolidColorBrush x:Key="OrangeSecondary" Color="#FFB347"/>
+        <SolidColorBrush x:Key="OrangeLight" Color="#FFE4B5"/>
+        <SolidColorBrush x:Key="OrangeDark" Color="#FF4500"/>
+        <SolidColorBrush x:Key="WhiteSmoke" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="CatBrown" Color="#8B4513"/>
+
+        <Style x:Key="OrangeButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource OrangePrimary}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource OrangeDark}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="AddButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource OrangeSecondary}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource OrangeDark}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DataGridStyle" TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OrangeLight}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="AlternatingRowBackground" Value="#FFF8F8F8"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource OrangeLight}"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Transparent"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+        </Style>
+
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource OrangePrimary}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OrangeDark}"/>
+        </Style>
+
+        <Style x:Key="ContentCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray" ShadowDepth="5" BlurRadius="15" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFF8DC" Offset="0"/>
+            <GradientStop Color="#FFE4B5" Offset="0.5"/>
+            <GradientStop Color="#FFEFD5" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource OrangePrimary}" Padding="30,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="🛒" FontSize="40" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                    <StackPanel>
+                        <TextBlock Text="Create New Order" FontSize="32" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="Select products and create customer orders"
+                                   FontSize="16" Foreground="#FFE4B5"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="HomeButton" Content="🏠 Home"
+                            Style="{StaticResource OrangeButtonStyle}"
+                            Background="{StaticResource OrangeSecondary}"
+                            Click="HomeButton_Click"/>
+                    <Button x:Name="ManageOrdersButton" Content="📋 Manage Orders"
+                            Style="{StaticResource OrangeButtonStyle}"
+                            Background="{StaticResource CatBrown}"
+                            Click="ManageOrdersButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Products Section -->
+            <Border Grid.Column="0" Style="{StaticResource ContentCardStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock Text="☕" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBlock Text="Available Products" FontSize="24" FontWeight="Bold" 
+                                   Foreground="{StaticResource OrangeDark}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="ProductsDataGrid" Grid.Row="1" 
+                              Style="{StaticResource DataGridStyle}"
+                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat={}{0:C}}" Width="100"/>
+                            <DataGridTextColumn Header="Stock" Binding="{Binding UnitInStock}" Width="80"/>
+                            <DataGridTemplateColumn Header="Image" Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Picture}" 
+                                               Width="60" Height="60" Stretch="Uniform"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Action" Width="120">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="➕ Add" 
+                                                Style="{StaticResource AddButtonStyle}"
+                                                Click="AddToOrderButton_Click"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <!-- Order Summary Section -->
+            <Border Grid.Column="1" Style="{StaticResource ContentCardStyle}" Margin="5,15,15,15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock Text="🛍️" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBlock Text="Current Order" FontSize="24" FontWeight="Bold" 
+                                   Foreground="{StaticResource OrangeDark}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="OrderDetailsDataGrid" Grid.Row="1" 
+                              Style="{StaticResource DataGridStyle}"
+                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                              IsReadOnly="True"
+                              Margin="0,0,0,20">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Product" Binding="{Binding Product.Name}" Width="*"/>
+                            <DataGridTextColumn Header="Qty" Binding="{Binding Quantity}" Width="50"/>
+                            <DataGridTextColumn Header="Total" Binding="{Binding SubTotal, StringFormat={}{0:C}}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2">
+                        <Border Background="{StaticResource OrangeLight}" CornerRadius="10" Padding="15" Margin="0,0,0,15">
+                            <StackPanel>
+                                <TextBlock Text="📍 Select Table:" FontWeight="Bold" 
+                                           Foreground="{StaticResource OrangeDark}" Margin="0,0,0,5"/>
+                                <ComboBox x:Name="TableComboBox" 
+                                          DisplayMemberPath="TableName" 
+                                          SelectedValuePath="TableId"
+                                          Background="White"
+                                          BorderBrush="{StaticResource OrangePrimary}"
+                                          BorderThickness="2"
+                                          Padding="10,8"
+                                          FontSize="14"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{StaticResource OrangePrimary}" CornerRadius="10" Padding="15" Margin="0,0,0,15">
+                            <TextBlock x:Name="TotalPriceTextBlock" Text="Total: $0.00" 
+                                       FontSize="18" FontWeight="Bold" 
+                                       Foreground="White" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <Button x:Name="SubmitOrderButton" Content="✅ Submit Order" 
+                                Style="{StaticResource OrangeButtonStyle}"
+                                Height="50" FontSize="18" Margin="0,5"
+                                Click="SubmitOrderButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Grid>
 
-        <Grid Grid.Column="1" Margin="10,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="{StaticResource OrangeDark}" Padding="20,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Current Order" FontSize="20" FontWeight="Bold" Margin="5"/>
+                <TextBlock Grid.Column="0" Text="🐱 Cat Loaf Cafe - Order Creation System ☕"
+                           Foreground="White" FontSize="14" VerticalAlignment="Center"/>
 
-            <DataGrid x:Name="OrderDetailsDataGrid" Grid.Row="1" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Product" Binding="{Binding Product.Name}" Width="*"/>
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="Auto"/>
-                    <DataGridTextColumn Header="Subtotal" Binding="{Binding SubTotal, StringFormat={}{0:C}}" Width="Auto"/>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <StackPanel Grid.Row="2" Margin="5">
-                <TextBlock Text="Select Table:" Margin="0,10,0,5"/>
-                <ComboBox x:Name="TableComboBox" DisplayMemberPath="TableName" SelectedValuePath="TableId"/>
-
-                <TextBlock x:Name="TotalPriceTextBlock" Text="Total: $0.00" FontSize="18" FontWeight="Bold" Margin="0,20,0,10"/>
-
-                <Button x:Name="SubmitOrderButton" Content="Submit Order" Height="40" FontSize="16" Click="SubmitOrderButton_Click"/>
-                <Button x:Name="ManageOrdersButton" Content="Manage All Orders" Height="40" FontSize="16" Margin="0,10,0,0" Click="ManageOrdersButton_Click"/>
-
-            </StackPanel>
-        </Grid>
+                <TextBlock Grid.Column="1" x:Name="CurrentTimeTextBlock"
+                           Foreground="#FFE4B5" FontSize="12" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

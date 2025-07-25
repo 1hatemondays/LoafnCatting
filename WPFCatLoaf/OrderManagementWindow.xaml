@@ -5,34 +5,229 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFCatLoaf"
         mc:Ignorable="d"
-        Title="All Orders" Height="600" Width="1000"
-        WindowStartupLocation="CenterScreen">
-    <Grid Margin="10">
+        Title="Cat Loaf Cafe - Order Management" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="OrangePrimary" Color="#FF6347"/>
+        <SolidColorBrush x:Key="OrangeSecondary" Color="#FFB347"/>
+        <SolidColorBrush x:Key="OrangeLight" Color="#FFE4B5"/>
+        <SolidColorBrush x:Key="OrangeDark" Color="#FF4500"/>
+        <SolidColorBrush x:Key="WhiteSmoke" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="CatBrown" Color="#8B4513"/>
+
+        <Style x:Key="OrangeButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource OrangePrimary}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource OrangeDark}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DataGridStyle" TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OrangeLight}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="AlternatingRowBackground" Value="#FFF8F8F8"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource OrangeLight}"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Transparent"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+        </Style>
+
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource OrangePrimary}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OrangeDark}"/>
+        </Style>
+
+        <Style x:Key="ContentCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray" ShadowDepth="5" BlurRadius="15" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFF8DC" Offset="0"/>
+            <GradientStop Color="#FFE4B5" Offset="0.5"/>
+            <GradientStop Color="#FFEFD5" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="All Orders" FontSize="20" FontWeight="Bold" Margin="5"/>
-        <DataGrid x:Name="OrdersDataGrid" Grid.Row="0" Margin="5" AutoGenerateColumns="False" 
-                  IsReadOnly="True" SelectionChanged="OrdersDataGrid_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}" Width="Auto"/>
-                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="*"/>
-                <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice, StringFormat={}{0:C}}" Width="Auto"/>
-                <DataGridTextColumn Header="Staff" Binding="{Binding StaffName}" Width="*"/>
-                <DataGridTextColumn Header="Table" Binding="{Binding TableName}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource OrangePrimary}" Padding="30,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="1" Text="Order Details" FontSize="20" FontWeight="Bold" Margin="5"/>
-        <DataGrid x:Name="OrderDetailsDataGrid" Grid.Row="2" Margin="5" AutoGenerateColumns="False" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" Width="*"/>
-                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="Auto"/>
-                <DataGridTextColumn Header="Subtotal" Binding="{Binding SubTotal, StringFormat={}{0:C}}" Width="Auto"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="📝" FontSize="40" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                    <StackPanel>
+                        <TextBlock Text="Order Management" FontSize="32" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="Manage and track all customer orders"
+                                   FontSize="16" Foreground="#FFE4B5"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="HomeButton" Content="🏠 Home"
+                            Style="{StaticResource OrangeButtonStyle}"
+                            Background="{StaticResource OrangeSecondary}"
+                            Click="HomeButton_Click"/>
+                    <Button x:Name="CreateOrderButton" Content="➕ New Order"
+                            Style="{StaticResource OrangeButtonStyle}"
+                            Background="{StaticResource CatBrown}"
+                            Click="CreateOrderButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Orders Section -->
+                <Border Grid.Row="0" Style="{StaticResource ContentCardStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                            <TextBlock Text="📋" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Text="All Orders" FontSize="24" FontWeight="Bold" 
+                                       Foreground="{StaticResource OrangeDark}" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <DataGrid x:Name="OrdersDataGrid" Grid.Row="1" 
+                                  Style="{StaticResource DataGridStyle}"
+                                  ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                                  SelectionChanged="OrdersDataGrid_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}" Width="100"/>
+                                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="180"/>
+                                <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice, StringFormat={}{0:C}}" Width="120"/>
+                                <DataGridTextColumn Header="Staff" Binding="{Binding StaffName}" Width="*"/>
+                                <DataGridTextColumn Header="Table" Binding="{Binding TableName}" Width="120"/>
+                                <DataGridTemplateColumn Header="Status" Width="200">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding OrderStatuses}" 
+                                                      SelectedItem="{Binding SelectedOrderStatus, UpdateSourceTrigger=PropertyChanged}"
+                                                      DisplayMemberPath="OrderStatusName"
+                                                      SelectionChanged="OrderStatus_SelectionChanged"
+                                                      Background="White"
+                                                      BorderBrush="{StaticResource OrangeLight}"
+                                                      Margin="5"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <!-- Separator -->
+                <Border Grid.Row="1" Height="2" Background="{StaticResource OrangeLight}" 
+                        Margin="20,10" CornerRadius="1"/>
+
+                <!-- Order Details Section -->
+                <Border Grid.Row="2" Style="{StaticResource ContentCardStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                            <TextBlock Text="📦" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Text="Order Details" FontSize="24" FontWeight="Bold" 
+                                       Foreground="{StaticResource OrangeDark}" VerticalAlignment="Center"/>
+                            <TextBlock Text="(Select an order above to view details)" FontSize="14" 
+                                       Foreground="#666" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <DataGrid x:Name="OrderDetailsDataGrid" Grid.Row="1" 
+                                  Style="{StaticResource DataGridStyle}"
+                                  ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" Width="*"/>
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="100"/>
+                                <DataGridTextColumn Header="Subtotal" Binding="{Binding SubTotal, StringFormat={}{0:C}}" Width="120"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="{StaticResource OrangeDark}" Padding="20,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="🐱 Cat Loaf Cafe - Order Management System ☕"
+                           Foreground="White" FontSize="14" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Column="1" x:Name="CurrentTimeTextBlock"
+                           Foreground="#FFE4B5" FontSize="12" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
