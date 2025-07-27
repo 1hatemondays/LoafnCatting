@@ -235,6 +235,19 @@
                                        HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
 						</StackPanel>
 					</Border>
+
+					<!-- Reservation Management Card -->
+					<Border Grid.Column="1" Grid.Row="2" Style="{StaticResource MenuCardStyle}"
+                            MouseLeftButtonUp="ReservationManagement_Click">
+						<StackPanel HorizontalAlignment="Center">
+							<TextBlock Text="📅" Style="{StaticResource CatIconStyle}"/>
+							<TextBlock Text="Reservation Management" FontSize="20" FontWeight="Bold"
+                                       Foreground="{StaticResource OrangeDark}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+							<TextBlock Text="Manage customer reservations"
+                                       FontSize="14" Foreground="#666"
+                                       HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+						</StackPanel>
+					</Border>
 				</Grid>
 			</StackPanel>
 		</ScrollViewer>
