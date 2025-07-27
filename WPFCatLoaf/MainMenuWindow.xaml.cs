@@ -107,6 +107,13 @@ namespace WPFCatLoaf
             }
         }
 
+        private void ReservationManagement_Click(object sender, MouseButtonEventArgs e)
+        {
+            var reservationWindow = new ReservationManagementWindow(_currentUser);
+            reservationWindow.Show();
+            this.Close();
+        }
+
         private void Settings_Click(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Settings feature coming soon!", "Feature Not Available", 
