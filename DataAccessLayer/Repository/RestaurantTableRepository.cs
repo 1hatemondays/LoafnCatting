@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.IRepository;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -35,12 +36,12 @@ namespace DataAccessLayer.Repository
 
         public List<RestaurantTable> GetAllRestaurantTables()
         {
-            return _context.RestaurantTables.ToList();
+            return _context.RestaurantTables.Include(r=>r.TableStatus).ToList();
         }
 
         public RestaurantTable GetRestaurantTableById(int id)
         {
-            return _context.RestaurantTables.FirstOrDefault(r => r.TableId == id);
+            return _context.RestaurantTables.Include(r => r.TableStatus).FirstOrDefault(r => r.TableId == id);
         }
 
         public List<RestaurantTable> GetRestaurantTableByStatusId(int statusId)

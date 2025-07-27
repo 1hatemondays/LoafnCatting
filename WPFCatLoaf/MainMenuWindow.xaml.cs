@@ -65,8 +65,7 @@ namespace WPFCatLoaf
 
         private void TableManagement_Click(object sender, MouseButtonEventArgs e)
         {
-            // Only Admin (4) and Manager (2) can access table management
-            if (_currentUser.RoleId == 4 || _currentUser.RoleId == 2)
+            if (_currentUser.RoleId == 3 || _currentUser.RoleId == 2)
             {
                 var tableWindow = new TableManagementWindow(_currentUser);
                 tableWindow.Show();

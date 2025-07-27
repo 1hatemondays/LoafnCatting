@@ -142,14 +142,14 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="HomeButton" Content="🏠 Home"
-                            Style="{StaticResource OrangeButtonStyle}"
-                            Background="{StaticResource OrangeSecondary}"
-                            Click="HomeButton_Click"/>
                     <Button x:Name="ManageOrdersButton" Content="📋 Manage Orders"
                             Style="{StaticResource OrangeButtonStyle}"
                             Background="{StaticResource CatBrown}"
                             Click="ManageOrdersButton_Click"/>
+                    <Button x:Name="HomeButton" Content="🏠 Main Menu"
+                            Style="{StaticResource OrangeButtonStyle}"
+                            Background="{StaticResource OrangeSecondary}"
+                            Click="HomeButton_Click"/>
                 </StackPanel>
             </Grid>
         </Border>

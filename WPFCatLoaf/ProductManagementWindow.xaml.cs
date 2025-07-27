@@ -260,21 +260,6 @@ namespace WPFCatLoaf
 
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show(
-                "Are you sure you want to logout?",
-                "Logout",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                var loginWindow = new LoginWindow();
-                loginWindow.Show();
-                this.Close();
-            }
-        }
 
         //private void PictureTextBox_TextChanged(object sender, TextChangedEventArgs e)
         //{
