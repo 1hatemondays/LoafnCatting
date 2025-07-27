@@ -195,7 +195,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="BackToMenuButton" Content="🏠 Home"
+                    <Button x:Name="BackToMenuButton" Content="🏠 Main Menu"
                             Style="{StaticResource OrangeButtonStyle}"
                             Background="{StaticResource OrangeSecondary}"
                             Click="BackToMenuButton_Click"/>

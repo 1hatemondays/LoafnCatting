@@ -273,24 +273,6 @@ namespace WPFCatLoaf
                 PictureTextBox.Text = Path.Combine(ImagesRelativeSaveBase, CatsSubfolderName, Path.GetFileName(openFileDialog.FileName)).Replace("\\", "/");
             }
         }
-
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show(
-                "Are you sure you want to logout?",
-                "Logout",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                _timer?.Stop();
-                var loginWindow = new LoginWindow();
-                loginWindow.Show();
-                this.Close();
-            }
-        }
-
         #endregion
 
         #region Helper Methods

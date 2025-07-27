@@ -128,24 +128,20 @@
         <Border Grid.Row="0" Background="{StaticResource OrangePrimary}" CornerRadius="10" Padding="20,15" Margin="0,0,0,20">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" x:Name="BackToMenuButton" Content="🏠 Main Menu" 
+                <Button Grid.Column="1" x:Name="BackToMenuButton" Content="🏠 Main Menu" 
                         Style="{StaticResource SecondaryButtonStyle}" Click="BackToMenuButton_Click"
-                        Margin="0,0,15,0"/>
+                        Margin="0,0,15,0" Height="56" VerticalAlignment="Top"/>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <StackPanel>
                         <TextBlock Text="Product Management" FontSize="28" FontWeight="Bold" Foreground="White"/>
                         <TextBlock x:Name="WelcomeTextBlock" Text="Manage your cafe products with ease" FontSize="14" Foreground="#FFE4B5"/>
                     </StackPanel>
                 </StackPanel>
-
-                <Button Grid.Column="2" x:Name="LogoutButton" Content="Logout" 
-                        Style="{StaticResource SecondaryButtonStyle}" Click="LogoutButton_Click"/>
             </Grid>
         </Border>
 
