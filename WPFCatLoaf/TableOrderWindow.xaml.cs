@@ -5,15 +5,17 @@ using DataAccessLayer.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Input;
-using System.Windows.Data;
+using WPFCatLoaf.Converters;
 
 namespace WPFCatLoaf
 {
@@ -33,6 +35,7 @@ namespace WPFCatLoaf
         private List<Category> _allCategories;
         private int? _selectedPaymentMethodId = null;
 
+        private readonly ImagePathConverter _imagePathConverter = new ImagePathConverter();
         // Constructor for staff/table users
         public TableOrderWindow(User user)
         {
@@ -236,7 +239,7 @@ namespace WPFCatLoaf
             {
                 try
                 {
-                    productImage.Source = new BitmapImage(new Uri(product.Picture, UriKind.RelativeOrAbsolute));
+                    productImage.Source = _imagePathConverter.Convert(product.Picture, typeof(ImageSource), null, CultureInfo.CurrentCulture) as ImageSource;
                 }
                 catch
                 {

@@ -204,7 +204,8 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Image Grid.Column="0" Source="{Binding Product.Picture}" 
+                                            <Image Grid.Column="0" Source="{Binding Product.Picture, Converter={StaticResource ImagePathConverter}}" 
+
                                                    Width="50" Height="50" Stretch="UniformToFill">
                                                 <Image.Clip>
                                                     <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>

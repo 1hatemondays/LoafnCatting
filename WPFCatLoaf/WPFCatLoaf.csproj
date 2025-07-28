@@ -31,6 +31,7 @@
 	  <None Remove="Images\Cats\yourphonelinging.jpg" />
 	  <None Remove="Images\placeholder.jpg" />
 	  <None Remove="Images\Products\bacxiu.jpg" />
+	  <None Remove="Images\Products\balance.jpg" />
 	  <None Remove="Images\Products\banhmithinguoi.jpg" />
 	  <None Remove="Images\Products\banhmithitnguoi.jpg" />
 	  <None Remove="Images\Products\cacaonong.jpg" />
@@ -39,19 +40,26 @@
 	  <None Remove="Images\Products\cafesua.jpg" />
 	  <None Remove="Images\Products\cappuchino.jpg" />
 	  <None Remove="Images\Products\chocolatedaxay.jpg" />
+	  <None Remove="Images\Products\dried-chicken.jpg" />
+	  <None Remove="Images\Products\hairball.jpg" />
+	  <None Remove="Images\Products\kitcat.jpg" />
+	  <None Remove="Images\Products\kitty-milk.jpg" />
 	  <None Remove="Images\Products\latte.jpg" />
 	  <None Remove="Images\Products\matcha.jpg" />
 	  <None Remove="Images\Products\matchadaxay.jpg" />
 	  <None Remove="Images\Products\matchalatte.jpg" />
+	  <None Remove="Images\Products\Me-O.jpg" />
 	  <None Remove="Images\Products\nuoccam.jpg" />
 	  <None Remove="Images\Products\nuocepcarot.jpg" />
 	  <None Remove="Images\Products\nuocepduahau.jpg" />
 	  <None Remove="Images\Products\nuocepoi.jpg" />
 	  <None Remove="Images\Products\nuocepthom.jpg" />
+	  <None Remove="Images\Products\royal-canin.jpg" />
 	  <None Remove="Images\Products\Shiori.jpg" />
 	  <None Remove="Images\Products\sinhtobo.jpg" />
 	  <None Remove="Images\Products\sinhtodau.jpg" />
 	  <None Remove="Images\Products\sinhtoxoai.jpg" />
+	  <None Remove="Images\Products\smartheart.jpg" />
 	  <None Remove="Images\Products\trachanhmatong.jpg" />
 	  <None Remove="Images\Products\tradaocamsa.jpg" />
 	  <None Remove="Images\Products\trahatsen.jpg" />
@@ -64,6 +72,8 @@
 	  <None Remove="Images\Products\trasuatranchau.jpg" />
 	  <None Remove="Images\Products\trasuatrantrau.jpg" />
 	  <None Remove="Images\Products\tratac.jpg" />
+	  <None Remove="Images\Products\tuna.jpg" />
+	  <None Remove="Images\Products\whiskas.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -82,6 +92,33 @@
 	  <Content Include="Images\Cats\yourphonelinging.jpg">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Images\Products\balance.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\dried-chicken.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\kitcat.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\kitty-milk.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\Me-O.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\royal-canin.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\smartheart.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\tuna.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Images\Products\whiskas.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -96,6 +133,9 @@
 	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Images\Products\hairball.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

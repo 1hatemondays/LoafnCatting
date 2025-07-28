@@ -143,13 +143,10 @@ namespace WPFCatLoaf
             {
                 try
                 {
-                    // Get new status ID from tag
                     int newStatusId = Convert.ToInt32(selectedItem.Tag);
                     
-                    // Update table status in memory
                     _selectedTable.TableStatusId = newStatusId;
                     
-                    // Update database
                     bool success = _tableService.UpdateRestaurantTable(_selectedTable);
                     
                     if (success)

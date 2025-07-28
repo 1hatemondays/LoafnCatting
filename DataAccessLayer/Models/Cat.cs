@@ -20,6 +20,8 @@ public partial class Cat
     public string? Description { get; set; }
 
     public int? FriendlinessRating { get; set; }
+    public int? CutenessRating { get; set; }
+    public int? PlayfulnessRating { get; set; }
 
     public int StatusId { get; set; }
 
