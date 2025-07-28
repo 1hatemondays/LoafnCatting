@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.IRepository;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +36,12 @@ namespace DataAccessLayer.Repository
 
         public List<Product> GetAllProducts()
         {
-            return _context.Products.ToList();
+            return _context.Products.Include(p => p.Category).ToList();
         }
 
         public Product GetProductById(int id)
         {
-            return _context.Products.FirstOrDefault(p => p.ProductId == id);
+            return _context.Products.Include(p => p.Category).FirstOrDefault(p => p.ProductId == id);
         }
 
         public List<Product> GetProductsByCategoryId(int categoryId)

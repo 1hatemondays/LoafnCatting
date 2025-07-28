@@ -40,22 +40,8 @@ namespace WPFCatLoaf
             _allCats = new ObservableCollection<Cat>();
             _filteredCats = new ObservableCollection<Cat>();
 
-            SetupTimer();
             LoadInitialData();
             SetupDataGrid();
-        }
-
-        private void SetupTimer()
-        {
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Tick += Timer_Tick;
-            _timer.Start();
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            CurrentTimeTextBlock.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy - HH:mm:ss");
         }
 
         private void SetupDataGrid()
@@ -202,14 +188,7 @@ namespace WPFCatLoaf
                     {
                         if (_catService.UpdateCat(cat))
                         {
-                            // Update in collection
-                            var existingCat = _allCats.FirstOrDefault(c => c.CatId == cat.CatId);
-                            if (existingCat != null)
-                            {
-                                var index = _allCats.IndexOf(existingCat);
-                                _allCats[index] = cat;
-                            }
-                            RefreshCatsList();
+                            LoadInitialData();
                             ShowSuccessMessage("Cat updated successfully!");
                             ClearForm();
                         }
@@ -222,7 +201,6 @@ namespace WPFCatLoaf
                     {
                         if (_catService.AddCat(cat))
                         {
-                            // Reload cats to get the new ID
                             LoadInitialData();
                             ShowSuccessMessage("Cat added successfully!");
                             ClearForm();
@@ -252,7 +230,6 @@ namespace WPFCatLoaf
 
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            _timer?.Stop();
             var mainMenuWindow = new MainMenuWindow(_loggedInUser);
             mainMenuWindow.Show();
             this.Close();
@@ -284,6 +261,8 @@ namespace WPFCatLoaf
             AgeTextBox.Text = cat.Age?.ToString() ?? "";
             BreedTextBox.Text = cat.Breed ?? "";
             FriendlinessRatingTextBox.Text = cat.FriendlinessRating?.ToString() ?? "";
+            CutenessRatingTextBox.Text = cat.CutenessRating?.ToString() ?? "";
+            PlayfulnessRatingTextBox.Text = cat.PlayfulnessRating?.ToString() ?? "";
             DescriptionTextBox.Text = cat.Description ?? "";
             GenderComboBox.SelectedValue = cat.GenderId;
             StatusComboBox.SelectedValue = cat.StatusId;
@@ -300,13 +279,15 @@ namespace WPFCatLoaf
             var cat = new Cat
             {
                 Name = NameTextBox.Text.Trim(),
-                Description = string.IsNullOrWhiteSpace(DescriptionTextBox.Text) ? null : DescriptionTextBox.Text.Trim(),
-                Age = int.TryParse(AgeTextBox.Text, out var age) ? age : (int?)null,
-                Breed = string.IsNullOrWhiteSpace(BreedTextBox.Text) ? null : BreedTextBox.Text.Trim(),
-                FriendlinessRating = int.TryParse(FriendlinessRatingTextBox.Text, out var rating) ? rating : (int?)null,
+                Description = DescriptionTextBox.Text.Trim(),
+                Age = int.Parse(AgeTextBox.Text),
+                Breed = BreedTextBox.Text.Trim(),
+                FriendlinessRating = int.Parse(FriendlinessRatingTextBox.Text),
+                CutenessRating = int.Parse(CutenessRatingTextBox.Text),
+                PlayfulnessRating = int.Parse(PlayfulnessRatingTextBox.Text),
                 GenderId = (int)GenderComboBox.SelectedValue,
                 StatusId = (int)StatusComboBox.SelectedValue,
-                Picture = string.IsNullOrWhiteSpace(PictureTextBox.Text) ? null : PictureTextBox.Text.Trim()
+                Picture = PictureTextBox.Text.Trim()
             };
 
             if (_isEditMode && _selectedCat != null)
@@ -391,11 +372,12 @@ namespace WPFCatLoaf
             _isEditMode = false;
             FormTitleTextBlock.Text = "Add New Cat";
             SaveButton.Content = "Save Cat";
-
             NameTextBox.Text = "";
             AgeTextBox.Text = "";
             BreedTextBox.Text = "";
             FriendlinessRatingTextBox.Text = "";
+            CutenessRatingTextBox.Text = "";
+            PlayfulnessRatingTextBox.Text = "";
             DescriptionTextBox.Text = "";
             GenderComboBox.SelectedIndex = -1;
             StatusComboBox.SelectedIndex = -1;
@@ -417,7 +399,6 @@ namespace WPFCatLoaf
 
         protected override void OnClosed(EventArgs e)
         {
-            _timer?.Stop();
             base.OnClosed(e);
         }
 

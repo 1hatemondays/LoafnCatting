@@ -164,7 +164,7 @@
 						</StackPanel>
 					</Border>
 
-					<Border Grid.Column="1" Grid.Row="0" Style="{StaticResource MenuCardStyle}"
+					<Border Grid.Column="1" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
                             MouseLeftButtonUp="OrderManagement_Click">
 						<StackPanel HorizontalAlignment="Center">
 							<TextBlock Text="📝" Style="{StaticResource CatIconStyle}"/>
@@ -200,7 +200,7 @@
 						</StackPanel>
 					</Border>
 
-					<Border Grid.Column="1" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
+					<Border Grid.Column="1" Grid.Row="0" Style="{StaticResource MenuCardStyle}"
                             MouseLeftButtonUp="CatManagement_Click">
 						<StackPanel HorizontalAlignment="Center">
 							<TextBlock Text="🐈" Style="{StaticResource CatIconStyle}"/>
@@ -212,7 +212,7 @@
 						</StackPanel>
 					</Border>
 
-					<Border Grid.Column="2" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
+					<Border Grid.Column="1" Grid.Row="2" Style="{StaticResource MenuCardStyle}"
                             MouseLeftButtonUp="Reports_Click">
 						<StackPanel HorizontalAlignment="Center">
 							<TextBlock Text="📊" Style="{StaticResource CatIconStyle}"/>
@@ -224,20 +224,9 @@
 						</StackPanel>
 					</Border>
 
-					<Border Grid.Column="0" Grid.Row="2" Style="{StaticResource MenuCardStyle}"
-                            MouseLeftButtonUp="Settings_Click">
-						<StackPanel HorizontalAlignment="Center">
-							<TextBlock Text="⚙️" Style="{StaticResource CatIconStyle}"/>
-							<TextBlock Text="Settings" FontSize="20" FontWeight="Bold"
-                                       Foreground="{StaticResource OrangeDark}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-							<TextBlock Text="Configure system settings"
-                                       FontSize="14" Foreground="#666"
-                                       HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
-						</StackPanel>
-					</Border>
-
+					
 					<!-- Reservation Management Card -->
-					<Border Grid.Column="1" Grid.Row="2" Style="{StaticResource MenuCardStyle}"
+					<Border Grid.Column="2" Grid.Row="1" Style="{StaticResource MenuCardStyle}"
                             MouseLeftButtonUp="ReservationManagement_Click">
 						<StackPanel HorizontalAlignment="Center">
 							<TextBlock Text="📅" Style="{StaticResource CatIconStyle}"/>
