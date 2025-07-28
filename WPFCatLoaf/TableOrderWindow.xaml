@@ -98,47 +98,51 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="{StaticResource PrimaryOrange}" Padding="20">
+        <Border Grid.Row="0" Background="{StaticResource PrimaryOrange}" Padding="25,20">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock Name="WelcomeTextBlock" Text="Welcome to CatLoaf Cafe!" 
                                FontSize="28" FontWeight="Bold" Foreground="White"/>
                     <TextBlock Name="TableInfoTextBlock" Text="Table Information" 
                                FontSize="16" Foreground="White" Opacity="0.9"/>
                 </StackPanel>
 
-                <!-- Cart Items Display - Far Left -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20,0" VerticalAlignment="Center">
-                    <TextBlock Text="Cart Items: " FontSize="16" Foreground="White" VerticalAlignment="Center"/>
-                    <TextBlock Name="CartCountTextBlock" Text="0" 
-                               FontSize="18" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
-                </StackPanel>
+                <!-- Cart Items Display -->
+                <Border Grid.Column="1" Background="Transparent" BorderBrush="White" 
+                        BorderThickness="2" CornerRadius="25" Padding="15,8" Margin="15,0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="🛒" FontSize="18" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="Items: " FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                        <TextBlock Name="CartCountTextBlock" Text="0" 
+                                   FontSize="18" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
 
-                <!-- View Cart Button - Middle -->
-                <Button Grid.Column="2" Name="ViewCartButton" Content="View Cart" 
+                <!-- View Cart Button -->
+                <Button Grid.Column="2" Name="ViewCartButton" Content="🛍️ View Cart" 
                         Style="{StaticResource OrangeButtonStyle}" Background="White" 
-                        Foreground="{StaticResource PrimaryOrange}" Padding="35,10" Margin="10,0"
+                        Foreground="{StaticResource PrimaryOrange}" FontWeight="Bold"
+                        Padding="25,12" Margin="10,0"
                         Click="ViewCartButton_Click"/>
 
-                <!-- Meet Our Cats Button - New -->
                 <Button Grid.Column="3" Name="MeetCatsButton" Content="Meet Our Cats" 
                         Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                         BorderBrush="White" BorderThickness="2" Foreground="White"
                         Padding="20,10" Margin="10,0" Click="MeetCatsButton_Click"/>
 
-                <!-- Logout Button - Far Right -->
-                <Button Grid.Column="4" Name="LogoutButton" Content="Logout" Width="100"
+                <!-- Logout Button -->
+                <Button Grid.Column="3" Name="LogoutButton" Content="🚪 Logout" 
                         Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                         BorderBrush="White" BorderThickness="2" Foreground="White"
-                        Margin="10,0,0,0" Click="LogoutButton_Click"/>
+                        Padding="20,12" Margin="10,0,0,0" Click="LogoutButton_Click"/>
             </Grid>
         </Border>
 
@@ -147,28 +151,25 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Border Grid.Row="2" Background="{StaticResource DarkOrange}" Padding="20">
+        <Border Grid.Row="2" Background="{StaticResource DarkOrange}" Padding="25,20">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="Total: " FontSize="20" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
-                    <TextBlock Name="TotalPriceTextBlock" Text="0 VND" FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="💰 Total: " FontSize="22" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Name="TotalPriceTextBlock" Text="0 VND" FontSize="26" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <Button Grid.Column="1" Name="ClearCartButton" Content="Clear Cart" 
+                <Button Grid.Column="1" Name="ClearCartButton" Content="🗑️ Clear Cart" 
                         Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
-                        BorderBrush="White" BorderThickness="2" Margin="0,0,10,0"
+                        BorderBrush="White" BorderThickness="3" Foreground="White"
+                        FontWeight="Bold" FontSize="18" Padding="35,18" Margin="20,0,0,0"
                         Click="ClearCartButton_Click"/>
-
-                <Button Grid.Column="2" Name="CheckoutButton" Content="Place Order" 
-                        Style="{StaticResource OrangeButtonStyle}" Background="White" 
-                        Foreground="{StaticResource PrimaryOrange}" FontSize="18" Padding="25,15"
-                        Click="CheckoutButton_Click"/>
+               
             </Grid>
         </Border>
 
@@ -247,20 +248,64 @@
                         </StackPanel>
                     </Border>
 
+                    <!-- Payment Method Selection -->
+                    <Border Background="#F5F5F5" CornerRadius="8" Padding="15" Margin="0,0,0,15">
+                        <StackPanel>
+                            <TextBlock Text="Payment Method" FontSize="16" FontWeight="Bold" 
+                                       Foreground="{StaticResource DarkOrange}" Margin="0,0,0,10"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Cash Payment Option -->
+                                <Border Grid.Column="0" Background="White" CornerRadius="8" 
+                                        Padding="10" Margin="0,0,5,0" Cursor="Hand"
+                                        x:Name="CashPaymentBorder" 
+                                        MouseLeftButtonDown="CashPayment_Click">
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="💵" FontSize="24" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Cash" FontSize="14" FontWeight="SemiBold" 
+                                                   HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                        <RadioButton x:Name="CashRadioButton" HorizontalAlignment="Center" 
+                                                     Margin="0,5,0,0" GroupName="PaymentMethod"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Bank Transfer Option -->
+                                <Border Grid.Column="1" Background="White" CornerRadius="8" 
+                                        Padding="10" Margin="5,0,0,0" Cursor="Hand"
+                                        x:Name="BankTransferBorder" 
+                                        MouseLeftButtonDown="BankTransfer_Click">
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="🏦" FontSize="24" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Bank Transfer" FontSize="14" FontWeight="SemiBold" 
+                                                   HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                        <RadioButton x:Name="BankTransferRadioButton" HorizontalAlignment="Center" 
+                                                     Margin="0,5,0,0" GroupName="PaymentMethod"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Name="ContinueShoppingButton" Content="Continue Shopping" 
+                        <Button Grid.Column="0" Name="ContinueShoppingButton" Content="🛍️ Continue Shopping" 
                                 Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                                 Foreground="{StaticResource PrimaryOrange}" BorderBrush="{StaticResource PrimaryOrange}" 
-                                BorderThickness="2" Margin="0,0,10,0" Click="ContinueShoppingButton_Click"/>
+                                BorderThickness="2" FontWeight="Bold" Padding="15,12"
+                                Margin="0,0,10,0" Click="ContinueShoppingButton_Click"/>
 
-                        <Button Grid.Column="1" Name="PlaceOrderButton" Content="Place Order" 
-                                Style="{StaticResource OrangeButtonStyle}" Margin="10,0,0,0"
-                                Click="PlaceOrderButton_Click"/>
+                        <Button Grid.Column="1" Name="PlaceOrderButton" Content="🎯 Place Order" 
+                                Style="{StaticResource OrangeButtonStyle}" FontWeight="Bold" Padding="15,12"
+                                Margin="10,0,0,0" Click="PlaceOrderButton_Click"/>
                     </Grid>
                 </Grid>
             </Border>
@@ -333,6 +378,76 @@
                                 Click="ConfirmLogoutButton_Click"/>
                     </Grid>
                 </StackPanel>
+            </Border>
+        </Border>
+
+        <!-- Bank Transfer Overlay -->
+        <Border Name="QRCodeOverlay" Grid.RowSpan="3" Background="#CC000000" Visibility="Collapsed">
+            <Border Background="White" Width="450" Height="450" CornerRadius="15" Padding="30">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header with Close Button -->
+                    <Grid Grid.Row="0" Margin="0,0,0,25">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="🏦 Bank Transfer Payment" 
+                                       FontSize="24" FontWeight="Bold" 
+                                       Foreground="{StaticResource DarkOrange}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Transfer to the following account" 
+                                       FontSize="16" 
+                                       Foreground="Gray"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+
+                        <!-- Close Button -->
+                        <Button Name="CloseTransferButton" Content="✖" 
+                                HorizontalAlignment="Right" VerticalAlignment="Top"
+                                Background="Transparent" BorderThickness="0" 
+                                FontSize="18" FontWeight="Bold" Foreground="Gray"
+                                Cursor="Hand" Padding="8" 
+                                Click="CloseQRButton_Click"/>
+                    </Grid>
+
+                    <!-- Bank Information -->
+                    <Border Grid.Row="1" Background="#F8F9FA" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock Text="Bank Information:" FontSize="16" FontWeight="Bold" 
+                                       Foreground="{StaticResource DarkOrange}" Margin="0,0,0,12"/>
+                            <TextBlock Text="1. Bank: MB Bank" FontSize="14" Margin="0,3"/>
+                            <TextBlock Text="2. Account: Cat Loaf Cafe Co., Ltd" FontSize="14" Margin="0,3"/>
+                            <TextBlock Text="3. Account Number: 7879 4078 9999" FontSize="14" Margin="0,3" FontFamily="Consolas"/>
+                            <TextBlock Text="4. Transfer Amount:" FontSize="14" Margin="0,8,0,5" FontWeight="SemiBold"/>
+                            <TextBlock Name="TransferAmountTextBlock" Text="0 VND" FontSize="18" FontWeight="Bold" 
+                                       Foreground="{StaticResource DarkOrange}" HorizontalAlignment="Center"
+                                       Background="White" Padding="10" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Buttons -->
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Name="CloseQRButton" Content="❌ Cancel" 
+                                Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
+                                Foreground="{StaticResource PrimaryOrange}" BorderBrush="{StaticResource PrimaryOrange}" 
+                                BorderThickness="2" FontWeight="Bold" Padding="15,12"
+                                Margin="0,0,15,0" Click="CloseQRButton_Click"/>
+
+                        <Button Grid.Column="1" Name="PaymentCompleteButton" Content="✅ Transfer Complete" 
+                                Style="{StaticResource OrangeButtonStyle}" FontWeight="Bold" Padding="15,12"
+                                Margin="15,0,0,0" Click="PaymentCompleteButton_Click"/>
+                    </Grid>
+                </Grid>
             </Border>
         </Border>
     </Grid>
