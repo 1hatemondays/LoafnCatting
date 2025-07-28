@@ -289,7 +289,7 @@ namespace WPFCatLoaf
             // Price
             var priceTextBlock = new TextBlock
             {
-                Text = $"{product.Price:N0}?",
+                Text = $"{product.Price:N0} VND",
                 FontSize = 16,
                 FontWeight = FontWeights.Bold,
                 Foreground = new SolidColorBrush(Color.FromRgb(255, 107, 53)), // Orange color like reference
