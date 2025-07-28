@@ -105,12 +105,11 @@
         <Border Grid.Row="0" Background="{StaticResource PrimaryOrange}" Padding="25,20">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Left side - Welcome text -->
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock Name="WelcomeTextBlock" Text="Welcome to CatLoaf Cafe!" 
                                FontSize="28" FontWeight="Bold" Foreground="White"/>
@@ -118,29 +117,37 @@
                                FontSize="16" Foreground="White" Opacity="0.9"/>
                 </StackPanel>
 
-                <!-- Cart Items Display -->
-                <Border Grid.Column="1" Background="Transparent" BorderBrush="White" 
-                        BorderThickness="2" CornerRadius="25" Padding="15,8" Margin="15,0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Text="🛒" FontSize="18" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBlock Text="Items: " FontSize="16" Foreground="White" VerticalAlignment="Center"/>
-                        <TextBlock Name="CartCountTextBlock" Text="0" 
-                                   FontSize="18" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Border>
 
-                <!-- View Cart Button -->
-                <Button Grid.Column="2" Name="ViewCartButton" Content="🛍️ View Cart" 
-                        Style="{StaticResource OrangeButtonStyle}" Background="White" 
-                        Foreground="{StaticResource PrimaryOrange}" FontWeight="Bold"
-                        FontSize="18" Padding="30,15" Margin="15,0"
-                        Click="ViewCartButton_Click"/>
+<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    
+                    <Border Background="Transparent" BorderBrush="White" 
+                            BorderThickness="2" CornerRadius="25" Padding="15,8" Margin="0,0,15,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="🛒" FontSize="18" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="Items: " FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                            <TextBlock Name="CartCountTextBlock" Text="0" 
+                                       FontSize="18" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
 
-                <!-- Logout Button -->
-                <Button Grid.Column="3" Name="LogoutButton" Content="🚪 Logout" 
-                        Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
-                        BorderBrush="White" BorderThickness="3" Foreground="White"
-                        FontSize="18" Padding="25,15" Margin="15,0,0,0" Click="LogoutButton_Click"/>
+                    <Button Name="ViewCartButton" Content="🛍️ View Cart" 
+                            Style="{StaticResource OrangeButtonStyle}" Background="White" 
+                            Foreground="{StaticResource PrimaryOrange}" FontWeight="Bold"
+                            Padding="25,12" Margin="0,0,15,0"
+                            Click="ViewCartButton_Click"/>
+
+                    <Button Name="MeetCatsButton" Content="Meet Our Cats" 
+                            Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
+                            BorderBrush="White" BorderThickness="2" Foreground="White"
+                            Padding="20,10" Margin="0,0,15,0" Click="MeetCatsButton_Click"/>
+
+                    <Button Name="LogoutButton" Content="🚪 Logout" 
+                            Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
+                            BorderBrush="White" BorderThickness="2" Foreground="White"
+                            Padding="20,12" Margin="0" Click="LogoutButton_Click"/>
+                    
+                </StackPanel>
+
             </Grid>
         </Border>
 
@@ -154,7 +161,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="Auto"/>
-                    
+
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
@@ -167,7 +174,7 @@
                         BorderBrush="White" BorderThickness="3" Foreground="White"
                         FontWeight="Bold" FontSize="20" Padding="40,20" Margin="25,0,0,0"
                         Click="ClearCartButton_Click"/>
-               
+
             </Grid>
         </Border>
 
