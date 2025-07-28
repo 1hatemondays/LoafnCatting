@@ -36,7 +36,7 @@ namespace DataAccessLayer.Repository
 
         public List<User> GetAllUsers()
         {
-            return _context.Users.ToList();
+            return _context.Users.Include(u=>u.Role).ToList();
         }
 
         public List<User> GetAllUsersByRoleId(int roleId)

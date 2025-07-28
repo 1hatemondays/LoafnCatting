@@ -139,21 +139,12 @@ namespace WPFCatLoaf
         {
             if (ProductsDataGrid.SelectedItem is Product selectedProduct)
             {
-                LoadProductToForm(selectedProduct);
-            }
-        }
-
-        private void EditProductButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (((FrameworkElement)sender).DataContext is Product product)
-            {
-                LoadProductToForm(product);
                 _isEditMode = true;
+                LoadProductToForm(selectedProduct);
                 FormTitleTextBlock.Text = "Edit Product";
                 SaveButton.Content = "Update Product";
             }
         }
-
         private void DeleteProductButton_Click(object sender, RoutedEventArgs e)
         {
             if (((FrameworkElement)sender).DataContext is Product product)
@@ -200,14 +191,7 @@ namespace WPFCatLoaf
                     {
                         if (_productService.UpdateProduct(product))
                         {
-                            // Update in collection
-                            var existingProduct = _allProducts.FirstOrDefault(p => p.ProductId == product.ProductId);
-                            if (existingProduct != null)
-                            {
-                                var index = _allProducts.IndexOf(existingProduct);
-                                _allProducts[index] = product;
-                            }
-                            RefreshProductsList();
+                            LoadInitialData();
                             ShowSuccessMessage("Product updated successfully!");
                             ClearForm();
                         }

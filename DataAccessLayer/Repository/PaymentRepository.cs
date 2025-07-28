@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.IRepository;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,12 @@ namespace DataAccessLayer.Repository
 
         public List<Payment> GetAllPayments()
         {
-            return _context.Payments.ToList();
+            return _context.Payments.Include(p=>p.Method).ToList();
         }
 
         public Payment GetPaymentById(int id)
         {
-            return _context.Payments.FirstOrDefault(p=>p.PaymentId==id);
+            return _context.Payments.Include(p => p.Method).FirstOrDefault(p=>p.PaymentId==id);
         }
 
         public List<Payment> GetPaymentsByDateRange(DateTime startDate, DateTime endDate)

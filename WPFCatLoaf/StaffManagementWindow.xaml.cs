@@ -379,21 +379,8 @@ namespace WPFCatLoaf
         {
             if (StaffDataGrid.SelectedItem is User selectedStaff)
             {
+                _isEditMode = true;
                 LoadStaffToForm(selectedStaff);
-            }
-        }
-
-        private void EditStaffButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (_loggedInUser.RoleId != ADMIN_ROLE_ID)
-            {
-                ShowErrorMessage("You do not have permission to edit staff members.");
-                return;
-            }
-
-            if (((FrameworkElement)sender).DataContext is User staff)
-            {
-                LoadStaffToForm(staff);
             }
         }
 
@@ -490,13 +477,7 @@ namespace WPFCatLoaf
         {
             if (_userService.UpdateUser(staff))
             {
-                var existingStaff = _allStaff.FirstOrDefault(s => s.UserId == staff.UserId);
-                if (existingStaff != null)
-                {
-                    var index = _allStaff.IndexOf(existingStaff);
-                    _allStaff[index] = staff;
-                }
-                RefreshStaffList();
+                LoadInitialData();
                 ShowSuccessMessage("Staff updated successfully!");
                 ClearForm();
             }

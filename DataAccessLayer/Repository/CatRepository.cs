@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.IRepository;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +36,15 @@ namespace DataAccessLayer.Repository
 
         public List<Cat> GetAllCats()
         {
-            return _context.Cats.ToList();
+            return _context.Cats.Include(c=>c.Gender)
+                                 .Include(c => c.Status)
+                                 .ToList();
         }
 
         public Cat GetCatById(int id)
         {
-            return _context.Cats.FirstOrDefault(c=>c.CatId==id);
+            return _context.Cats.Include(c => c.Gender)
+                                 .Include(c => c.Status).FirstOrDefault(c=>c.CatId==id);
         }
 
         public List<Cat> GetCatsByGenderId(int genderId)
@@ -65,6 +69,8 @@ namespace DataAccessLayer.Repository
             catUpdate.GenderId = cat.GenderId;
             catUpdate.Breed = cat.Breed;
             catUpdate.FriendlinessRating=cat.FriendlinessRating;
+            catUpdate.CutenessRating = cat.CutenessRating;
+            catUpdate.PlayfulnessRating = cat.PlayfulnessRating;
             catUpdate.Picture = cat.Picture;
             catUpdate.Description = cat.Description;
             catUpdate.StatusId = cat.StatusId;
