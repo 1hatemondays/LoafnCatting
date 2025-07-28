@@ -15,14 +15,17 @@
             <Setter Property="Background" Value="{StaticResource PrimaryOrange}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Padding" Value="20,15"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinWidth" Value="140"/>
+            <Setter Property="MinHeight" Value="45"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="8" 
+                                CornerRadius="10" 
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{TemplateBinding BorderBrush}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -45,6 +48,7 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -113,10 +117,9 @@
                                FontSize="16" Foreground="White" Opacity="0.9"/>
                 </StackPanel>
 
-                <!-- Right side - All buttons pushed to far right -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+
+<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                     
-                    <!-- Cart Items Display -->
                     <Border Background="Transparent" BorderBrush="White" 
                             BorderThickness="2" CornerRadius="25" Padding="15,8" Margin="0,0,15,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -127,26 +130,24 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- View Cart Button -->
                     <Button Name="ViewCartButton" Content="🛍️ View Cart" 
                             Style="{StaticResource OrangeButtonStyle}" Background="White" 
                             Foreground="{StaticResource PrimaryOrange}" FontWeight="Bold"
                             Padding="25,12" Margin="0,0,15,0"
                             Click="ViewCartButton_Click"/>
 
-                    <!-- Meet Our Cats Button -->
                     <Button Name="MeetCatsButton" Content="Meet Our Cats" 
                             Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                             BorderBrush="White" BorderThickness="2" Foreground="White"
                             Padding="20,10" Margin="0,0,15,0" Click="MeetCatsButton_Click"/>
 
-                    <!-- Logout Button -->
                     <Button Name="LogoutButton" Content="🚪 Logout" 
                             Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                             BorderBrush="White" BorderThickness="2" Foreground="White"
                             Padding="20,12" Margin="0" Click="LogoutButton_Click"/>
                     
                 </StackPanel>
+
             </Grid>
         </Border>
 
@@ -171,7 +172,7 @@
                 <Button Grid.Column="1" Name="ClearCartButton" Content="🗑️ Clear Cart" 
                         Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                         BorderBrush="White" BorderThickness="3" Foreground="White"
-                        FontWeight="Bold" FontSize="18" Padding="35,18" Margin="20,0,0,0"
+                        FontWeight="Bold" FontSize="20" Padding="40,20" Margin="25,0,0,0"
                         Click="ClearCartButton_Click"/>
 
             </Grid>
@@ -188,10 +189,11 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Margin="0,0,0,20">
-                        <TextBlock Text="Your Order" FontSize="24" FontWeight="Bold" 
+                        <TextBlock Text="Your Order" FontSize="26" FontWeight="Bold" 
                                    Foreground="{StaticResource DarkOrange}"/>
-                        <Button Name="CloseCartButton" Content="Close" HorizontalAlignment="Right"
-                                Background="Transparent" BorderThickness="0" FontSize="16"
+                        <Button Name="CloseCartButton" Content="✖" HorizontalAlignment="Right"
+                                Background="Transparent" BorderThickness="0" FontSize="20"
+                                FontWeight="Bold" Foreground="Gray" Padding="10"
                                 Cursor="Hand" Click="CloseCartButton_Click"/>
                     </Grid>
 
@@ -225,16 +227,16 @@
                                                 </TextBlock>
                                             </StackPanel>
 
-                                            <Button Grid.Column="2" Content="-" Width="30" Height="30" 
-                                                    Style="{StaticResource OrangeButtonStyle}" FontSize="16"
+                                            <Button Grid.Column="2" Content="−" Width="35" Height="35" 
+                                                    Style="{StaticResource OrangeButtonStyle}" FontSize="18"
                                                     Click="DecreaseQuantity_Click" Tag="{Binding}"/>
 
                                             <TextBlock Grid.Column="3" Text="{Binding Quantity}" 
-                                                       FontWeight="Bold" FontSize="16" Margin="15,0" 
+                                                       FontWeight="Bold" FontSize="18" Margin="15,0" 
                                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                                            <Button Grid.Column="4" Content="+" Width="30" Height="30" 
-                                                    Style="{StaticResource OrangeButtonStyle}" FontSize="16"
+                                            <Button Grid.Column="4" Content="+" Width="35" Height="35" 
+                                                    Style="{StaticResource OrangeButtonStyle}" FontSize="18"
                                                     Click="IncreaseQuantity_Click" Tag="{Binding}"/>
                                         </Grid>
                                     </Border>
@@ -265,30 +267,30 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Cash Payment Option -->
-                                <Border Grid.Column="0" Background="White" CornerRadius="8" 
-                                        Padding="10" Margin="0,0,5,0" Cursor="Hand"
+                                <Border Grid.Column="0" Background="White" CornerRadius="12" 
+                                        Padding="20" Margin="0,0,8,0" Cursor="Hand"
                                         x:Name="CashPaymentBorder" 
                                         MouseLeftButtonDown="CashPayment_Click">
                                     <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="💵" FontSize="24" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="Cash" FontSize="14" FontWeight="SemiBold" 
-                                                   HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                        <TextBlock Text="💵" FontSize="32" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Cash" FontSize="16" FontWeight="SemiBold" 
+                                                   HorizontalAlignment="Center" Margin="0,8,0,0"/>
                                         <RadioButton x:Name="CashRadioButton" HorizontalAlignment="Center" 
-                                                     Margin="0,5,0,0" GroupName="PaymentMethod"/>
+                                                     Margin="0,8,0,0" GroupName="PaymentMethod"/>
                                     </StackPanel>
                                 </Border>
 
                                 <!-- Bank Transfer Option -->
-                                <Border Grid.Column="1" Background="White" CornerRadius="8" 
-                                        Padding="10" Margin="5,0,0,0" Cursor="Hand"
+                                <Border Grid.Column="1" Background="White" CornerRadius="12" 
+                                        Padding="20" Margin="8,0,0,0" Cursor="Hand"
                                         x:Name="BankTransferBorder" 
                                         MouseLeftButtonDown="BankTransfer_Click">
                                     <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="🏦" FontSize="24" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="Bank Transfer" FontSize="14" FontWeight="SemiBold" 
-                                                   HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                        <TextBlock Text="🏦" FontSize="32" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Bank Transfer" FontSize="16" FontWeight="SemiBold" 
+                                                   HorizontalAlignment="Center" Margin="0,8,0,0"/>
                                         <RadioButton x:Name="BankTransferRadioButton" HorizontalAlignment="Center" 
-                                                     Margin="0,5,0,0" GroupName="PaymentMethod"/>
+                                                     Margin="0,8,0,0" GroupName="PaymentMethod"/>
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -304,12 +306,12 @@
                         <Button Grid.Column="0" Name="ContinueShoppingButton" Content="🛍️ Continue Shopping" 
                                 Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                                 Foreground="{StaticResource PrimaryOrange}" BorderBrush="{StaticResource PrimaryOrange}" 
-                                BorderThickness="2" FontWeight="Bold" Padding="15,12"
-                                Margin="0,0,10,0" Click="ContinueShoppingButton_Click"/>
+                                BorderThickness="3" FontWeight="Bold" FontSize="16" Padding="18,15"
+                                Margin="0,0,15,0" Click="ContinueShoppingButton_Click"/>
 
                         <Button Grid.Column="1" Name="PlaceOrderButton" Content="🎯 Place Order" 
-                                Style="{StaticResource OrangeButtonStyle}" FontWeight="Bold" Padding="15,12"
-                                Margin="10,0,0,0" Click="PlaceOrderButton_Click"/>
+                                Style="{StaticResource OrangeButtonStyle}" FontWeight="Bold" FontSize="16" Padding="18,15"
+                                Margin="15,0,0,0" Click="PlaceOrderButton_Click"/>
                     </Grid>
                 </Grid>
             </Border>
@@ -375,10 +377,10 @@
                         <Button Grid.Column="0" Name="CancelLogoutButton" Content="Cancel" 
                                 Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                                 Foreground="{StaticResource PrimaryOrange}" BorderBrush="{StaticResource PrimaryOrange}" 
-                                BorderThickness="2" Margin="0,0,10,0" Click="CancelLogoutButton_Click"/>
+                                BorderThickness="3" FontSize="16" Padding="20,15" Margin="0,0,15,0" Click="CancelLogoutButton_Click"/>
 
                         <Button Grid.Column="1" Name="ConfirmLogoutButton" Content="Logout" 
-                                Style="{StaticResource OrangeButtonStyle}" Margin="10,0,0,0"
+                                Style="{StaticResource OrangeButtonStyle}" FontSize="16" Padding="20,15" Margin="15,0,0,0"
                                 Click="ConfirmLogoutButton_Click"/>
                     </Grid>
                 </StackPanel>
@@ -444,11 +446,11 @@
                         <Button Grid.Column="0" Name="CloseQRButton" Content="❌ Cancel" 
                                 Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
                                 Foreground="{StaticResource PrimaryOrange}" BorderBrush="{StaticResource PrimaryOrange}" 
-                                BorderThickness="2" FontWeight="Bold" Padding="15,12"
+                                BorderThickness="3" FontWeight="Bold" FontSize="16" Padding="18,15"
                                 Margin="0,0,15,0" Click="CloseQRButton_Click"/>
 
                         <Button Grid.Column="1" Name="PaymentCompleteButton" Content="✅ Transfer Complete" 
-                                Style="{StaticResource OrangeButtonStyle}" FontWeight="Bold" Padding="15,12"
+                                Style="{StaticResource OrangeButtonStyle}" FontWeight="Bold" FontSize="16" Padding="18,15"
                                 Margin="15,0,0,0" Click="PaymentCompleteButton_Click"/>
                     </Grid>
                 </Grid>
