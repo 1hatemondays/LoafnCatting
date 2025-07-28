@@ -105,6 +105,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
@@ -131,6 +132,11 @@
                         Foreground="{StaticResource PrimaryOrange}" FontWeight="Bold"
                         Padding="25,12" Margin="10,0"
                         Click="ViewCartButton_Click"/>
+
+                <Button Grid.Column="3" Name="MeetCatsButton" Content="Meet Our Cats" 
+                        Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
+                        BorderBrush="White" BorderThickness="2" Foreground="White"
+                        Padding="20,10" Margin="10,0" Click="MeetCatsButton_Click"/>
 
                 <!-- Logout Button -->
                 <Button Grid.Column="3" Name="LogoutButton" Content="🚪 Logout" 
