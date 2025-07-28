@@ -87,6 +87,7 @@ namespace WPFCatLoaf
                         ProductId = selectedProduct.ProductId,
                         Quantity = quantity,
                         Product = selectedProduct
+
                     });
                 }
                 UpdateTotalPrice();

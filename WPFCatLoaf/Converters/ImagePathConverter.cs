@@ -22,22 +22,18 @@ namespace WPFCatLoaf.Converters
             {
                 string relativePath = value?.ToString();
 
-                // If path is null or empty, return the placeholder
                 if (string.IsNullOrEmpty(relativePath))
                 {
                     return LoadImage(PlaceholderImagePath);
                 }
 
-                // Try to load the image from the relative path
                 var image = LoadImage(relativePath);
                 
-                // If successful, return the image
                 if (image != null)
                 {
                     return image;
                 }
                 
-                // If image couldn't be loaded, return placeholder
                 System.Diagnostics.Debug.WriteLine($"Could not load image: {relativePath}. Using placeholder.");
                 return LoadImage(PlaceholderImagePath);
             }
@@ -52,7 +48,24 @@ namespace WPFCatLoaf.Converters
         {
             try
             {
-                // First try as a project resource (for placeholder image that might be embedded)
+                // First try as a file relative to the executable - this is most important for runtime added images
+                string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                string fullPath = Path.Combine(basePath, relativePath);
+                
+                // Check if the file exists
+                if (File.Exists(fullPath))
+                {
+                    BitmapImage fileImage = new BitmapImage();
+                    fileImage.BeginInit();
+                    fileImage.CacheOption = BitmapCacheOption.OnLoad;
+                    fileImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache; // Add this line to ignore cache
+                    fileImage.UriSource = new Uri(fullPath);
+                    fileImage.EndInit();
+                    if (fileImage.CanFreeze) fileImage.Freeze();
+                    return fileImage;
+                }
+                
+                // Then try as a project resource (for placeholder image that might be embedded)
                 try
                 {
                     Uri resourceUri = new Uri($"pack://application:,,,/{relativePath}", UriKind.Absolute);
@@ -60,30 +73,14 @@ namespace WPFCatLoaf.Converters
                     resourceImage.BeginInit();
                     resourceImage.UriSource = resourceUri;
                     resourceImage.CacheOption = BitmapCacheOption.OnLoad;
+                    resourceImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache; 
                     resourceImage.EndInit();
                     if (resourceImage.CanFreeze) resourceImage.Freeze();
                     return resourceImage;
                 }
                 catch
                 {
-                    // If that fails, try as a file relative to the executable
-                    string basePath = AppDomain.CurrentDomain.BaseDirectory;
-                    string fullPath = Path.Combine(basePath, relativePath);
-                    
-                    // Check if the file exists
-                    if (File.Exists(fullPath))
-                    {
-                        BitmapImage fileImage = new BitmapImage();
-                        fileImage.BeginInit();
-                        fileImage.CacheOption = BitmapCacheOption.OnLoad;
-                        fileImage.UriSource = new Uri(fullPath);
-                        fileImage.EndInit();
-                        if (fileImage.CanFreeze) fileImage.Freeze();
-                        return fileImage;
-                    }
-                    
-                    // If file doesn't exist, try looking in the project directory
-                    // This is useful during development when running from the IDE
+                    // If that fails, try looking in the project directory
                     string projectDirectory = GetProjectDirectory();
                     if (!string.IsNullOrEmpty(projectDirectory))
                     {
@@ -93,6 +90,7 @@ namespace WPFCatLoaf.Converters
                             BitmapImage projectImage = new BitmapImage();
                             projectImage.BeginInit();
                             projectImage.CacheOption = BitmapCacheOption.OnLoad;
+                            projectImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                             projectImage.UriSource = new Uri(projectPath);
                             projectImage.EndInit();
                             if (projectImage.CanFreeze) projectImage.Freeze();
