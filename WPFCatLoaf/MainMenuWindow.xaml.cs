@@ -93,8 +93,8 @@ namespace WPFCatLoaf
 
         private void Reports_Click(object sender, MouseButtonEventArgs e)
         {
-            // Only Admin (4) and Manager (2) can access reports
-            if (_currentUser.RoleId == 4 || _currentUser.RoleId == 2)
+            // Only Admin (3) and Manager (2) can access reports
+            if (_currentUser.RoleId == 3 || _currentUser.RoleId == 2)
             {
                 var reportWindow = new ReportWindow(_currentUser);
                 reportWindow.Show();
