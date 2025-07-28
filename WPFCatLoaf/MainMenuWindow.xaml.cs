@@ -65,23 +65,23 @@ namespace WPFCatLoaf
 
         private void TableManagement_Click(object sender, MouseButtonEventArgs e)
         {
-            if (_currentUser.RoleId == 3 || _currentUser.RoleId == 2)
-            {
                 var tableWindow = new TableManagementWindow(_currentUser);
                 tableWindow.Show();
                 this.Close();
-            }
-            else
-            {
-                MessageBox.Show("You do not have permission to manage tables.", "Access Denied",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
         }
 
         private void UserManagement_Click(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("User Management feature coming soon!", "Feature Not Available", 
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            if(_currentUser.RoleId == 2||_currentUser.RoleId == 4)
+            {
+                var staffWindow = new StaffManagementWindow(_currentUser);
+                staffWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("You do not have permission to access this","No Permission",MessageBoxButton.OK,MessageBoxImage.Stop);
+            }
         }
 
         private void CatManagement_Click(object sender, MouseButtonEventArgs e)

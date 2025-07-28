@@ -137,12 +137,12 @@
                            BorderThickness="0,0,0,2" 
                            Margin="0,0,0,25">
                         <StackPanel>
-                            <TextBlock Text="📧" 
+                            <TextBlock Text="📧 Email Address" 
                                       FontSize="16" 
                                       Foreground="{StaticResource CatCafePrimary}" 
                                       Margin="0,0,0,5"/>
                             <TextBox x:Name="EmailTextBox"
-                                     Text="staff@catcafe.com"
+                                     Text="admin@catcafe.com"
                                     FontSize="14"
                                     BorderThickness="0"
                                     Background="Transparent"
@@ -163,10 +163,7 @@
                                     </Style>
                                 </TextBox.Style>
                             </TextBox>
-                            <TextBlock Text="Email Address" 
-                                      FontSize="12" 
-                                      Foreground="Gray" 
-                                      Opacity="0.7"/>
+                            
                         </StackPanel>
                     </Border>
                     
@@ -175,12 +172,12 @@
                            BorderThickness="0,0,0,2" 
                            Margin="0,0,0,35">
                         <StackPanel>
-                            <TextBlock Text="🔒" 
+                            <TextBlock Text="🔒 Password" 
                                       FontSize="16" 
                                       Foreground="{StaticResource CatCafePrimary}" 
                                       Margin="0,0,0,5"/>
                             <PasswordBox x:Name="PasswordBox"
-                                         Password="staff123"
+                                         Password="admin123"
                                         FontSize="14"
                                         BorderThickness="0"
                                         Background="Transparent"
@@ -201,10 +198,7 @@
                                     </Style>
                                 </PasswordBox.Style>
                             </PasswordBox>
-                            <TextBlock Text="Password" 
-                                      FontSize="12" 
-                                      Foreground="Gray" 
-                                      Opacity="0.7"/>
+                            
                         </StackPanel>
                     </Border>
                 </StackPanel>
