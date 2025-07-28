@@ -150,7 +150,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
@@ -160,15 +160,10 @@
 
                 <Button Grid.Column="1" Name="ClearCartButton" Content="🗑️ Clear Cart" 
                         Style="{StaticResource OrangeButtonStyle}" Background="Transparent" 
-                        BorderBrush="White" BorderThickness="2" Foreground="White"
-                        FontWeight="Bold" Padding="20,15" Margin="15,0"
+                        BorderBrush="White" BorderThickness="3" Foreground="White"
+                        FontWeight="Bold" FontSize="18" Padding="35,18" Margin="20,0,0,0"
                         Click="ClearCartButton_Click"/>
-
-                <Button Grid.Column="2" Name="CheckoutButton" Content="✅ Place Order" 
-                        Style="{StaticResource OrangeButtonStyle}" Background="White" 
-                        Foreground="{StaticResource PrimaryOrange}" FontSize="18" FontWeight="Bold"
-                        Padding="30,15" Margin="0,0,0,0"
-                        Click="CheckoutButton_Click"/>
+               
             </Grid>
         </Border>
 
