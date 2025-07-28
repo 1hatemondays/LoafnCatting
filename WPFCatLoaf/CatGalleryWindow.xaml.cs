@@ -100,10 +100,10 @@ namespace WPFCatLoaf
             {
                 Background = Brushes.White,
                 CornerRadius = new CornerRadius(15),
-                Margin = new Thickness(10),
-                Padding = new Thickness(15),
-                Width = 280,
-                Height = 480,
+                Margin = new Thickness(12),
+                Padding = new Thickness(20),
+                Width = 320,
+                Height = 540,
                 Effect = new System.Windows.Media.Effects.DropShadowEffect
                 {
                     Color = Colors.Gray,
@@ -115,17 +115,17 @@ namespace WPFCatLoaf
             };
 
             var mainGrid = new Grid();
-            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(180) });
+            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(200) });
             mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             // Image section
             var imageContainer = new Border
             {
-                CornerRadius = new CornerRadius(10),
+                CornerRadius = new CornerRadius(12),
                 Background = new SolidColorBrush(Color.FromRgb(245, 245, 245)),
-                Height = 160,
-                Margin = new Thickness(0, 0, 0, 15)
+                Height = 180,
+                Margin = new Thickness(0, 0, 0, 18)
             };
 
             var catImage = new Image
@@ -152,7 +152,7 @@ namespace WPFCatLoaf
             mainGrid.Children.Add(imageContainer);
 
             // Header section
-            var headerPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 12) };
+            var headerPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 15) };
             
             var nameGrid = new Grid();
             nameGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -161,7 +161,7 @@ namespace WPFCatLoaf
             var nameTextBlock = new TextBlock
             {
                 Text = cat.Name,
-                FontSize = 20,
+                FontSize = 26,
                 FontWeight = FontWeights.Bold,
                 Foreground = new SolidColorBrush(Color.FromRgb(255, 107, 53))
             };
@@ -171,7 +171,7 @@ namespace WPFCatLoaf
             var genderTextBlock = new TextBlock
             {
                 Text = cat.Gender?.GenderName ?? "Unknown",
-                FontSize = 12,
+                FontSize = 16,
                 FontWeight = FontWeights.SemiBold,
                 Foreground = Brushes.Gray,
                 VerticalAlignment = VerticalAlignment.Bottom
@@ -184,19 +184,18 @@ namespace WPFCatLoaf
             var infoPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 4, 0, 0)
+                Margin = new Thickness(0, 8, 0, 0)
             };
 
-            // Display age instead of born date
             if (cat.Age.HasValue)
             {
                 var ageTextBlock = new TextBlock
                 {
                     Text = $"Age: {cat.Age} years old",
-                    FontSize = 14,
+                    FontSize = 16,
                     FontWeight = FontWeights.SemiBold,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 107, 53)),
-                    Margin = new Thickness(0, 0, 15, 0)
+                    Margin = new Thickness(0, 0, 20, 0)
                 };
                 infoPanel.Children.Add(ageTextBlock);
             }
@@ -206,7 +205,8 @@ namespace WPFCatLoaf
                 var breedTextBlock = new TextBlock
                 {
                     Text = cat.Breed,
-                    FontSize = 12,
+                    FontSize = 14,
+                    FontWeight = FontWeights.Medium,
                     Foreground = Brushes.Gray
                 };
                 infoPanel.Children.Add(breedTextBlock);
@@ -222,10 +222,10 @@ namespace WPFCatLoaf
             var ratingTitleTextBlock = new TextBlock
             {
                 Text = "Personality Ratings",
-                FontSize = 16,
+                FontSize = 18,
                 FontWeight = FontWeights.Bold,
                 Foreground = new SolidColorBrush(Color.FromRgb(255, 107, 53)),
-                Margin = new Thickness(0, 0, 0, 10)
+                Margin = new Thickness(0, 0, 0, 12)
             };
             contentPanel.Children.Add(ratingTitleTextBlock);
 
@@ -238,11 +238,11 @@ namespace WPFCatLoaf
                 var descriptionTextBlock = new TextBlock
                 {
                     Text = cat.Description,
-                    FontSize = 12,
+                    FontSize = 14,
                     Foreground = Brushes.Black,
                     TextWrapping = TextWrapping.Wrap,
-                    Margin = new Thickness(0, 15, 0, 0),
-                    LineHeight = 16
+                    Margin = new Thickness(0, 18, 0, 0),
+                    LineHeight = 18
                 };
                 contentPanel.Children.Add(descriptionTextBlock);
             }
@@ -259,15 +259,15 @@ namespace WPFCatLoaf
             var ratingPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 3, 0, 3)
+                Margin = new Thickness(0, 4, 0, 4)
             };
 
             var labelTextBlock = new TextBlock
             {
                 Text = label,
-                FontSize = 13,
+                FontSize = 16,
                 FontWeight = FontWeights.SemiBold,
-                Width = 90,
+                Width = 110,
                 Foreground = Brushes.Black
             };
             ratingPanel.Children.Add(labelTextBlock);
@@ -275,15 +275,15 @@ namespace WPFCatLoaf
             var starsPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(10, 0, 0, 0)
+                Margin = new Thickness(12, 0, 0, 0)
             };
 
             for (int i = 1; i <= 5; i++)
             {
                 var starContainer = new Viewbox
                 {
-                    Width = 14,
-                    Height = 14,
+                    Width = 18,
+                    Height = 18,
                     Margin = new Thickness(1, 0, 1, 0)
                 };
 
