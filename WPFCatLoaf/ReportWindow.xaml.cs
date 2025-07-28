@@ -173,46 +173,127 @@ namespace WPFCatLoaf
 
         private void LoadPaymentMethodsChart()
         {
-            PaymentMethodSeries = new SeriesCollection();
-
-            var completedStatusId = 4; // StatusId cho đơn hàng đã hoàn thành
-            
-            // Lấy thống kê payment methods từ các đơn hàng đã hoàn thành
-            var completedOrderIds = _orderService.GetAllOrders()
-                .Where(o => o.OrderStatusId == completedStatusId)
-                .Select(o => o.OrderId)
-                .ToList();
-
-            var payments = _paymentService.GetAllPayments()
-                .Where(p => completedOrderIds.Contains(p.OrderId))
-                .ToList();
-
-            var paymentGroups = payments
-                .GroupBy(p => p.Method.MethodName)
-                .Select(g => new { MethodName = g.Key, Count = g.Count() })
-                .ToList();
-
-            var colors = new[]
+            try
             {
-                System.Windows.Media.Brushes.Orange,
-                System.Windows.Media.Brushes.DarkOrange,
-                System.Windows.Media.Brushes.OrangeRed,
-                System.Windows.Media.Brushes.Coral,
-                System.Windows.Media.Brushes.SandyBrown
-            };
+                PaymentMethodSeries = new SeriesCollection();
 
-            int colorIndex = 0;
-            foreach (var group in paymentGroups)
+                // Debug: Log all payments and orders first
+                var allOrders = _orderService.GetAllOrders();
+                var allPayments = _paymentService.GetAllPayments();
+                
+                System.Diagnostics.Debug.WriteLine($"=== PAYMENT DEBUG INFO ===");
+                System.Diagnostics.Debug.WriteLine($"Total Orders: {allOrders.Count()}");
+                System.Diagnostics.Debug.WriteLine($"Total Payments: {allPayments.Count()}");
+                
+                // Show order statuses
+                foreach (var statusGroup in allOrders.GroupBy(o => o.OrderStatusId))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Status {statusGroup.Key}: {statusGroup.Count()} orders");
+                }
+                
+                // Show payment methods
+                foreach (var methodGroup in allPayments.GroupBy(p => p.MethodId))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Method {methodGroup.Key}: {methodGroup.Count()} payments");
+                }
+
+                var completedStatusId = 4; // StatusId cho đơn hàng đã hoàn thành
+                
+                // Lấy thống kê payment methods từ TẤT CẢ các đơn hàng thay vì chỉ completed
+                var allOrderIds = allOrders
+                    .Select(o => o.OrderId)
+                    .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Using All Orders: {allOrderIds.Count}");
+
+                var payments = allPayments
+                    .Where(p => allOrderIds.Contains(p.OrderId))
+                    .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Matching Payments: {payments.Count}");
+
+                if (!payments.Any())
+                {
+                    // Nếu không có payment data, tạo chart trống
+                    PaymentMethodSeries.Add(new PieSeries
+                    {
+                        Title = "No Payment Data",
+                        Values = new ChartValues<int> { 1 },
+                        DataLabels = true,
+                        Fill = System.Windows.Media.Brushes.LightGray
+                    });
+                    return;
+                }
+
+                // Group payments by MethodId and map to method names
+                var paymentGroups = payments
+                    .GroupBy(p => p.MethodId)
+                    .Select(g => new { 
+                        MethodId = g.Key, 
+                        Count = g.Count(),
+                        MethodName = GetPaymentMethodName(g.Key)
+                    })
+                    .OrderByDescending(g => g.Count)
+                    .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Payment Groups: {paymentGroups.Count}");
+                foreach (var group in paymentGroups)
+                {
+                    System.Diagnostics.Debug.WriteLine($"  {group.MethodName} (ID: {group.MethodId}): {group.Count}");
+                }
+
+                var colors = new[]
+                {
+                    System.Windows.Media.Brushes.Orange,
+                    System.Windows.Media.Brushes.DarkOrange,
+                    System.Windows.Media.Brushes.OrangeRed,
+                    System.Windows.Media.Brushes.Coral,
+                    System.Windows.Media.Brushes.SandyBrown
+                };
+
+                int colorIndex = 0;
+                foreach (var group in paymentGroups)
+                {
+                    PaymentMethodSeries.Add(new PieSeries
+                    {
+                        Title = group.MethodName,
+                        Values = new ChartValues<int> { group.Count },
+                        DataLabels = true,
+                        LabelPoint = point => $"{group.MethodName}: {point.Y} ({point.Participation:P0})",
+                        Fill = colors[colorIndex % colors.Length]
+                    });
+                    colorIndex++;
+                }
+            }
+            catch (Exception ex)
             {
+                // Handle error case
+                PaymentMethodSeries = new SeriesCollection();
                 PaymentMethodSeries.Add(new PieSeries
                 {
-                    Title = group.MethodName,
-                    Values = new ChartValues<int> { group.Count },
+                    Title = "Error Loading Data",
+                    Values = new ChartValues<int> { 1 },
                     DataLabels = true,
-                    Fill = colors[colorIndex % colors.Length]
+                    Fill = System.Windows.Media.Brushes.Red
                 });
-                colorIndex++;
+                
+                MessageBox.Show($"Error loading payment methods chart: {ex.Message}", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                System.Diagnostics.Debug.WriteLine($"Payment Chart Error: {ex.Message}");
             }
+        }
+
+        private string GetPaymentMethodName(int methodId)
+        {
+            return methodId switch
+            {
+                1 => "Cash",
+                2 => "Bank Transfer", 
+                3 => "Credit Card",
+                4 => "E-Wallet",
+                5 => "Debit Card",
+                _ => $"Method {methodId}"
+            };
         }
 
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
