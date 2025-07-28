@@ -403,6 +403,13 @@ namespace WPFCatLoaf
 
         private void ClearCartButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!_cartItems.Any())
+            {
+                MessageBox.Show("Your cart is already empty.",
+                    "Cart Empty", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             var result = MessageBox.Show("Are you sure you want to clear your cart?",
                 "Clear Cart", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -411,8 +418,13 @@ namespace WPFCatLoaf
                 _cartItems.Clear();
                 UpdateCartDisplay();
                 ResetPaymentSelection();
+
+                // Show confirmation
+                MessageBox.Show("Cart cleared successfully!",
+                    "Cart Cleared", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
 
         private void CheckoutButton_Click(object sender, RoutedEventArgs e)
         {
