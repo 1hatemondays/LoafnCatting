@@ -706,6 +706,6 @@ namespace WPFCatLoaf
         {
             PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
-        //Fix
+        //Fix v2
     }
 }
