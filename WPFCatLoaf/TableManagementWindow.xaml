@@ -77,9 +77,12 @@
                         FontWeight="Bold" Padding="15,8" Margin="0,0,15,0"
                         BorderThickness="0" Click="BackToMenuButton_Click"/>
 
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="Table Management" FontSize="24" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock Text="Manage restaurant tables and statuses" FontSize="14" Foreground="White" Opacity="0.8"/>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="🪑" FontSize="32" FontFamily="Segoe UI Emoji" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                    <StackPanel>
+                        <TextBlock Text="Table Management" FontSize="24" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="Manage restaurant tables and statuses" FontSize="14" Foreground="White" Opacity="0.8"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Border>
