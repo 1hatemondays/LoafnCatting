@@ -1,4 +1,4 @@
-using BusinessLayer.IService;
+﻿using BusinessLayer.IService;
 using BusinessLayer.Service;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repository;
@@ -26,12 +26,14 @@ namespace WPFCatLoaf
         private readonly IOrderService _orderService;
         private readonly IOrderDetailService _orderDetailService;
         private readonly IRestaurantTableService _tableService;
-        
+        private readonly IPaymentService _paymentService;
+
         private readonly User _loggedInUser;
         private RestaurantTable _currentTable;
         private ObservableCollection<CartItem> _cartItems;
         private List<Product> _allProducts;
         private List<Category> _allCategories;
+        private int? _selectedPaymentMethodId = null;
 
         private readonly ImagePathConverter _imagePathConverter = new ImagePathConverter();
         // Constructor for staff/table users
@@ -47,6 +49,7 @@ namespace WPFCatLoaf
             _orderService = new OrderService(new OrderRepository(context));
             _orderDetailService = new OrderDetailService(new OrderDetailRepository(context));
             _tableService = new RestaurantTableService(new RestaurantTableRepository(context));
+            _paymentService = new PaymentService(new PaymentRepository(context));
 
             InitializeForLoggedInUser();
         }
@@ -64,6 +67,7 @@ namespace WPFCatLoaf
             _orderService = new OrderService(new OrderRepository(context));
             _orderDetailService = new OrderDetailService(new OrderDetailRepository(context));
             _tableService = new RestaurantTableService(new RestaurantTableRepository(context));
+            _paymentService = new PaymentService(new PaymentRepository(context));
 
             InitializeForCustomer(tableId);
         }
@@ -81,7 +85,7 @@ namespace WPFCatLoaf
         private void InitializeForLoggedInUser()
         {
             InitializeCommonComponents();
-            
+
             try
             {
                 // Find the table associated with this user
@@ -99,7 +103,7 @@ namespace WPFCatLoaf
         private void InitializeForCustomer(int tableId)
         {
             InitializeCommonComponents();
-            
+
             try
             {
                 // Find the specific table
@@ -214,7 +218,7 @@ namespace WPFCatLoaf
             };
 
             var mainGrid = new Grid();
-            
+
             // Product Image (takes most of the space like reference)
             var imageContainer = new Border
             {
@@ -328,7 +332,7 @@ namespace WPFCatLoaf
             if (sender is Button button && button.Tag is Product product)
             {
                 var existingItem = _cartItems.FirstOrDefault(item => item.Product.ProductId == product.ProductId);
-                
+
                 if (existingItem != null)
                 {
                     existingItem.Quantity++;
@@ -399,13 +403,14 @@ namespace WPFCatLoaf
 
         private void ClearCartButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to clear your cart?", 
+            var result = MessageBox.Show("Are you sure you want to clear your cart?",
                 "Clear Cart", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
                 _cartItems.Clear();
                 UpdateCartDisplay();
+                ResetPaymentSelection();
             }
         }
 
@@ -423,26 +428,36 @@ namespace WPFCatLoaf
         {
             if (!_cartItems.Any())
             {
-                MessageBox.Show("Your cart is empty. Please add some items before placing an order.", 
+                MessageBox.Show("Your cart is empty. Please add some items before placing an order.",
                     "Empty Cart", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Check if payment method is selected
+            if (_selectedPaymentMethodId == null)
+            {
+                MessageBox.Show("Please select a payment method before placing your order.",
+                    "Payment Method Required", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (_currentTable == null)
             {
-                MessageBox.Show("Table information not found. Please contact staff.", 
+                MessageBox.Show("Table information not found. Please contact staff.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             try
             {
+                var totalAmount = _cartItems.Sum(item => item.Product.Price * item.Quantity);
+
                 var order = new Order
                 {
                     OrderDate = DateTime.Now,
                     StaffUserId = _loggedInUser?.UserId ?? 1, // Use staff user if available, otherwise use default
                     TableId = _currentTable.TableId,
-                    TotalPrice = _cartItems.Sum(item => item.Product.Price * item.Quantity),
+                    TotalPrice = totalAmount,
                     OrderStatusId = 1, // Pending status
                     OrderDetails = new List<OrderDetail>()
                 };
@@ -458,41 +473,173 @@ namespace WPFCatLoaf
 
                 if (_orderService.AddOrder(order))
                 {
-                    string message = _loggedInUser != null 
-                        ? "Order has been placed successfully! Staff will prepare the items shortly."
-                        : "Your order has been submitted successfully! Our staff will prepare your items and bring them to your table shortly.";
-                    
+                    // Create payment record
+                    var payment = new Payment
+                    {
+                        OrderId = order.OrderId,
+                        PaymentAmount = totalAmount,
+                        PaymentDate = DateTime.Now,
+                        MethodId = _selectedPaymentMethodId.Value
+                    };
+
+                    _paymentService.AddPayments(payment);
+
+                    string paymentMethodName = _selectedPaymentMethodId == 1 ? "Cash" : "Bank Transfer";
+                    string message = _loggedInUser != null
+                        ? $"Order has been placed successfully with {paymentMethodName} payment! Staff will prepare the items shortly."
+                        : $"Your order has been submitted successfully with {paymentMethodName} payment! Our staff will prepare your items and bring them to your table shortly. You can continue ordering more items if needed.";
+
                     MessageBox.Show(message, "Order Placed", MessageBoxButton.OK, MessageBoxImage.Information);
-                    
+
+                    // Clear cart and reset UI
                     _cartItems.Clear();
                     CartOverlay.Visibility = Visibility.Collapsed;
                     UpdateCartDisplay();
+                    ResetPaymentSelection();
 
-                    // For customers, show option to place another order or exit
-                    if (_loggedInUser == null)
-                    {
-                        var result = MessageBox.Show("Would you like to place another order?", 
-                            "Order Complete", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        
-                        if (result == MessageBoxResult.No)
-                        {
-                            // Return to customer login
-                            var loginWindow = new LoginWindow();
-                            loginWindow.Show();
-                            this.Close();
-                        }
-                    }
+                    // Stay on the same page for continued ordering
+                    // Remove the dialog asking if user wants to place another order
                 }
                 else
                 {
-                    MessageBox.Show("Failed to place order. Please try again or contact staff.", 
+                    MessageBox.Show("Failed to place order. Please try again or contact staff.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error placing order: {ex.Message}", 
+                MessageBox.Show($"Error placing order: {ex.Message}",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CashPayment_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Check if cart is empty
+            if (!_cartItems.Any())
+            {
+                MessageBox.Show("Your cart is empty. Please add some items before selecting a payment method.",
+                    "Empty Cart", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            SelectPaymentMethod(1, CashRadioButton, CashPaymentBorder); // Assuming Cash is method ID 1
+        }
+
+        private void BankTransfer_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Check if cart is empty
+            if (!_cartItems.Any())
+            {
+                MessageBox.Show("Your cart is empty. Please add some items before selecting a payment method.",
+                    "Empty Cart", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            SelectPaymentMethod(2, BankTransferRadioButton, BankTransferBorder); // Assuming Bank Transfer is method ID 2
+
+            // Show QR Code overlay for bank transfer
+            ShowQRCodeForBankTransfer();
+        }
+
+        private void ShowQRCodeForBankTransfer()
+        {
+            // Calculate and display transfer amount
+            var totalAmount = _cartItems.Sum(item => item.Product.Price * item.Quantity);
+            TransferAmountTextBlock.Text = $"{totalAmount:N0} VND";
+
+            System.Diagnostics.Debug.WriteLine($"Bank transfer initiated for amount: {totalAmount:N0} VND");
+
+            // Show bank transfer overlay
+            QRCodeOverlay.Visibility = Visibility.Visible;
+        }
+
+        private void CloseQRButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Hide QR overlay and reset payment selection
+            QRCodeOverlay.Visibility = Visibility.Collapsed;
+            ResetPaymentSelection();
+        }
+
+        private void PaymentCompleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Hide transfer overlay - keep payment method selected
+            QRCodeOverlay.Visibility = Visibility.Collapsed;
+
+            // Show confirmation message
+            MessageBox.Show("✅ Bank transfer method confirmed! You can now proceed to place your order.",
+                "Payment Method Selected", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SelectPaymentMethod(int methodId, RadioButton radioButton, Border border)
+        {
+            _selectedPaymentMethodId = methodId;
+
+            // Update radio button
+            radioButton.IsChecked = true;
+
+            // Update visual feedback
+            ResetPaymentBorderStyles();
+            border.Background = new SolidColorBrush(Color.FromRgb(255, 235, 179)); // Light orange background
+            border.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 107, 53)); // Orange border
+            border.BorderThickness = new Thickness(2);
+        }
+
+        private void ResetPaymentBorderStyles()
+        {
+            // Reset all payment option borders
+            CashPaymentBorder.Background = Brushes.White;
+            CashPaymentBorder.BorderBrush = Brushes.Transparent;
+            CashPaymentBorder.BorderThickness = new Thickness(0);
+
+            BankTransferBorder.Background = Brushes.White;
+            BankTransferBorder.BorderBrush = Brushes.Transparent;
+            BankTransferBorder.BorderThickness = new Thickness(0);
+        }
+
+        private void ResetPaymentSelection()
+        {
+            _selectedPaymentMethodId = null;
+            CashRadioButton.IsChecked = false;
+            BankTransferRadioButton.IsChecked = false;
+            ResetPaymentBorderStyles();
+        }
+
+        private void PerformLogout()
+        {
+            const string ADMIN_PASSWORD = "12345"; // Fixed admin password
+
+            if (LogoutPasswordBox.Password == ADMIN_PASSWORD)
+            {
+                // Password correct - proceed with logout
+                var result = MessageBox.Show("Are you sure you want to logout and return to the login screen?",
+                    "Logout Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Clear password and hide dialog
+                    LogoutPasswordBox.Clear();
+                    LogoutPasswordOverlay.Visibility = Visibility.Collapsed;
+
+                    // Return to login window
+                    var loginWindow = new LoginWindow();
+                    loginWindow.Show();
+                    this.Close();
+                }
+                else
+                {
+                    // User cancelled, just hide dialog
+                    LogoutPasswordBox.Clear();
+                    LogoutPasswordOverlay.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                // Wrong password
+                MessageBox.Show("Incorrect password. Please try again.",
+                    "Access Denied", MessageBoxButton.OK, MessageBoxImage.Error);
+                LogoutPasswordBox.Clear();
+                LogoutPasswordBox.Focus();
             }
         }
 
@@ -522,53 +669,15 @@ namespace WPFCatLoaf
                 PerformLogout();
             }
         }
-
-        private void PerformLogout()
-        {
-            const string ADMIN_PASSWORD = "12345"; // Fixed admin password
-            
-            if (LogoutPasswordBox.Password == ADMIN_PASSWORD)
-            {
-                // Password correct - proceed with logout
-                var result = MessageBox.Show("Are you sure you want to logout and return to the login screen?", 
-                    "Logout Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                
-                if (result == MessageBoxResult.Yes)
-                {
-                    // Clear password and hide dialog
-                    LogoutPasswordBox.Clear();
-                    LogoutPasswordOverlay.Visibility = Visibility.Collapsed;
-                    
-                    // Return to login window
-                    var loginWindow = new LoginWindow();
-                    loginWindow.Show();
-                    this.Close();
-                }
-                else
-                {
-                    // User cancelled, just hide dialog
-                    LogoutPasswordBox.Clear();
-                    LogoutPasswordOverlay.Visibility = Visibility.Collapsed;
-                }
-            }
-            else
-            {
-                // Wrong password
-                MessageBox.Show("Incorrect password. Please try again.", 
-                    "Access Denied", MessageBoxButton.OK, MessageBoxImage.Error);
-                LogoutPasswordBox.Clear();
-                LogoutPasswordBox.Focus();
-            }
-        }
     }
 
     // CartItem class for managing cart items
     public class CartItem : System.ComponentModel.INotifyPropertyChanged
     {
         private int _quantity;
-        
+
         public Product Product { get; set; }
-        
+
         public int Quantity
         {
             get => _quantity;
@@ -580,7 +689,7 @@ namespace WPFCatLoaf
         }
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
+
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));

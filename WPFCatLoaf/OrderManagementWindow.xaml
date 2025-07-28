@@ -117,7 +117,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    
+
                     <Button x:Name="CreateOrderButton" Content="➕ New Order"
                             Style="{StaticResource OrangeButtonStyle}"
                             Background="{StaticResource CatBrown}"
@@ -158,11 +158,12 @@
                                   ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                                   SelectionChanged="OrdersDataGrid_SelectionChanged">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}" Width="100"/>
-                                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="180"/>
-                                <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice, StringFormat={}{0:C}}" Width="120"/>
+                                <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}" Width="80"/>
+                                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="140"/>
+                                <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice, StringFormat={}{0:C}}" Width="110"/>
                                 <DataGridTextColumn Header="Staff" Binding="{Binding StaffName}" Width="*"/>
-                                <DataGridTextColumn Header="Table" Binding="{Binding TableName}" Width="120"/>
+                                <DataGridTextColumn Header="Table" Binding="{Binding TableName}" Width="80"/>
+                                <DataGridTextColumn Header="Payment Method" Binding="{Binding PaymentMethod}" Width="140"/>
                                 <DataGridTemplateColumn Header="Status" Width="200">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
