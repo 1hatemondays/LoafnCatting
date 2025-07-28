@@ -1,0 +1,86 @@
+<Window x:Class="WPFCatLoaf.CatGalleryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Meet Our Cats - CatLoaf Cafe" Height="800" Width="1000"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryOrange" Color="#FF6B35"/>
+        <SolidColorBrush x:Key="LightOrange" Color="#FFA366"/>
+        <SolidColorBrush x:Key="DarkOrange" Color="#CC5A2C"/>
+        <SolidColorBrush x:Key="AccentOrange" Color="#FFB380"/>
+        <SolidColorBrush x:Key="BackgroundOrange" Color="#FFF4E6"/>
+
+        <Style x:Key="OrangeButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryOrange}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource LightOrange}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource DarkOrange}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource BackgroundOrange}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryOrange}" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Border Background="White" CornerRadius="20" Width="40" Height="40" Margin="0,0,15,0">
+                        <Viewbox Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path Fill="{StaticResource PrimaryOrange}" 
+                                  Data="M12,8L10.67,8.09C9.81,7.07 7.4,4.5 5,4.5C5,4.5 6.25,7.5 5.75,9C4.76,8.84 4.5,8.84 4.5,9.5C4.5,10.16 5,10.5 5.75,10.5C6.5,10.5 7,10.16 7,9.5C7,9.5 7.26,8.84 8.25,9C7.75,7.5 9,4.5 9,4.5C11.4,4.5 13.81,7.07 14.67,8.09L16,8C16,8 16,8.5 16,9C16,9.5 15.5,10 15,10L14,10C14,10.5 13.5,11 13,11L12,11C11.5,11 11,10.5 11,10L10,10C9.5,10 9,9.5 9,9C9,8.5 9,8 9,8L12,8M11.5,9L10.5,9L10.5,9.5L11.5,9.5L11.5,9M14.5,9L13.5,9L13.5,9.5L14.5,9.5L14.5,9Z"/>
+                        </Viewbox>
+                    </Border>
+                    <StackPanel>
+                        <TextBlock Text="Meet Our Cats" FontSize="28" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="Get to know our adorable feline friends and their personalities!" 
+                                   FontSize="16" Foreground="White" Opacity="0.9"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Grid.Column="1" Name="BackButton" Content="Back to Menu" 
+                        Style="{StaticResource OrangeButtonStyle}" Background="White" 
+                        Foreground="{StaticResource PrimaryOrange}" Padding="20,10" 
+                        FontSize="16" Click="BackButton_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Name="CatsPanel" Margin="0,20,0,20">
+                <!-- Cat cards will be dynamically added here -->
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

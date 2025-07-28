@@ -503,6 +503,24 @@ namespace WPFCatLoaf
             LogoutPasswordBox.Focus();
         }
 
+        private void MeetCatsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_loggedInUser != null)
+            {
+                // Open cat gallery for staff user
+                var catGalleryWindow = new CatGalleryWindow(_loggedInUser);
+                catGalleryWindow.Show();
+            }
+            else
+            {
+                // Open cat gallery for customer with table ID
+                var catGalleryWindow = new CatGalleryWindow(_currentTable.TableId);
+                catGalleryWindow.Show();
+            }
+            
+            this.Close();
+        }
+
         private void CancelLogoutButton_Click(object sender, RoutedEventArgs e)
         {
             // Hide password dialog and clear password
