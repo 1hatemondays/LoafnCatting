@@ -61,16 +61,17 @@ namespace DataAccessLayer.Repository
 
         public bool UpdateUser(User user)
         {
-            User userUpdate = _context.Users.Find(user.UserId);
+            User userUpdate = _context.Users.FirstOrDefault(u=>u.UserId==user.UserId);
             if (userUpdate == null)
             {
+                System.Diagnostics.Debug.WriteLine("User not found for update operation.");
                 return false;
             }
-            user.Name = userUpdate.Name;
-            user.PhoneNumber = userUpdate.PhoneNumber;
-            user.Email = userUpdate.Email;
-            user.Password = userUpdate.Password;
-            user.RoleId = userUpdate.RoleId;
+            userUpdate.Name=user.Name;
+            userUpdate.PhoneNumber=user.PhoneNumber;
+            userUpdate.Email = user.Email;
+            userUpdate.Password = user.Password;
+            userUpdate.RoleId = user.RoleId;
             return _context.SaveChanges() > 0;
         }
     }
