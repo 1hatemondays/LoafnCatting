@@ -48,7 +48,7 @@ namespace WPFCatLoaf.Converters
         {
             try
             {
-                // First try as a file relative to the executable - this is most important for runtime added images
+                // First try as a file relative to the executable
                 string basePath = AppDomain.CurrentDomain.BaseDirectory;
                 string fullPath = Path.Combine(basePath, relativePath);
                 
@@ -58,14 +58,14 @@ namespace WPFCatLoaf.Converters
                     BitmapImage fileImage = new BitmapImage();
                     fileImage.BeginInit();
                     fileImage.CacheOption = BitmapCacheOption.OnLoad;
-                    fileImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache; // Add this line to ignore cache
+                    fileImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache; 
                     fileImage.UriSource = new Uri(fullPath);
                     fileImage.EndInit();
                     if (fileImage.CanFreeze) fileImage.Freeze();
                     return fileImage;
                 }
                 
-                // Then try as a project resource (for placeholder image that might be embedded)
+                // Then try as a project resource 
                 try
                 {
                     Uri resourceUri = new Uri($"pack://application:,,,/{relativePath}", UriKind.Absolute);
@@ -80,7 +80,7 @@ namespace WPFCatLoaf.Converters
                 }
                 catch
                 {
-                    // If that fails, try looking in the project directory
+                    // Try looking in the project directory
                     string projectDirectory = GetProjectDirectory();
                     if (!string.IsNullOrEmpty(projectDirectory))
                     {
@@ -111,20 +111,18 @@ namespace WPFCatLoaf.Converters
         {
             try
             {
-                    // Try to locate the project directory by looking for common project files
+                    // Locate the project directory by looking for common project files
                 string currentDir = AppDomain.CurrentDomain.BaseDirectory;
                 
                 // Navigate up directories looking for WPFCatLoaf folder
                 while (!string.IsNullOrEmpty(currentDir))
                 {
-                    // Check if this might be the WPFCatLoaf project directory
                     if (Directory.Exists(Path.Combine(currentDir, "Images")) && 
                         Directory.Exists(Path.Combine(currentDir, "Images", "Products")))
                     {
                         return currentDir;
                     }
                     
-                    // Move up one directory
                     DirectoryInfo parent = Directory.GetParent(currentDir);
                     if (parent == null) break;
                     currentDir = parent.FullName;
