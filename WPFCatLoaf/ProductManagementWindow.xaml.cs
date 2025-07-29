@@ -407,9 +407,6 @@ namespace WPFCatLoaf
             _selectedOriginalAbsoluteImagePath = null;
             ValidationMessageTextBlock.Visibility = Visibility.Collapsed;
             ProductsDataGrid.SelectedItem = null;
-
-            // Reset image preview
-            //UpdateImagePreview();
         }
 
         private void ShowSuccessMessage(string message)
