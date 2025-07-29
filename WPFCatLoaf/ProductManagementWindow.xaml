@@ -217,7 +217,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" MinWidth="150"/>
-                            <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat={}{0:C}}" Width="100"/>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat={}{0:C}, ConverterCulture=vi-VN}" Width="100"/>
                             <DataGridTextColumn Header="Stock" Binding="{Binding UnitInStock}" Width="80"/>
                             <DataGridTextColumn Header="Category" Binding="{Binding Category.Name}" Width="120"/>
                             <DataGridTemplateColumn Header="Actions" Width="100">

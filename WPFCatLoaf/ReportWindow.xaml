@@ -174,7 +174,7 @@
                                 <StackPanel HorizontalAlignment="Center">
                                     <TextBlock Text="💰" FontSize="30" HorizontalAlignment="Center"/>
                                     <TextBlock Text="Total Revenue" Style="{StaticResource KPITitleStyle}" HorizontalAlignment="Center"/>
-                                    <TextBlock x:Name="TotalRevenueTextBlock" Style="{StaticResource KPIValueStyle}" Text="$0.00" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="TotalRevenueTextBlock" Style="{StaticResource KPIValueStyle}" Text="0.00 VND" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                             <Border Style="{StaticResource KPICardStyle}">

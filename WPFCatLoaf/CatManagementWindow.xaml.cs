@@ -23,7 +23,6 @@ namespace WPFCatLoaf
         private ObservableCollection<Cat> _filteredCats;
         private Cat _selectedCat;
         private bool _isEditMode = false;
-        private DispatcherTimer _timer;
         private string _selectedOriginalAbsoluteImagePath = null;
         private const string ImagesRelativeSaveBase = "Images/";
         private const string CatsSubfolderName = "Cats";
